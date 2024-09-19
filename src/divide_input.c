@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   divide_input.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: marvin <marvin@student.42.fr>              +#+  +:+       +#+        */
+/*   By: lmaresov <lmaresov@student.42prague.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/01 09:29:31 by lmaresov          #+#    #+#             */
-/*   Updated: 2024/09/04 12:08:20 by marvin           ###   ########.fr       */
+/*   Updated: 2024/09/19 07:31:35 by lmaresov         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,12 +15,31 @@
 
 void divide_input(t_ms *ms)
 {
+    expand_envar(ms);
+    printf("ms->input after expanding envvar: %s\n", ms->input);
     separate_tokens(ms, ms->input);
 
 //
 //
 //
 //
+}
+
+void expand_envar(t_ms *ms)
+{
+    int quote;
+    int i;
+    
+    i = 0;
+    quote = 0;
+    while (ms->input[i])
+    {
+        quote_checker(ms->input[i], &quote);
+        if ((quote == 0 || quote == 2) && ms->input[i] == '$')
+            get_envar(ms, &i);
+        else
+            i++;
+    }
 }
 
 void separate_tokens(t_ms *ms, char *input)
@@ -35,17 +54,45 @@ void separate_tokens(t_ms *ms, char *input)
         else if (input[i] == '|' || input[i] == '>' || input[i] == '<')
         {
             redirection_token(ms, input, &i);
-            //printf("redirection token a%sa\n", (char*)ms->tokens->next->next->data);
+            ////
+            /*printf("redirection token a%sa\n", (char*)ms->tokens->next->next->data);
+            if (ms->tokens && ms->tokens->next && ms->tokens->next->data)
+            {
+                printf("redirection mark token a%sa\n", (char*)ms->tokens->next->data);
+            } 
+            if (ms->tokens && ms->tokens->next && ms->tokens->next->next  && ms->tokens->next->next->data)
+            {
+                printf("redirection mark token a%sa\n", (char*)ms->tokens->next->next->data);
+            }*/
         }
         else if (input[i] == '\'' || input[i] == '\"')
         {
             quotation_marks_token(ms, input, &i);
-            //printf("quotation mark token a%sa\n", (char*)ms->tokens->next->data);
+            
+            ////
+            /*printf("quotation mark token a%sa\n", (char*)ms->tokens->data);
+            if (ms->tokens && ms->tokens->next && ms->tokens->next->data)
+            {
+                printf("quotation mark token a%sa\n", (char*)ms->tokens->next->data);
+            } 
+            if (ms->tokens && ms->tokens->next && ms->tokens->next->next  && ms->tokens->next->next->data)
+            {
+                printf("quotation mark token a%sa\n", (char*)ms->tokens->next->next->data);
+            }*/
         }
         else
         {
             remaining_arg_token(ms, input, &i);
-            //printf("remaining token a%sa\n", (char*)ms->tokens->data);
+            ////
+            /*printf("remaining token a%sa\n", (char*)ms->tokens->data);
+            if (ms->tokens && ms->tokens->next && ms->tokens->next->data)
+            {
+                printf("remaining token a%sa\n", (char*)ms->tokens->next->data);
+            } 
+            if (ms->tokens && ms->tokens->next && ms->tokens->next->next  && ms->tokens->next->next->data)
+            {
+                printf("remaining token a%sa\n", (char*)ms->tokens->next->next->data);
+            }*/
         }
             
     }
