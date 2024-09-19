@@ -6,14 +6,17 @@
 /*   By: rnovotny <rnovotny@student.42prague.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/26 10:02:34 by rnovotny          #+#    #+#             */
-/*   Updated: 2024/09/01 07:34:35 by rnovotny         ###   ########.fr       */
+/*   Updated: 2024/09/19 12:00:11 by rnovotny         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #ifndef PHILO_H
 # define PHILO_H
 
+# include <signal.h>
 # include <stdio.h>
+
+int		g_signal;
 
 typedef struct s_minishell
 {
