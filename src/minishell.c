@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minishell.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: lmaresov <lmaresov@student.42prague.com    +#+  +:+       +#+        */
+/*   By: rnovotny <rnovotny@student.42prague.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/01 09:30:12 by lmaresov          #+#    #+#             */
-/*   Updated: 2024/09/19 07:22:15 by lmaresov         ###   ########.fr       */
+/*   Updated: 2024/09/19 15:00:05 by rnovotny         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -60,7 +60,7 @@ int main (int argc, char **argv, char **env)
     env_to_listd(ms, env);
     while(1)
     {
-        ms->input = get_input(ms);
+        ms->input = get_input();
         if(ft_strcmp(ms->input, "") == 0 || only_whitespace(ms->input))
             continue;
         //printf("%s\n", ms->input);
