@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minishell.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: rnovotny <rnovotny@student.42prague.com    +#+  +:+       +#+        */
+/*   By: lmaresov <lmaresov@student.42prague.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/01 09:30:12 by lmaresov          #+#    #+#             */
-/*   Updated: 2024/09/19 15:00:05 by rnovotny         ###   ########.fr       */
+/*   Updated: 2024/09/20 08:45:43 by lmaresov         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,7 +18,6 @@ void ft_handle_signal(int signal)
     {
         rl_replace_line("", 0);
         printf("\n");
-        //printf("\n Caught SIGINT (Crtl +C)\n");
         rl_on_new_line();
         rl_redisplay();
     }
@@ -35,6 +34,15 @@ void allocate_memory(t_ms **ms, size_t size, char *message)
     ft_memset(*ms, '\0', size);
 }
 
+void init_ms(t_ms *ms, char **env)
+{
+    env_to_listd(ms, env);
+    ms->num_of_cmd = 1;
+    ms->double_quotes = 0;
+    ms->single_quotes = 0;
+}
+
+
 
 int main (int argc, char **argv, char **env)
 {
@@ -45,32 +53,28 @@ int main (int argc, char **argv, char **env)
         printf("run program ./minishell without arguments\n");
         exit(1);
     }
-    allocate_memory(&ms, sizeof(t_ms), "Error: ms malloc");
-    /*
-    ms = malloc(sizeof(t_ms));
-    if (!ms)
-    {
-        printf("malloc ms error");
-        free(ms);
-        return (0);
-    }
-    ft_memset(ms, '\0', sizeof(t_ms));*/
     signal(SIGINT, ft_handle_signal);
     signal(SIGQUIT, SIG_IGN);
-    env_to_listd(ms, env);
+    allocate_memory(&ms, sizeof(t_ms), "Error: ms malloc");
+    init_ms(ms, env);
     while(1)
     {
-        ms->input = get_input();
+        ms->input = get_input(ms);
         if(ft_strcmp(ms->input, "") == 0 || only_whitespace(ms->input))
             continue;
-        //printf("%s\n", ms->input);
-        
+        if (syntax_error(ms))
+            continue;
         divide_input(ms);
-        //return (1);
+        run_command(ms);
+        //printf("num of comands: %d\n", ms->num_of_cmd);
+        //printf("double quotes: %d\n", ms->double_quotes);
+        //printf("single quotes: %d\n", ms->single_quotes);
+        free_ms_input(ms);
+        free_ms_tokens(ms);
     }
 
     //////////////////
-    if ( !argv || !env)
+    if ( !argv)
     {
 
     }

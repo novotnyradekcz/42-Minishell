@@ -6,7 +6,7 @@
 /*   By: lmaresov <lmaresov@student.42prague.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/01 08:58:15 by lmaresov          #+#    #+#             */
-/*   Updated: 2024/09/19 06:28:16 by lmaresov         ###   ########.fr       */
+/*   Updated: 2024/09/20 06:47:12 by lmaresov         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,9 +17,9 @@ void add_token_to_list(t_ms *ms, int start, int end)
 {
     char *input_substr;
     t_list *new_token;
-    printf("ms inpput:%s\n", ms->input);
+    //printf("ms inpput:%s\n", ms->input);
     input_substr = ft_substr(ms->input, start, end-start);
-    printf ("input_substr: %s\n", input_substr);
+    //printf ("input_substr: %s\n", input_substr);
     new_token = save_token(input_substr);
     add_token_to_mstokens(&(ms->tokens), new_token);
 }

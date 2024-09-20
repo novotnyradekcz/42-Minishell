@@ -6,7 +6,7 @@
 /*   By: lmaresov <lmaresov@student.42prague.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/01 09:30:55 by lmaresov          #+#    #+#             */
-/*   Updated: 2024/09/19 05:55:58 by lmaresov         ###   ########.fr       */
+/*   Updated: 2024/09/20 07:47:04 by lmaresov         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,6 +19,7 @@
 #include <readline/history.h>
 #include <stdlib.h>
 #include <signal.h>
+#include <unistd.h>
 
 
 
@@ -44,6 +45,10 @@ typedef struct s_ms
     char *input;
     t_list *tokens;
     t_listd *envar;
+    int num_of_cmd;
+    int single_quotes;
+    int double_quotes;
+    
 }t_ms;
 
 typedef struct s_env
@@ -52,6 +57,8 @@ typedef struct s_env
     char *env_value;
     
 }t_env;
+
+
 
 //divide_input.c
 void divide_input(t_ms *ms);
@@ -84,6 +91,21 @@ char *get_exp_input(char*value, char*input, int start, int end);
 void quote_checker(char character, int *quote);
 void get_envar(t_ms *ms, int *i);
 
+//free_memory_helper.c
+void free_header_ptr(void **ptr);
+void del_header_list(t_list **header);
+void del_tokens(t_list **header);
+void del_header_listd(t_listd **header);
+
+
+//free_memory.c
+void free_ms_input(t_ms *ms);
+void free_ms_tokens(t_ms *ms);
+void free_ms_envar(t_listd **header);
+void free_all(t_ms *ms);
+
+
+
 //ft_libft.c
 int	ft_isascii(int c);
 size_t	ft_strlen(const char *s);
@@ -105,6 +127,9 @@ int only_remain_char_checker(char c);
 void redirection_token(t_ms *ms, char *input, int *i);
 void quotation_marks_token(t_ms*ms, char *input, int *i);
 void remaining_arg_token(t_ms *ms, char *input, int *i);
+
+//syntax_error.c
+int syntax_error(t_ms *ms);
 
 //utils.c
 char *get_input();

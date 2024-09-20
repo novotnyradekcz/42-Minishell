@@ -6,7 +6,7 @@
 /*   By: lmaresov <lmaresov@student.42prague.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/08 07:01:11 by lmaresov          #+#    #+#             */
-/*   Updated: 2024/09/19 07:06:45 by lmaresov         ###   ########.fr       */
+/*   Updated: 2024/09/20 06:46:54 by lmaresov         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,9 +35,9 @@ void get_envar(t_ms *ms, int *i)
     char *exp_input;
 
     key = env_key(ms->input + *i + 1);
-    printf("key: %s\n", key);
+    //printf("key: %s\n", key);
     value = env_value(ms->envar, key);
-    printf("value: %s\n", value);
+    //printf("value: %s\n", value);
     if (!value)
     {
         no_env_value(ms, i, key);

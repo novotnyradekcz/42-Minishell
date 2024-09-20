@@ -6,7 +6,7 @@
 /*   By: lmaresov <lmaresov@student.42prague.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/01 09:29:31 by lmaresov          #+#    #+#             */
-/*   Updated: 2024/09/19 07:31:35 by lmaresov         ###   ########.fr       */
+/*   Updated: 2024/09/20 06:54:17 by lmaresov         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,9 +16,9 @@
 void divide_input(t_ms *ms)
 {
     expand_envar(ms);
-    printf("ms->input after expanding envvar: %s\n", ms->input);
+    //printf("ms->input after expanding envvar: %s\n", ms->input);
     separate_tokens(ms, ms->input);
-
+    
 //
 //
 //
@@ -53,7 +53,11 @@ void separate_tokens(t_ms *ms, char *input)
             i++;
         else if (input[i] == '|' || input[i] == '>' || input[i] == '<')
         {
+            /*if (input[i] == '|')
+                (ms->num_of_cmd)++;*/
             redirection_token(ms, input, &i);
+            
+            
             ////
             /*printf("redirection token a%sa\n", (char*)ms->tokens->next->next->data);
             if (ms->tokens && ms->tokens->next && ms->tokens->next->data)
@@ -83,6 +87,7 @@ void separate_tokens(t_ms *ms, char *input)
         else
         {
             remaining_arg_token(ms, input, &i);
+            
             ////
             /*printf("remaining token a%sa\n", (char*)ms->tokens->data);
             if (ms->tokens && ms->tokens->next && ms->tokens->next->data)
