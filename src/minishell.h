@@ -6,7 +6,7 @@
 /*   By: lmaresov <lmaresov@student.42prague.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/01 09:30:55 by lmaresov          #+#    #+#             */
-/*   Updated: 2024/09/21 08:05:14 by lmaresov         ###   ########.fr       */
+/*   Updated: 2024/09/21 09:31:57 by lmaresov         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -154,5 +154,8 @@ void ft_echo(t_ms *ms);
 
 //commands/ft_env.c
 void ft_env(t_ms *ms);
+
+//commands/ft_pwd.c
+void ft_pwd(t_ms *ms);
 
 #endif

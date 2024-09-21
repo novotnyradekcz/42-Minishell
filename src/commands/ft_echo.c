@@ -6,7 +6,7 @@
 /*   By: lmaresov <lmaresov@student.42prague.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/21 06:23:47 by lmaresov          #+#    #+#             */
-/*   Updated: 2024/09/21 07:58:04 by lmaresov         ###   ########.fr       */
+/*   Updated: 2024/09/21 09:14:26 by lmaresov         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,11 +37,19 @@ char *ft_echo_helper(t_list *tmp)
 void ft_echo(t_ms *ms)
 {
     char *str;
-    //char *tmp_str;
+    //char *str_tmp;
     int flag;
     t_list *tmp;
 
+
     tmp = ms->tokens->next;
+    /*str_tmp = tmp->data;
+    printf ("%c,   %c, ", str_tmp[0] , str_tmp[1]);
+    if (str_tmp[0] == '-' && str_tmp[1] != 'n')
+    {
+        printf("invalid option");
+        return ;
+    }*/
     flag = strcmp(tmp->data, "-n");
     if (flag == 0)
     {

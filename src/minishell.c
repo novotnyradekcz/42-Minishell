@@ -6,7 +6,7 @@
 /*   By: lmaresov <lmaresov@student.42prague.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/01 09:30:12 by lmaresov          #+#    #+#             */
-/*   Updated: 2024/09/21 08:23:39 by lmaresov         ###   ########.fr       */
+/*   Updated: 2024/09/21 09:37:36 by lmaresov         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -66,7 +66,7 @@ int main (int argc, char **argv, char **env)
             continue;
         divide_input(ms);
         run_commands(ms);
-        printf("num of comands: %d\n", ms->num_of_cmd);
+        //printf("num of comands: %d\n", ms->num_of_cmd);
         //printf("double quotes: %d\n", ms->double_quotes);
         //printf("single quotes: %d\n", ms->single_quotes);
         //printf("%s\n", (char*)ms->envar->data);

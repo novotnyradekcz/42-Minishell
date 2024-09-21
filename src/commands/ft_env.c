@@ -6,7 +6,7 @@
 /*   By: lmaresov <lmaresov@student.42prague.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/21 06:33:41 by lmaresov          #+#    #+#             */
-/*   Updated: 2024/09/21 08:23:12 by lmaresov         ###   ########.fr       */
+/*   Updated: 2024/09/21 09:03:48 by lmaresov         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,7 +17,12 @@ void ft_env(t_ms *ms)
     t_listd *tmp;
     char *temp_env_key;
     char *temp_env_value;
-
+    
+    if (ms->tokens->next)
+    {
+        printf("run env without arguments\n");
+        return ;
+    }
     tmp = ms->envar;
     while (tmp->next)
     {
