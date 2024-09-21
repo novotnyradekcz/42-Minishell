@@ -6,7 +6,7 @@
 /*   By: lmaresov <lmaresov@student.42prague.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/20 09:11:11 by lmaresov          #+#    #+#             */
-/*   Updated: 2024/09/21 09:15:16 by lmaresov         ###   ########.fr       */
+/*   Updated: 2024/09/21 09:45:29 by lmaresov         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -49,8 +49,8 @@ int one_command(t_ms *ms)
     {
         ft_echo(ms);
     } 
-    /*else if (check_command(ms->tokens->data) == 2)
-        ft_cd(ms);*/
+    else if (check_command(ms->tokens->data) == 2)
+        ft_cd(ms);
     else if (check_command(ms->tokens->data) == 3)
         ft_pwd(ms);
     /*else if (check_command(ms->tokens->data) == 4)

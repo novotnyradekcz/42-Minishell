@@ -6,7 +6,7 @@
 /*   By: lmaresov <lmaresov@student.42prague.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/01 09:30:55 by lmaresov          #+#    #+#             */
-/*   Updated: 2024/09/21 09:31:57 by lmaresov         ###   ########.fr       */
+/*   Updated: 2024/09/21 10:50:05 by lmaresov         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -117,7 +117,7 @@ int is_whitespace(int c);
 void	*ft_memset(void *s, int c, size_t n);
 char	*ft_strjoin(char const *s1, char const *s2);
 char	*ft_strjoin_with_space(char const *s1, char const *s2);
-
+char	*ft_strdup(const char *s);
 
 
 //run_comands.c
@@ -157,5 +157,8 @@ void ft_env(t_ms *ms);
 
 //commands/ft_pwd.c
 void ft_pwd(t_ms *ms);
+
+//commands/ft_cd.c
+void ft_cd(t_ms *ms);
 
 #endif
