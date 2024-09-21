@@ -6,7 +6,7 @@
 /*   By: lmaresov <lmaresov@student.42prague.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/01 09:30:55 by lmaresov          #+#    #+#             */
-/*   Updated: 2024/09/20 07:47:04 by lmaresov         ###   ########.fr       */
+/*   Updated: 2024/09/21 08:05:14 by lmaresov         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -116,6 +116,20 @@ int	ft_isprint(int c);
 int is_whitespace(int c);
 void	*ft_memset(void *s, int c, size_t n);
 char	*ft_strjoin(char const *s1, char const *s2);
+char	*ft_strjoin_with_space(char const *s1, char const *s2);
+
+
+
+//run_comands.c
+int check_command(char *command);
+int one_command(t_ms *ms);
+
+
+void run_commands(t_ms *ms);
+
+
+
+
 
 //separate_tokens_ft_helper.c
 void add_token_to_list(t_ms *ms, int start, int end);
@@ -135,5 +149,10 @@ int syntax_error(t_ms *ms);
 char *get_input();
 int only_whitespace(char *str);
 
+//commands/ft_echo.c
+void ft_echo(t_ms *ms);
+
+//commands/ft_env.c
+void ft_env(t_ms *ms);
 
 #endif
