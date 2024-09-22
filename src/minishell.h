@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minishell.h                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: lmaresov <lmaresov@student.42prague.com    +#+  +:+       +#+        */
+/*   By: rnovotny <rnovotny@student.42prague.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/01 09:30:55 by lmaresov          #+#    #+#             */
-/*   Updated: 2024/09/21 10:50:05 by lmaresov         ###   ########.fr       */
+/*   Updated: 2024/09/22 10:18:37 by rnovotny         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -149,16 +149,14 @@ int syntax_error(t_ms *ms);
 char *get_input();
 int only_whitespace(char *str);
 
-//commands/ft_echo.c
-void ft_echo(t_ms *ms);
+//commands
+void	ft_echo(t_ms *ms);
+void	ft_env(t_ms *ms);
+void	ft_pwd(t_ms *ms);
+void	ft_cd(t_ms *ms);
+void	ft_exit(t_ms *ms);
 
-//commands/ft_env.c
-void ft_env(t_ms *ms);
-
-//commands/ft_pwd.c
-void ft_pwd(t_ms *ms);
-
-//commands/ft_cd.c
-void ft_cd(t_ms *ms);
+//utils
+int	ft_atoi(const char *nptr);
 
 #endif

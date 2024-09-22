@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   run_commands.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: lmaresov <lmaresov@student.42prague.com    +#+  +:+       +#+        */
+/*   By: rnovotny <rnovotny@student.42prague.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/20 09:11:11 by lmaresov          #+#    #+#             */
-/*   Updated: 2024/09/21 09:45:29 by lmaresov         ###   ########.fr       */
+/*   Updated: 2024/09/22 10:04:33 by rnovotny         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -59,8 +59,8 @@ int one_command(t_ms *ms)
         ft_unset(ms);*/
     else if (check_command(ms->tokens->data) == 6)
         ft_env(ms);
-    /*else if (check_command(ms->tokens->data) == 7)
-        ft_exit(ms);*/
+    else if (check_command(ms->tokens->data) == 7)
+        ft_exit(ms);
     return (1);   
 }
 

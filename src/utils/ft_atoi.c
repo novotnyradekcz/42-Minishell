@@ -1,33 +1,36 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_exit.c                                          :+:      :+:    :+:   */
+/*   ft_atoi.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: rnovotny <rnovotny@student.42prague.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2024/09/21 06:33:57 by lmaresov          #+#    #+#             */
-/*   Updated: 2024/09/22 10:03:53 by rnovotny         ###   ########.fr       */
+/*   Created: 2024/09/22 09:48:53 by rnovotny          #+#    #+#             */
+/*   Updated: 2024/09/22 09:59:35 by rnovotny         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../minishell.h"
-
-void	ft_exit(t_ms *ms)
+int	ft_atoi(const char *nptr)
 {
-	char *exit_code;
+	int				i;
+	int				neg;
+	unsigned int	res;
 
-	if(!ms->tokens->next)
+	neg = 1;
+	res = 0;
+	i = 0;
+	while ((nptr[i] >= 9 && nptr[i] <= 13) || nptr[i] == 32)
+		i++;
+	if (nptr[i] == '-' || nptr[i] == '+')
 	{
-		// free memory and exit the minishell
-		exit(0);
+		if (nptr[i] == '-')
+			neg = -neg;
+		i++;
 	}
-	if(ms->tokens->next->next)
+	while (nptr[i] >= 48 && nptr[i] <= 57)
 	{
-		printf("exit: too many arguments\n");
-		return ;
+		res = res * 10 + (nptr[i] - 48);
+		i++;
 	}
-	exit_code = ms->tokens->next->data;
-	// if exit_code too long - undefined behaviour (same as bash)
-	// free memory and exit the minishell
-	exit(ft_atoi(exit_code));
+	return (neg * res);
 }
