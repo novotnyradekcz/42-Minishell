@@ -3,18 +3,18 @@
 #                                                         :::      ::::::::    #
 #    Makefile                                           :+:      :+:    :+:    #
 #                                                     +:+ +:+         +:+      #
-#    By: lmaresov <lmaresov@student.42prague.com    +#+  +:+       +#+         #
+#    By: rnovotny <rnovotny@student.42prague.com    +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2024/08/31 10:49:44 by lmaresov          #+#    #+#              #
-#    Updated: 2024/09/09 08:05:05 by lmaresov         ###   ########.fr        #
+#    Updated: 2024/09/28 12:28:56 by rnovotny         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
 
 NAME = minishell
 CC = gcc
-CFLAGS = -Wall -Wextra -Werror
-LDFLAGS = -lreadline
+CFLAGS = -Wall -Wextra -Werror # -I/opt/homebrew/Cellar/readline/8.2.13/include
+LDFLAGS = -lreadline # -L/opt/homebrew/Cellar/readline/8.2.13/lib
 SRCS = minishell.c\
 	divide_input.c\
 	env_to_listd.c\
