@@ -6,15 +6,19 @@
 #    By: rnovotny <rnovotny@student.42prague.com    +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2024/08/31 10:49:44 by lmaresov          #+#    #+#              #
+<<<<<<< HEAD
 #    Updated: 2024/09/22 10:01:19 by rnovotny         ###   ########.fr        #
+=======
+#    Updated: 2024/09/28 12:28:56 by rnovotny         ###   ########.fr        #
+>>>>>>> rnovotny/Makefile-for-my-mac
 #                                                                              #
 # **************************************************************************** #
 
 
 NAME = minishell
 CC = gcc
-CFLAGS = -Wall -Wextra -Werror
-LDFLAGS = -lreadline
+CFLAGS = -Wall -Wextra -Werror # -I/opt/homebrew/Cellar/readline/8.2.13/include
+LDFLAGS = -lreadline # -L/opt/homebrew/Cellar/readline/8.2.13/lib
 SRCS = minishell.c\
 	divide_input.c\
 	env_to_listd.c\
