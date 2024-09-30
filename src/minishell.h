@@ -6,7 +6,7 @@
 /*   By: lmaresov <lmaresov@student.42prague.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/01 09:30:55 by lmaresov          #+#    #+#             */
-/*   Updated: 2024/09/21 10:50:05 by lmaresov         ###   ########.fr       */
+/*   Updated: 2024/09/30 08:25:55 by lmaresov         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -45,6 +45,7 @@ typedef struct s_ms
     char *input;
     t_list *tokens;
     t_listd *envar;
+    t_list *commands;
     int num_of_cmd;
     int single_quotes;
     int double_quotes;
@@ -58,6 +59,16 @@ typedef struct s_env
     
 }t_env;
 
+typedef struct s_cmd
+{
+    char *command;
+    char **arguments;
+    char *redir;
+    int num_of_args;
+    char *redir_file;
+    char *here_doc;
+    char *option;
+}t_cmd;
 
 
 //divide_input.c
@@ -103,7 +114,7 @@ void free_ms_input(t_ms *ms);
 void free_ms_tokens(t_ms *ms);
 void free_ms_envar(t_listd **header);
 void free_all(t_ms *ms);
-
+void free_ms_commands(t_ms *ms);
 
 
 //ft_libft.c
