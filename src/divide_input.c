@@ -6,7 +6,7 @@
 /*   By: lmaresov <lmaresov@student.42prague.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/01 09:29:31 by lmaresov          #+#    #+#             */
-/*   Updated: 2024/09/30 08:41:38 by lmaresov         ###   ########.fr       */
+/*   Updated: 2024/10/01 05:39:09 by lmaresov         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -80,7 +80,7 @@ t_cmd *get_one_cmd(t_ms * ms)
     init_cmd(curr_cmd);
     arguments = NULL;
     curr_cmd->command = ft_strdup((char *)ms->tokens->data);
-    if (ms->tokens->next && (ft_strcmp((char *)ms->tokens->data, "cd") == 0) && (ft_strcmp((char *)ms->tokens->next->data, "-n") == 0))
+    if (ms->tokens->next && (ft_strcmp((char *)ms->tokens->data, "echo") == 0) && (ft_strcmp((char *)ms->tokens->next->data, "-n") == 0))
     {
         ms->tokens = ms->tokens->next;
         curr_cmd->option = ft_strdup((char *)ms->tokens->data);

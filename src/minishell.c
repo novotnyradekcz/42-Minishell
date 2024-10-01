@@ -6,7 +6,7 @@
 /*   By: lmaresov <lmaresov@student.42prague.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/01 09:30:12 by lmaresov          #+#    #+#             */
-/*   Updated: 2024/09/30 08:43:05 by lmaresov         ###   ########.fr       */
+/*   Updated: 2024/10/01 05:30:51 by lmaresov         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -82,7 +82,7 @@ int main (int argc, char **argv, char **env)
         }*/
 
        
-        //run_commands(ms);
+        run_commands(ms);
        
        
        
