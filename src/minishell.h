@@ -6,7 +6,7 @@
 /*   By: rnovotny <rnovotny@student.42prague.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/01 09:30:55 by lmaresov          #+#    #+#             */
-/*   Updated: 2024/09/22 10:18:37 by rnovotny         ###   ########.fr       */
+/*   Updated: 2024/10/12 11:25:48 by rnovotny         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -155,6 +155,8 @@ void	ft_env(t_ms *ms);
 void	ft_pwd(t_ms *ms);
 void	ft_cd(t_ms *ms);
 void	ft_exit(t_ms *ms);
+void	ft_export(t_ms *ms);
+void	ft_unset(t_ms *ms);
 
 //utils
 int	ft_atoi(const char *nptr);

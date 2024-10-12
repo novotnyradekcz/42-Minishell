@@ -6,7 +6,7 @@
 /*   By: rnovotny <rnovotny@student.42prague.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/20 09:11:11 by lmaresov          #+#    #+#             */
-/*   Updated: 2024/09/22 10:04:33 by rnovotny         ###   ########.fr       */
+/*   Updated: 2024/10/12 10:59:37 by rnovotny         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -42,7 +42,7 @@ int one_command(t_ms *ms)
     }    
     if (!check_command(ms->tokens->data))
     {
-        printf ("This command is not in options");
+        printf ("This command is not in options\n");
         return (0);
     }
     else if (check_command(ms->tokens->data) == 1)
@@ -54,9 +54,9 @@ int one_command(t_ms *ms)
     else if (check_command(ms->tokens->data) == 3)
         ft_pwd(ms);
     /*else if (check_command(ms->tokens->data) == 4)
-        ft_export(ms);
+        ft_export(ms);*/
     else if (check_command(ms->tokens->data) == 5)
-        ft_unset(ms);*/
+        ft_unset(ms);
     else if (check_command(ms->tokens->data) == 6)
         ft_env(ms);
     else if (check_command(ms->tokens->data) == 7)
