@@ -6,7 +6,7 @@
 /*   By: rnovotny <rnovotny@student.42prague.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/01 09:30:12 by lmaresov          #+#    #+#             */
-/*   Updated: 2024/10/12 10:53:47 by rnovotny         ###   ########.fr       */
+/*   Updated: 2024/10/12 12:39:56 by rnovotny         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -47,6 +47,7 @@ void init_ms(t_ms *ms, char **env)
 int main (int argc, char **argv, char **env)
 {
     t_ms *ms;
+   
 
     if (argc != 1)
     {
@@ -65,13 +66,33 @@ int main (int argc, char **argv, char **env)
         if (syntax_error(ms))
             continue;
         divide_input(ms);
+        /*
+        t_list *command_list = ms->commands;
+        int cmd_num = 1;
+        while (command_list)
+        {
+            t_cmd *cmd = (t_cmd *)command_list->data;
+            printf("command%d: %s\n", cmd_num, cmd->command);
+            if (cmd->arguments && cmd->arguments[0])
+            {
+                printf("argument%d: %s\n", cmd_num, cmd->arguments[0]);
+            }
+            cmd_num++;
+            command_list = command_list->next;
+        }*/
+
+       
         run_commands(ms);
+       
+       
+       
         //printf("num of comands: %d\n", ms->num_of_cmd);
         //printf("double quotes: %d\n", ms->double_quotes);
         //printf("single quotes: %d\n", ms->single_quotes);
         //printf("%s\n", (char*)ms->envar->data);
         free_ms_input(ms);
         free_ms_tokens(ms);
+        free_ms_commands(ms);
     }
 
     //////////////////

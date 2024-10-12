@@ -6,11 +6,20 @@
 /*   By: lmaresov <lmaresov@student.42prague.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/21 06:33:41 by lmaresov          #+#    #+#             */
-/*   Updated: 2024/09/21 09:03:48 by lmaresov         ###   ########.fr       */
+/*   Updated: 2024/10/01 06:22:04 by lmaresov         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../minishell.h"
+
+static int check_args(char **arguments)
+{
+    if (arguments[0])
+    {
+        return 1;
+    }
+    return 0;
+}
 
 void ft_env(t_ms *ms)
 {
@@ -18,7 +27,7 @@ void ft_env(t_ms *ms)
     char *temp_env_key;
     char *temp_env_value;
     
-    if (ms->tokens->next)
+    if (check_args(((t_cmd *)ms->commands->data)->arguments))
     {
         printf("run env without arguments\n");
         return ;

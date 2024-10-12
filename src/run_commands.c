@@ -6,7 +6,7 @@
 /*   By: rnovotny <rnovotny@student.42prague.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/20 09:11:11 by lmaresov          #+#    #+#             */
-/*   Updated: 2024/10/12 12:20:42 by rnovotny         ###   ########.fr       */
+/*   Updated: 2024/10/12 12:41:21 by rnovotny         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,29 +35,29 @@ int check_command(char *command)
 
 int one_command(t_ms *ms)
 {
-    if (!ms->tokens->data)
+    if (!ms->commands->data)
     {
        //printf("CHyba 2\n");
        return (0);
     }    
-    if (!check_command(ms->tokens->data))
+    if (!check_command(((t_cmd *)ms->commands->data)->command))
     {
         printf ("This command is not in options\n");
         return (0);
     }
-    else if (check_command(ms->tokens->data) == 1)
+    else if (check_command(((t_cmd *)ms->commands->data)->command) == 1)
     {
         ft_echo(ms);
     } 
-    else if (check_command(ms->tokens->data) == 2)
+    else if (check_command(((t_cmd *)ms->commands->data)->command) == 2)
         ft_cd(ms);
-    else if (check_command(ms->tokens->data) == 3)
+    else if (check_command(((t_cmd *)ms->commands->data)->command) == 3)
         ft_pwd(ms);
     else if (check_command(ms->tokens->data) == 4)
         ft_export(ms);
     else if (check_command(ms->tokens->data) == 5)
         ft_unset(ms);
-    else if (check_command(ms->tokens->data) == 6)
+    else if (check_command(((t_cmd *)ms->commands->data)->command) == 6)
         ft_env(ms);
     else if (check_command(ms->tokens->data) == 7)
         ft_exit(ms);
@@ -71,6 +71,7 @@ int one_command(t_ms *ms)
 
 void run_commands(t_ms *ms)
 {
+    
     if (ms->num_of_cmd == 1)
     {
         //printf("Chyba 1\n");
