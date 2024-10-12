@@ -6,7 +6,7 @@
 /*   By: rnovotny <rnovotny@student.42prague.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/20 09:11:11 by lmaresov          #+#    #+#             */
-/*   Updated: 2024/10/12 12:41:21 by rnovotny         ###   ########.fr       */
+/*   Updated: 2024/10/12 13:04:09 by rnovotny         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -53,13 +53,13 @@ int one_command(t_ms *ms)
         ft_cd(ms);
     else if (check_command(((t_cmd *)ms->commands->data)->command) == 3)
         ft_pwd(ms);
-    else if (check_command(ms->tokens->data) == 4)
+    else if (check_command(((t_cmd *)ms->commands->data)->command) == 4)
         ft_export(ms);
-    else if (check_command(ms->tokens->data) == 5)
+    else if (check_command(((t_cmd *)ms->commands->data)->command) == 5)
         ft_unset(ms);
     else if (check_command(((t_cmd *)ms->commands->data)->command) == 6)
         ft_env(ms);
-    else if (check_command(ms->tokens->data) == 7)
+    else if (check_command(((t_cmd *)ms->commands->data)->command) == 7)
         ft_exit(ms);
     return (1);   
 }
