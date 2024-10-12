@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ft_env.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: lmaresov <lmaresov@student.42prague.com    +#+  +:+       +#+        */
+/*   By: rnovotny <rnovotny@student.42prague.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/21 06:33:41 by lmaresov          #+#    #+#             */
-/*   Updated: 2024/10/01 06:22:04 by lmaresov         ###   ########.fr       */
+/*   Updated: 2024/10/12 16:01:38 by rnovotny         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,7 +33,7 @@ void ft_env(t_ms *ms)
         return ;
     }
     tmp = ms->envar;
-    while (tmp->next)
+    while (tmp)
     {
         temp_env_key = ((t_env *)tmp->data)->env_key;
         temp_env_value = ((t_env *)tmp->data)->env_value;

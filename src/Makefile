@@ -6,7 +6,7 @@
 #    By: rnovotny <rnovotny@student.42prague.com    +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2024/08/31 10:49:44 by lmaresov          #+#    #+#              #
-#    Updated: 2024/10/12 10:48:23 by rnovotny         ###   ########.fr        #
+#    Updated: 2024/10/12 17:01:22 by rnovotny         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -35,7 +35,9 @@ SRCS = minishell.c\
 	commands/ft_export.c\
 	commands/ft_pwd.c\
 	commands/ft_unset.c \
-	utils/ft_atoi.c
+	utils/ft_atoi.c \
+	utils/ft_split.c \
+	utils/ft_strlcpy.c \
 
 OBJS = $(SRCS:.c=.o)
 
