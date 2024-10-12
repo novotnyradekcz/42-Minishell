@@ -6,7 +6,7 @@
 /*   By: rnovotny <rnovotny@student.42prague.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/20 09:11:11 by lmaresov          #+#    #+#             */
-/*   Updated: 2024/10/12 10:59:37 by rnovotny         ###   ########.fr       */
+/*   Updated: 2024/10/12 12:20:42 by rnovotny         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -53,8 +53,8 @@ int one_command(t_ms *ms)
         ft_cd(ms);
     else if (check_command(ms->tokens->data) == 3)
         ft_pwd(ms);
-    /*else if (check_command(ms->tokens->data) == 4)
-        ft_export(ms);*/
+    else if (check_command(ms->tokens->data) == 4)
+        ft_export(ms);
     else if (check_command(ms->tokens->data) == 5)
         ft_unset(ms);
     else if (check_command(ms->tokens->data) == 6)

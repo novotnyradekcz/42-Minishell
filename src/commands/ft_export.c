@@ -6,7 +6,7 @@
 /*   By: rnovotny <rnovotny@student.42prague.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/21 06:34:02 by lmaresov          #+#    #+#             */
-/*   Updated: 2024/10/12 11:26:19 by rnovotny         ###   ########.fr       */
+/*   Updated: 2024/10/12 12:21:34 by rnovotny         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,7 +23,7 @@ void	ft_export(t_ms *ms)
 	{
 		while (envar)
 		{
-			printf("declare -x %s=\"%s\"\n", ((t_env *)envar->data)->env_key, ((t_env *)envar->data)->env_value);
+			printf("%s=\"%s\"\n", ((t_env *)envar->data)->env_key, ((t_env *)envar->data)->env_value);
 			envar = envar->next;
 		}
 		return ;
