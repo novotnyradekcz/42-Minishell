@@ -3,18 +3,18 @@
 #                                                         :::      ::::::::    #
 #    Makefile                                           :+:      :+:    :+:    #
 #                                                     +:+ +:+         +:+      #
-#    By: lmaresov <lmaresov@student.42prague.com    +#+  +:+       +#+         #
+#    By: rnovotny <rnovotny@student.42prague.com    +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2024/08/31 10:49:44 by lmaresov          #+#    #+#              #
-#    Updated: 2024/09/21 08:26:53 by lmaresov         ###   ########.fr        #
+#    Updated: 2024/10/12 17:01:22 by rnovotny         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
 
 NAME = minishell
 CC = gcc
-CFLAGS = -Wall -Wextra -Werror
-LDFLAGS = -lreadline
+CFLAGS = -Wall -Wextra -Werror -I/opt/homebrew/Cellar/readline/8.2.13/include
+LDFLAGS = -lreadline -L/opt/homebrew/Cellar/readline/8.2.13/lib
 SRCS = minishell.c\
 	divide_input.c\
 	env_to_listd.c\
@@ -34,7 +34,10 @@ SRCS = minishell.c\
 	commands/ft_exit.c\
 	commands/ft_export.c\
 	commands/ft_pwd.c\
-	commands/ft_unset.c
+	commands/ft_unset.c \
+	utils/ft_atoi.c \
+	utils/ft_split.c \
+	utils/ft_strlcpy.c \
 
 OBJS = $(SRCS:.c=.o)
 
