@@ -6,7 +6,7 @@
 /*   By: lmaresov <lmaresov@student.42prague.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/12 12:05:39 by lmaresov          #+#    #+#             */
-/*   Updated: 2024/10/13 11:13:36 by lmaresov         ###   ########.fr       */
+/*   Updated: 2024/10/13 12:11:30 by lmaresov         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -91,6 +91,6 @@ char * heredoc_redir(t_cmd * cmd)
 
     //printf("cmd: %s , eof: %s\n", cmd->command, cmd->redir_file);
     str = get_input_heredoc(cmd->redir_file);
-    printf("%s", str);
-    return (NULL);
+    //printf("%s", str);
+    return (str);
 }

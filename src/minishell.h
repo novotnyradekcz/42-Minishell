@@ -6,7 +6,7 @@
 /*   By: lmaresov <lmaresov@student.42prague.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/01 09:30:55 by lmaresov          #+#    #+#             */
-/*   Updated: 2024/10/13 11:49:37 by lmaresov         ###   ########.fr       */
+/*   Updated: 2024/10/13 12:08:51 by lmaresov         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -140,7 +140,7 @@ char * heredoc_redir(t_cmd * cmd);
 
 //handle_redirection.c
 //void handle_redirection(t_cmd * cmd, char * str);
-void handle_redirection_read(t_cmd * cmd);
+char * handle_redirection_read(t_cmd * cmd);
 void handle_redirection_write(t_cmd * cmd, char * str);
 
 //run_comands.c

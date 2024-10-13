@@ -6,7 +6,7 @@
 /*   By: lmaresov <lmaresov@student.42prague.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/21 06:23:47 by lmaresov          #+#    #+#             */
-/*   Updated: 2024/10/13 11:38:21 by lmaresov         ###   ########.fr       */
+/*   Updated: 2024/10/13 12:18:57 by lmaresov         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -118,7 +118,7 @@ void ft_echo(t_ms *ms)
     char *str;
     t_cmd *cmd;
 
-    //str = "\n";
+    str = "";
     cmd = ms->commands->data;
     if (cmd->arguments[0])
         str = ft_echo_helper(((t_cmd *)ms->commands->data)->arguments);
@@ -127,6 +127,11 @@ void ft_echo(t_ms *ms)
     if (cmd->redir && (ft_strcmp(cmd->redir, ">") == 0 || ft_strcmp(cmd->redir, ">>") == 0))
     {
         handle_redirection_write(cmd, str);
+    }
+    else if (cmd->redir && ((ft_strcmp(cmd->redir, "<<") == 0) || ft_strcmp(cmd->redir, "<") == 0))  
+    {
+        handle_redirection_read(cmd);
+        printf("%s", str);
     }
     else
         printf("%s", str);
