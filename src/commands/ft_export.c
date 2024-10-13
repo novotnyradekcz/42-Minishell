@@ -6,7 +6,7 @@
 /*   By: rnovotny <rnovotny@student.42prague.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/21 06:34:02 by lmaresov          #+#    #+#             */
-/*   Updated: 2024/10/13 09:18:12 by rnovotny         ###   ########.fr       */
+/*   Updated: 2024/10/13 09:46:59 by rnovotny         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,6 +37,9 @@ void	set_env(t_ms *ms, char *key, char *value)
 			if (ft_strcmp(((t_env *)envar->data)->env_key, key) == 0)
 			{
 				((t_env *)envar->data)->env_value = value;
+				free(key);
+				free(new_env);
+				free(new_node);
 				return ;
 			}
 			envar = envar->next;
@@ -44,6 +47,9 @@ void	set_env(t_ms *ms, char *key, char *value)
 		if (ft_strcmp(((t_env *)envar->data)->env_key, key) == 0)
 		{
 			((t_env *)envar->data)->env_value = value;
+			free(key);
+			free(new_env);
+			free(new_node);
 			return ;
 		}
 		new_node->prev = envar;
