@@ -6,7 +6,7 @@
 /*   By: rnovotny <rnovotny@student.42prague.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/21 06:34:02 by lmaresov          #+#    #+#             */
-/*   Updated: 2024/10/12 17:38:42 by rnovotny         ###   ########.fr       */
+/*   Updated: 2024/10/13 09:18:12 by rnovotny         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,7 +33,19 @@ void	set_env(t_ms *ms, char *key, char *value)
 	else
 	{
 		while (envar->next)
+		{
+			if (ft_strcmp(((t_env *)envar->data)->env_key, key) == 0)
+			{
+				((t_env *)envar->data)->env_value = value;
+				return ;
+			}
 			envar = envar->next;
+		}
+		if (ft_strcmp(((t_env *)envar->data)->env_key, key) == 0)
+		{
+			((t_env *)envar->data)->env_value = value;
+			return ;
+		}
 		new_node->prev = envar;
 		envar->next = new_node;
 	}
@@ -86,7 +98,10 @@ void	ft_export(t_ms *ms)
 	{
 		while (envar)
 		{
-			printf("%s=%s\n", ((t_env *)envar->data)->env_key, ((t_env *)envar->data)->env_value);
+			if (((t_env *)envar->data)->env_value[0] == '\0')
+				printf("%s=''\n", ((t_env *)envar->data)->env_key);
+			else
+				printf("%s=%s\n", ((t_env *)envar->data)->env_key, ((t_env *)envar->data)->env_value);
 			envar = envar->next;
 		}
 		return ;
@@ -121,7 +136,3 @@ void	ft_export(t_ms *ms)
 		free(key_value);
 	}
 }
-
-
-// TODO: print '' when value is empty
-// TODO: if key already exists, update value instead of appending
