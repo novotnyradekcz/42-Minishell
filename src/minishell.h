@@ -6,7 +6,7 @@
 /*   By: lmaresov <lmaresov@student.42prague.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/01 09:30:55 by lmaresov          #+#    #+#             */
-/*   Updated: 2024/10/13 10:58:10 by lmaresov         ###   ########.fr       */
+/*   Updated: 2024/10/13 11:49:37 by lmaresov         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -174,17 +174,20 @@ int only_whitespace(char *str);
 char *get_input_heredoc(char *eof);
 
 //commands/ft_echo.c
-void ft_echo(t_ms *ms);
 char *ft_echo_helper(char **arguments);
+//commands
+void	ft_echo(t_ms *ms);
+void	ft_env(t_ms *ms);
+void	ft_pwd(t_ms *ms);
+void	ft_cd(t_ms *ms);
+void	ft_exit(t_ms *ms);
+void	ft_export(t_ms *ms);
+void	ft_unset(t_ms *ms);
 
-//commands/ft_env.c
-void ft_env(t_ms *ms);
-
-//commands/ft_pwd.c
-void ft_pwd(t_ms *ms);
-
-//commands/ft_cd.c
-void ft_cd(t_ms *ms);
+//utils
+int		ft_atoi(const char *nptr);
+char	**ft_split(char const *s, char c);
+size_t	ft_strlcpy(char *dst, const char *src, size_t size);
 
 //commands/ft_cat.c
 void ft_cat(t_ms *ms);

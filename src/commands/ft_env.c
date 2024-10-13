@@ -6,7 +6,7 @@
 /*   By: lmaresov <lmaresov@student.42prague.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/21 06:33:41 by lmaresov          #+#    #+#             */
-/*   Updated: 2024/10/13 10:41:26 by lmaresov         ###   ########.fr       */
+/*   Updated: 2024/10/13 11:47:39 by lmaresov         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -73,7 +73,7 @@ void ft_env(t_ms *ms)
         return ;
     }
     tmp = ms->envar;
-    while (tmp->next)
+    while (tmp)
     {
         new_str = all_env_str(tmp, new_str);
         //printf("%s=%s\n", temp_env_key, temp_env_value);
