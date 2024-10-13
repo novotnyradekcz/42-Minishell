@@ -6,7 +6,7 @@
 /*   By: lmaresov <lmaresov@student.42prague.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/20 09:11:11 by lmaresov          #+#    #+#             */
-/*   Updated: 2024/10/01 05:35:01 by lmaresov         ###   ########.fr       */
+/*   Updated: 2024/10/12 13:06:09 by lmaresov         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,6 +28,8 @@ int check_command(char *command)
         return (6);
     else if (strcmp(command, "exit") == 0)
         return (7);
+    else if (strcmp(command, "cat") == 0)
+        return (8);
     else
         return (0);
 }
@@ -61,6 +63,8 @@ int one_command(t_ms *ms)
         ft_env(ms);
     /*else if (check_command(ms->tokens->data) == 7)
         ft_exit(ms);*/
+    else if (check_command(((t_cmd *)ms->commands->data)->command) == 8)
+        ft_cat(ms);
     return (1);   
 }
 

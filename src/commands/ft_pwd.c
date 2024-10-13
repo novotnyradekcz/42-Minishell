@@ -6,7 +6,7 @@
 /*   By: lmaresov <lmaresov@student.42prague.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/21 06:34:07 by lmaresov          #+#    #+#             */
-/*   Updated: 2024/10/01 06:21:56 by lmaresov         ###   ########.fr       */
+/*   Updated: 2024/10/13 10:46:40 by lmaresov         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -51,7 +51,9 @@ static int check_args(char **arguments)
 void ft_pwd(t_ms *ms)
 {
     char *cwd;
-    
+    t_cmd *cmd;
+
+    cmd = ms->commands->data;
     if (check_args(((t_cmd *)ms->commands->data)->arguments))
     {
         printf ("run pwd without arguments\n");
@@ -65,11 +67,12 @@ void ft_pwd(t_ms *ms)
     }
     if (getcwd(cwd, 1024) != NULL)
     {
-        printf("%s\n", cwd);
+        if (cmd->redir && (ft_strcmp(cmd->redir, ">") == 0 || ft_strcmp(cmd->redir, ">>") == 0 ))
+            handle_redirection_write(cmd, cwd);
+        else
+            printf("%s\n", cwd);
     }
     else
-    {
         printf ("error in getcwd function\n");
-    }
     free(cwd);
 }

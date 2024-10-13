@@ -6,7 +6,7 @@
 /*   By: lmaresov <lmaresov@student.42prague.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/01 09:30:55 by lmaresov          #+#    #+#             */
-/*   Updated: 2024/09/30 08:25:55 by lmaresov         ###   ########.fr       */
+/*   Updated: 2024/10/13 10:58:10 by lmaresov         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,6 +20,8 @@
 #include <stdlib.h>
 #include <signal.h>
 #include <unistd.h>
+#include <fcntl.h>
+
 
 
 
@@ -130,6 +132,16 @@ char	*ft_strjoin(char const *s1, char const *s2);
 char	*ft_strjoin_with_space(char const *s1, char const *s2);
 char	*ft_strdup(const char *s);
 
+//handle_redir_helper.c
+int write_redir(t_cmd *cmd, char * str);
+int append_redir(t_cmd *cmd, char * str);
+char *read_redir(t_cmd * cmd);
+char * heredoc_redir(t_cmd * cmd);
+
+//handle_redirection.c
+//void handle_redirection(t_cmd * cmd, char * str);
+void handle_redirection_read(t_cmd * cmd);
+void handle_redirection_write(t_cmd * cmd, char * str);
 
 //run_comands.c
 int check_command(char *command);
@@ -159,9 +171,11 @@ int syntax_error(t_ms *ms);
 //utils.c
 char *get_input();
 int only_whitespace(char *str);
+char *get_input_heredoc(char *eof);
 
 //commands/ft_echo.c
 void ft_echo(t_ms *ms);
+char *ft_echo_helper(char **arguments);
 
 //commands/ft_env.c
 void ft_env(t_ms *ms);
@@ -171,5 +185,8 @@ void ft_pwd(t_ms *ms);
 
 //commands/ft_cd.c
 void ft_cd(t_ms *ms);
+
+//commands/ft_cat.c
+void ft_cat(t_ms *ms);
 
 #endif

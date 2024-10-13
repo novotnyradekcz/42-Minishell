@@ -6,7 +6,7 @@
 #    By: lmaresov <lmaresov@student.42prague.com    +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2024/08/31 10:49:44 by lmaresov          #+#    #+#              #
-#    Updated: 2024/09/21 08:26:53 by lmaresov         ###   ########.fr        #
+#    Updated: 2024/10/12 13:13:57 by lmaresov         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -23,6 +23,8 @@ SRCS = minishell.c\
 	free_memory_helper.c\
 	free_memory.c\
 	ft_libft.c\
+	handle_redir_helper.c\
+	handle_redirection.c\
 	run_commands.c\
 	separate_tokens_ft_helper.c\
 	separate_tokens_ft.c\
@@ -34,14 +36,15 @@ SRCS = minishell.c\
 	commands/ft_exit.c\
 	commands/ft_export.c\
 	commands/ft_pwd.c\
-	commands/ft_unset.c
+	commands/ft_unset.c\
+	commands/ft_cat.c
 
 OBJS = $(SRCS:.c=.o)
 
 all: $(NAME)
 
 $(NAME): $(OBJS)
-	$(CC) $(CFLAGS) -o$(NAME) $(OBJS) $(LDFLAGS)
+	$(CC) $(CFLAGS) -o $(NAME) $(OBJS) $(LDFLAGS)
 
 %.o: %.c
 	$(CC) $(CFLAGS) -c $< -o $@
