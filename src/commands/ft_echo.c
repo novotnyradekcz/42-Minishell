@@ -6,7 +6,7 @@
 /*   By: rnovotny <rnovotny@student.42prague.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/21 06:23:47 by lmaresov          #+#    #+#             */
-/*   Updated: 2024/10/13 11:05:53 by rnovotny         ###   ########.fr       */
+/*   Updated: 2024/10/13 12:11:56 by rnovotny         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -92,20 +92,39 @@ char	*ft_echo_helper(char **arguments)
 	str = tmp_str;
 	return (str);
 }
-
-void	ft_echo(t_ms *ms)
+/*
+void ft_echo(t_ms *ms)
 {
-	char	*str;
+    char *str;
+    
+   
+    if (((t_cmd *)ms->commands->data)->option && (ft_strcmp(((t_cmd *)ms->commands->data)->option, "-n") == 0))
+    {
+        str = ft_echo_helper(((t_cmd *)ms->commands->data)->arguments);
+        printf("%s", str);
+    }
+    else
+    {
+        str = ft_echo_helper(((t_cmd *)ms->commands->data)->arguments);
+        printf("%s\n", str);   
+    }
+}
+*/
+void ft_echo(t_ms *ms)
+{
+    char *str;
+    t_cmd *cmd;
 
-	if (((t_cmd *)ms->commands->data)->option
-		&& (ft_strcmp(((t_cmd *)ms->commands->data)->option, "-n") == 0))
-	{
-		str = ft_echo_helper(((t_cmd *)ms->commands->data)->arguments);
-		printf("%s", str);
-	}
-	else
-	{
-		str = ft_echo_helper(((t_cmd *)ms->commands->data)->arguments);
-		printf("%s\n", str);
-	}
+    str = "";
+    cmd = ms->commands->data;
+    if (cmd->arguments[0])
+        str = ft_echo_helper(((t_cmd *)ms->commands->data)->arguments);
+    if (!cmd->option)
+        str = ft_strjoin(str, "\n");
+    if (cmd->redir && (ft_strcmp(cmd->redir, ">") == 0 || ft_strcmp(cmd->redir, ">>") == 0))
+    {
+        handle_redirection_write(cmd, str);
+    }
+    else
+        printf("%s", str);
 }
