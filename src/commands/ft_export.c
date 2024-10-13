@@ -6,7 +6,7 @@
 /*   By: rnovotny <rnovotny@student.42prague.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/21 06:34:02 by lmaresov          #+#    #+#             */
-/*   Updated: 2024/10/13 09:46:59 by rnovotny         ###   ########.fr       */
+/*   Updated: 2024/10/13 11:19:54 by rnovotny         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -107,7 +107,8 @@ void	ft_export(t_ms *ms)
 			if (((t_env *)envar->data)->env_value[0] == '\0')
 				printf("%s=''\n", ((t_env *)envar->data)->env_key);
 			else
-				printf("%s=%s\n", ((t_env *)envar->data)->env_key, ((t_env *)envar->data)->env_value);
+				printf("%s=%s\n", ((t_env *)envar->data)->env_key,
+					((t_env *)envar->data)->env_value);
 			envar = envar->next;
 		}
 		return ;
@@ -115,11 +116,10 @@ void	ft_export(t_ms *ms)
 	i = -1;
 	while (((t_cmd *)ms->commands->data)->arguments[++i])
 	{
-		// check if argument contains '=' at last position
 		key = check_export_arg(((t_cmd *)ms->commands->data)->arguments[i]);
-		value = NULL;
-		if (((t_cmd *)ms->commands->data)->arguments[i + 1])
-			value = check_export_arg2(((t_cmd *)ms->commands->data)->arguments[i + 1]);
+		value = ((t_cmd *)ms->commands->data)->arguments[i + 1];
+		if (value)
+			value = check_export_arg2(value);
 		if (key)
 		{
 			if (value)
@@ -127,14 +127,10 @@ void	ft_export(t_ms *ms)
 				set_env(ms, key, value);
 				i += 2;
 			}
-
 		}
-		if(!(((t_cmd *)ms->commands->data)->arguments[i]))
+		if (!(((t_cmd *)ms->commands->data)->arguments[i]))
 			break ;
-		
 		key_value = ft_split(((t_cmd *)ms->commands->data)->arguments[i], '=');
-		// copy up to '=' to key
-		// copy from '=' to end to value
 		if (!key_value[1])
 			set_env(ms, key_value[0], "");
 		else

@@ -6,7 +6,7 @@
 /*   By: lmaresov <lmaresov@student.42prague.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/21 06:23:47 by lmaresov          #+#    #+#             */
-/*   Updated: 2024/10/13 12:18:57 by lmaresov         ###   ########.fr       */
+/*   Updated: 2024/10/13 12:22:56 by lmaresov         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -64,33 +64,33 @@ void ft_echo(t_ms *ms)
     }
 }*/
 
-char *ft_echo_helper(char **arguments)
+char	*ft_echo_helper(char **arguments)
 {
-    char *str;
-    char *str_2;
-    char *tmp_str;
-    int i;
+	char	*str;
+	char	*str_2;
+	char	*tmp_str;
+	int		i;
 
-    i = 0;
-    str = malloc(1);
-    if (!str)
-        return (NULL);
-    str[0] = '\0';
-    while (arguments[i + 1])
-    {
-        str_2 = ft_strdup(arguments[i]);
-        tmp_str = ft_strjoin_with_space(str, str_2);
-        free(str);
-        free(str_2);
-        str = tmp_str;
-        i++;
-    }
-    str_2 = ft_strdup(arguments[i]);
-    tmp_str = ft_strjoin(str, str_2);
-    free(str);
-    free(str_2);
-    str = tmp_str;
-    return (str);
+	i = 0;
+	str = malloc(1);
+	if (!str)
+		return (NULL);
+	str[0] = '\0';
+	while (arguments[i + 1])
+	{
+		str_2 = ft_strdup(arguments[i]);
+		tmp_str = ft_strjoin_with_space(str, str_2);
+		free(str);
+		free(str_2);
+		str = tmp_str;
+		i++;
+	}
+	str_2 = ft_strdup(arguments[i]);
+	tmp_str = ft_strjoin(str, str_2);
+	free(str);
+	free(str_2);
+	str = tmp_str;
+	return (str);
 }
 /*
 void ft_echo(t_ms *ms)
@@ -110,9 +110,6 @@ void ft_echo(t_ms *ms)
     }
 }
 */
-
-
-
 void ft_echo(t_ms *ms)
 {
     char *str;
