@@ -6,7 +6,7 @@
 /*   By: lmaresov <lmaresov@student.42prague.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/12 11:59:28 by lmaresov          #+#    #+#             */
-/*   Updated: 2024/10/13 12:12:17 by lmaresov         ###   ########.fr       */
+/*   Updated: 2024/10/13 12:52:38 by lmaresov         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -45,4 +45,19 @@ void handle_redirection_write(t_cmd * cmd, char * str)
         write_redir(cmd, str);
     else if(ft_strcmp(cmd->redir, ">>") == 0)
         append_redir(cmd, str);
+}
+
+void handle_redir(t_cmd * cmd, char *str)
+{
+    if (cmd->redir && (ft_strcmp(cmd->redir, ">") == 0 || ft_strcmp(cmd->redir, ">>") == 0 ))
+    {
+        handle_redirection_write(cmd, str);
+        //printf ("chyba3\n");
+    }   
+    else if (cmd->redir && (ft_strcmp(cmd->redir, "<") == 0 || ft_strcmp(cmd->redir, "<<") == 0 ))
+    {
+        handle_redirection_read(cmd);
+        //printf ("chyba4\n");
+        printf("%s", str);
+    }      
 }

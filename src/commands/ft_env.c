@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ft_env.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: rnovotny <rnovotny@student.42prague.com    +#+  +:+       +#+        */
+/*   By: lmaresov <lmaresov@student.42prague.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/21 06:33:41 by lmaresov          #+#    #+#             */
-/*   Updated: 2024/10/13 12:12:33 by rnovotny         ###   ########.fr       */
+/*   Updated: 2024/10/13 12:53:51 by lmaresov         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -65,26 +65,39 @@ void ft_env(t_ms *ms)
     t_cmd * cmd;
     
     new_str = malloc(sizeof(char));
-    new_str = "\0";
+    new_str[0] = '\0';
     
     if (check_args(((t_cmd *)ms->commands->data)->arguments))
     {
         printf("run env without arguments\n");
         return ;
     }
+    //printf ("chyba1\n");
     tmp = ms->envar;
-    while (tmp)
+    while (tmp->next)
     {
         new_str = all_env_str(tmp, new_str);
         //printf("%s=%s\n", temp_env_key, temp_env_value);
         tmp = tmp->next;
     }
+    //printf ("chyba2\n");
     new_str = all_env_str(tmp, new_str);
     cmd = ms->commands->data;
+    //printf ("chyba5\n");
+    if ( cmd->redir)
+        handle_redir(cmd, new_str);
+        /*
     if (cmd->redir && (ft_strcmp(cmd->redir, ">") == 0 || ft_strcmp(cmd->redir, ">>") == 0 ))
     {
         handle_redirection_write(cmd, new_str);
-    }    
+        //printf ("chyba3\n");
+    }   
+    else if (cmd->redir && (ft_strcmp(cmd->redir, "<") == 0 || ft_strcmp(cmd->redir, "<<") == 0 ))
+    {
+        handle_redirection_read(cmd);
+        //printf ("chyba4\n");
+        printf("%s", new_str);
+    }   */
     else
         printf("%s", new_str);
 }

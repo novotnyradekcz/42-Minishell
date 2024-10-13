@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ft_pwd.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: rnovotny <rnovotny@student.42prague.com    +#+  +:+       +#+        */
+/*   By: lmaresov <lmaresov@student.42prague.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/21 06:34:07 by lmaresov          #+#    #+#             */
-/*   Updated: 2024/10/13 12:12:52 by rnovotny         ###   ########.fr       */
+/*   Updated: 2024/10/13 12:59:42 by lmaresov         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -55,7 +55,7 @@ void	ft_pwd(t_ms *ms)
     cmd = ms->commands->data;
     if (check_args(((t_cmd *)ms->commands->data)->arguments))
     {
-        printf ("run pwd without arguments\n");
+        printf ("pwd:too many arguments\n");
         return ;
     }
     cwd = (char *)malloc(sizeof(char) * 1024);
@@ -66,10 +66,18 @@ void	ft_pwd(t_ms *ms)
     }
     if (getcwd(cwd, 1024) != NULL)
     {
-        if (cmd->redir && (ft_strcmp(cmd->redir, ">") == 0 || ft_strcmp(cmd->redir, ">>") == 0 ))
+        cwd = ft_strjoin(cwd, "\n");
+        if ( cmd->redir)
+            handle_redir(cmd, cwd);
+        /*if (cmd->redir && (ft_strcmp(cmd->redir, ">") == 0 || ft_strcmp(cmd->redir, ">>") == 0 ))
             handle_redirection_write(cmd, cwd);
-        else
+        else if (cmd->redir && (ft_strcmp(cmd->redir, "<") == 0 || ft_strcmp(cmd->redir, "<<") == 0 ))
+        {
+            handle_redirection_read(cmd);
             printf("%s\n", cwd);
+        }*/
+        else
+            printf("%s", cwd);
     }
     else
         printf ("error in getcwd function\n");
