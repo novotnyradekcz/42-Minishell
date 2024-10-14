@@ -6,7 +6,7 @@
 /*   By: rnovotny <rnovotny@student.42prague.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/21 06:34:12 by lmaresov          #+#    #+#             */
-/*   Updated: 2024/10/13 10:23:42 by rnovotny         ###   ########.fr       */
+/*   Updated: 2024/10/14 19:56:24 by rnovotny         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -48,6 +48,7 @@ void	ft_unset(t_ms *ms)
 	if (!(((t_cmd *)ms->commands->data)->arguments[0]))
 	{
 		printf("unset: not enough arguments\n");
+		ms->exit_status = 1;
 		return ;
 	}
 	if (!envar)
@@ -55,4 +56,5 @@ void	ft_unset(t_ms *ms)
 	i = -1;
 	while (((t_cmd *)ms->commands->data)->arguments[++i])
 		rm_from_env(ms, ((t_cmd *)ms->commands->data)->arguments[i]);
+	ms->exit_status = 0;
 }

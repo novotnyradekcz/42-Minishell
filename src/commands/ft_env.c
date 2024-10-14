@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ft_env.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: lmaresov <lmaresov@student.42prague.com    +#+  +:+       +#+        */
+/*   By: rnovotny <rnovotny@student.42prague.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/21 06:33:41 by lmaresov          #+#    #+#             */
-/*   Updated: 2024/10/13 12:53:51 by lmaresov         ###   ########.fr       */
+/*   Updated: 2024/10/14 19:50:36 by rnovotny         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -70,6 +70,7 @@ void ft_env(t_ms *ms)
     if (check_args(((t_cmd *)ms->commands->data)->arguments))
     {
         printf("run env without arguments\n");
+		ms->exit_status = 127;
         return ;
     }
     //printf ("chyba1\n");
@@ -100,4 +101,6 @@ void ft_env(t_ms *ms)
     }   */
     else
         printf("%s", new_str);
+	ms->exit_status = 0;
+	free(new_str);
 }

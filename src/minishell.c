@@ -6,7 +6,7 @@
 /*   By: rnovotny <rnovotny@student.42prague.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/01 09:30:12 by lmaresov          #+#    #+#             */
-/*   Updated: 2024/10/12 12:39:56 by rnovotny         ###   ########.fr       */
+/*   Updated: 2024/10/14 19:58:14 by rnovotny         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -40,6 +40,7 @@ void init_ms(t_ms *ms, char **env)
     ms->num_of_cmd = 1;
     ms->double_quotes = 0;
     ms->single_quotes = 0;
+	ms->exit_status = 0;
 }
 
 
@@ -66,6 +67,12 @@ int main (int argc, char **argv, char **env)
         if (syntax_error(ms))
             continue;
         divide_input(ms);
+		if (ft_strcmp(((t_cmd *)ms->commands->data)->command, "echo") == 0 && ft_strcmp(((t_cmd *)ms->commands->data)->arguments[0], "$?") == 0)
+			{
+				printf("%d\n", ms->exit_status);
+				ms->exit_status = 0;
+			}
+
         /*
         t_list *command_list = ms->commands;
         int cmd_num = 1;
@@ -81,8 +88,8 @@ int main (int argc, char **argv, char **env)
             command_list = command_list->next;
         }*/
 
-       
-        run_commands(ms);
+        else
+        	run_commands(ms);
        
        
        

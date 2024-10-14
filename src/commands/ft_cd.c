@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ft_cd.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: lmaresov <lmaresov@student.42prague.com    +#+  +:+       +#+        */
+/*   By: rnovotny <rnovotny@student.42prague.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/21 06:33:33 by lmaresov          #+#    #+#             */
-/*   Updated: 2024/10/14 17:45:56 by lmaresov         ###   ########.fr       */
+/*   Updated: 2024/10/14 19:58:27 by rnovotny         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -56,13 +56,15 @@ void ft_cd(t_ms *ms)
 }
 
 */
-void	ft_cd_helper(char *path)
+int	ft_cd_helper(char *path, t_ms *ms)
 {
 	if (chdir(path) != 0)
 	{
 		printf ("chdir error\n");
-		return ;
+		ms->exit_status = 1;
+		return (1);
 	}
+	return (0);
 }
 
 char	*get_args(char **arguments)
@@ -99,17 +101,20 @@ int	ft_cd_25(t_ms *ms)
 		&& ((t_cmd *)ms->commands->data)->arguments[0])
 	{
 		printf("function cd takes only one argument\n");
+		ms->exit_status = 1;
 		return (1);
 	}
 	if (!get_args(((t_cmd *)ms->commands->data)->arguments))
 	{
 		path = env_value(ms->envar, "HOME");
-		ft_cd_helper(path);
+		if (ft_cd_helper(path, ms))
+			return (1);
 	}
 	else
 	{
 		path = get_args(((t_cmd *)ms->commands->data)->arguments);
-		ft_cd_helper(path);
+		if (ft_cd_helper(path, ms))
+			return (1);
 	}
 	return (0);
 }
@@ -153,6 +158,7 @@ void	ft_cd(t_ms *ms)
 		{
 			free(((t_env *)tmp_env->data)->env_value);
 			((t_env *)tmp_env->data)->env_value = ft_strdup(path);
+			ms->exit_status = 0;
 			return ;
 		}
 		tmp_env = tmp_env->next;

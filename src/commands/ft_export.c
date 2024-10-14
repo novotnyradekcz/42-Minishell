@@ -6,7 +6,7 @@
 /*   By: rnovotny <rnovotny@student.42prague.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/21 06:34:02 by lmaresov          #+#    #+#             */
-/*   Updated: 2024/10/13 11:19:54 by rnovotny         ###   ########.fr       */
+/*   Updated: 2024/10/14 19:54:59 by rnovotny         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -111,6 +111,7 @@ void	ft_export(t_ms *ms)
 					((t_env *)envar->data)->env_value);
 			envar = envar->next;
 		}
+		ms->exit_status = 0;
 		return ;
 	}
 	i = -1;
@@ -137,4 +138,5 @@ void	ft_export(t_ms *ms)
 			set_env(ms, key_value[0], key_value[1]);
 		free(key_value);
 	}
+	ms->exit_status = 0;
 }

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ft_pwd.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: lmaresov <lmaresov@student.42prague.com    +#+  +:+       +#+        */
+/*   By: rnovotny <rnovotny@student.42prague.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/21 06:34:07 by lmaresov          #+#    #+#             */
-/*   Updated: 2024/10/13 12:59:42 by lmaresov         ###   ########.fr       */
+/*   Updated: 2024/10/14 19:55:44 by rnovotny         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -55,7 +55,8 @@ void	ft_pwd(t_ms *ms)
     cmd = ms->commands->data;
     if (check_args(((t_cmd *)ms->commands->data)->arguments))
     {
-        printf ("pwd:too many arguments\n");
+        printf ("pwd: too many arguments\n");
+		ms->exit_status = 1;
         return ;
     }
     cwd = (char *)malloc(sizeof(char) * 1024);
@@ -82,4 +83,5 @@ void	ft_pwd(t_ms *ms)
     else
         printf ("error in getcwd function\n");
     free(cwd);
+	ms->exit_status = 0;
 }
