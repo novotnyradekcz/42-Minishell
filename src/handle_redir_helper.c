@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   handle_redir_helper.c                              :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: lmaresov <lmaresov@student.42prague.com    +#+  +:+       +#+        */
+/*   By: rnovotny <rnovotny@student.42prague.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/12 12:05:39 by lmaresov          #+#    #+#             */
-/*   Updated: 2024/10/13 12:11:30 by lmaresov         ###   ########.fr       */
+/*   Updated: 2024/10/14 17:28:18 by rnovotny         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -67,7 +67,7 @@ char *read_redir(t_cmd * cmd)
     ssize_t bytes_read;
     char *result;
     char *tmp;
-    char *buffer[1024];
+    char buffer[1024];
     
     bytes_read = 0;
     result = malloc(sizeof(char));

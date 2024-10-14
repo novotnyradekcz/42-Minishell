@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   expand_envar.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: lmaresov <lmaresov@student.42prague.com    +#+  +:+       +#+        */
+/*   By: rnovotny <rnovotny@student.42prague.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/08 07:01:11 by lmaresov          #+#    #+#             */
-/*   Updated: 2024/09/20 06:46:54 by lmaresov         ###   ########.fr       */
+/*   Updated: 2024/10/14 18:09:52 by rnovotny         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 

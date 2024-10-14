@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   expand_envar_help.c                                :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: lmaresov <lmaresov@student.42prague.com    +#+  +:+       +#+        */
+/*   By: rnovotny <rnovotny@student.42prague.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/08 07:02:12 by lmaresov          #+#    #+#             */
-/*   Updated: 2024/09/19 07:09:08 by lmaresov         ###   ########.fr       */
+/*   Updated: 2024/10/14 18:08:59 by rnovotny         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,7 +19,7 @@ char *env_key(char *str)
     char *key;
 
     i = 0;
-    while(ft_isprint(str[i]) && !is_whitespace(str[i]) && (str[i] != '\'' || str[i] != '\"'))
+    while(ft_isprint(str[i]) && !is_whitespace(str[i]) && str[i] != '\'' && str[i] != '\"' && str[i] != '$' && str[i] != '=')
         i++;
     key = ft_substr(str, 0, i);
     return (key);
