@@ -6,7 +6,7 @@
 /*   By: lmaresov <lmaresov@student.42prague.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/01 09:29:31 by lmaresov          #+#    #+#             */
-/*   Updated: 2024/10/01 05:39:09 by lmaresov         ###   ########.fr       */
+/*   Updated: 2024/10/14 18:00:27 by lmaresov         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -135,6 +135,7 @@ void divide_input(t_ms *ms)
 {
     expand_envar(ms);
     //printf("ms->input after expanding envvar: %s\n", ms->input);
+   // return ;
     separate_tokens(ms, ms->input);
     while (ms->tokens)
     {
@@ -161,7 +162,11 @@ void expand_envar(t_ms *ms)
     {
         quote_checker(ms->input[i], &quote);
         if ((quote == 0 || quote == 2) && ms->input[i] == '$')
+        {
+            //printf("chyba\n");
             get_envar(ms, &i);
+            //printf("chyba2\n");
+        }
         else
             i++;
     }

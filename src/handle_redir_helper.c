@@ -67,7 +67,7 @@ char *read_redir(t_cmd * cmd)
     ssize_t bytes_read;
     char *result;
     char *tmp;
-    char *buffer[1024];
+    char buffer[1024];
     
     bytes_read = 0;
     result = malloc(sizeof(char));

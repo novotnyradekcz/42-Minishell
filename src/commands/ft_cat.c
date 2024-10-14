@@ -10,17 +10,16 @@
 /*                                                                            */
 /* ************************************************************************** */
 
-
 #include "../minishell.h"
 
-void ft_cat(t_ms *ms)
+void	ft_cat(t_ms *ms)
 {
-    t_cmd * cmd;
-    char * str;
+	t_cmd	*cmd;
+	char	*str;
 
-    cmd = ms->commands->data;
-    //str = ft_echo_helper(((t_cmd *)ms->commands->data)->arguments);
-    //handle_redirection_write(cmd, str);
-    str = handle_redirection_read(cmd);
-    printf("%s", str);
+	cmd = ms->commands->data;
+/*str = ft_echo_helper(((t_cmd *)ms->commands->data)->arguments);
+    handle_redirection_write(cmd, str);*/
+	str = handle_redirection_read(cmd);
+	printf("%s", str);
 }
