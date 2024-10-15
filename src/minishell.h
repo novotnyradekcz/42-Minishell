@@ -6,7 +6,7 @@
 /*   By: rnovotny <rnovotny@student.42prague.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/01 09:30:55 by lmaresov          #+#    #+#             */
-/*   Updated: 2024/10/15 18:23:24 by rnovotny         ###   ########.fr       */
+/*   Updated: 2024/10/15 19:25:07 by rnovotny         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -191,8 +191,5 @@ void	ft_unset(t_ms *ms);
 int		ft_atoi(const char *nptr);
 char	**ft_split(char const *s, char c);
 size_t	ft_strlcpy(char *dst, const char *src, size_t size);
-
-//commands/ft_cat.c
-void ft_cat(t_ms *ms);
 
 #endif
