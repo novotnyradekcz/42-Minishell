@@ -3,10 +3,10 @@
 #                                                         :::      ::::::::    #
 #    Makefile                                           :+:      :+:    :+:    #
 #                                                     +:+ +:+         +:+      #
-#    By: lmaresov <lmaresov@student.42prague.com    +#+  +:+       +#+         #
+#    By: rnovotny <rnovotny@student.42prague.com    +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2024/08/31 10:49:44 by lmaresov          #+#    #+#              #
-#    Updated: 2024/10/13 11:47:13 by lmaresov         ###   ########.fr        #
+#    Updated: 2024/10/15 19:25:19 by rnovotny         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -36,7 +36,6 @@ SRCS = minishell.c\
 	commands/ft_exit.c\
 	commands/ft_export.c\
 	commands/ft_pwd.c\
-	commands/ft_cat.c\
 	commands/ft_unset.c \
 	utils/ft_atoi.c \
 	utils/ft_split.c \

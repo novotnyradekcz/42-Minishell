@@ -6,7 +6,7 @@
 /*   By: rnovotny <rnovotny@student.42prague.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/01 09:30:55 by lmaresov          #+#    #+#             */
-/*   Updated: 2024/10/14 19:20:36 by rnovotny         ###   ########.fr       */
+/*   Updated: 2024/10/15 19:25:07 by rnovotny         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -131,6 +131,7 @@ int is_whitespace(int c);
 void	*ft_memset(void *s, int c, size_t n);
 char	*ft_strjoin(char const *s1, char const *s2);
 char	*ft_strjoin_with_space(char const *s1, char const *s2);
+char	*ft_strjoin_freeleft(char *s1, char *s2);
 char	*ft_strdup(const char *s);
 
 //handle_redir_helper.c
@@ -190,8 +191,5 @@ void	ft_unset(t_ms *ms);
 int		ft_atoi(const char *nptr);
 char	**ft_split(char const *s, char c);
 size_t	ft_strlcpy(char *dst, const char *src, size_t size);
-
-//commands/ft_cat.c
-void ft_cat(t_ms *ms);
 
 #endif
