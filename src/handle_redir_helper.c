@@ -6,7 +6,7 @@
 /*   By: rnovotny <rnovotny@student.42prague.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/12 12:05:39 by lmaresov          #+#    #+#             */
-/*   Updated: 2024/10/16 19:29:23 by rnovotny         ###   ########.fr       */
+/*   Updated: 2024/10/16 19:49:36 by rnovotny         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -84,7 +84,7 @@ int	heredoc_redir(t_cmd * cmd)
 
     //printf("cmd: %s , eof: %s\n", cmd->command, cmd->redir_file);
     str = get_input_heredoc(cmd->redir_file);
-	fd = open("heredoc", O_RDWR | O_CREAT | O_TRUNC, 0644);
+	fd = open("heredoc", O_WRONLY | O_CREAT | O_TRUNC, 0644);
 	if (fd < 0)
 	{
 		perror("error opening file\n");
@@ -92,6 +92,15 @@ int	heredoc_redir(t_cmd * cmd)
 		return (1);
 	}
 	write(fd, str, ft_strlen(str));
+	free(str);
+	close(fd);
+	fd = open("heredoc", O_RDONLY);
+	if (fd < 0)
+	{
+		perror("error opening file\n");
+		close(fd);
+		return (1);
+	}
     if (dup2(fd, STDIN_FILENO) < 0)
 	{
 		perror("error dup2");
