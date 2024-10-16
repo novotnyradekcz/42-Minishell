@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ft_pwd.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: lmaresov <lmaresov@student.42prague.com    +#+  +:+       +#+        */
+/*   By: rnovotny <rnovotny@student.42prague.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/21 06:34:07 by lmaresov          #+#    #+#             */
-/*   Updated: 2024/10/16 16:42:25 by lmaresov         ###   ########.fr       */
+/*   Updated: 2024/10/16 18:46:12 by rnovotny         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -43,7 +43,7 @@ void	ft_pwd(t_ms *ms)
 	{
 		cwd = ft_strjoin(cwd, "\n");
 		if (cmd->redir)
-			handle_redir(cmd, cwd);
+			handle_redir(cmd);
 		else
 			printf("%s", cwd);
 	}

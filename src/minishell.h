@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minishell.h                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: lmaresov <lmaresov@student.42prague.com    +#+  +:+       +#+        */
+/*   By: rnovotny <rnovotny@student.42prague.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/01 09:30:55 by lmaresov          #+#    #+#             */
-/*   Updated: 2024/10/16 17:43:55 by lmaresov         ###   ########.fr       */
+/*   Updated: 2024/10/16 19:19:47 by rnovotny         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -121,16 +121,16 @@ void free_all(t_ms *ms);
 void free_ms_commands(t_ms *ms);
 
 //handle_redir_helper.c
-int write_redir(t_cmd *cmd, char * str);
-int append_redir(t_cmd *cmd, char * str);
-char *read_redir(t_cmd * cmd);
-char * heredoc_redir(t_cmd * cmd);
+int write_redir(t_cmd *cmd);
+int append_redir(t_cmd *cmd);
+int	read_redir(t_cmd * cmd);
+int	heredoc_redir(t_cmd * cmd);
 
 //handle_redirection.c
 //void handle_redirection(t_cmd * cmd, char * str);
-char * handle_redirection_read(t_cmd * cmd);
-void handle_redirection_write(t_cmd * cmd, char * str);
-void handle_redir(t_cmd * cmd, char *str);
+void	handle_redirection_read(t_cmd * cmd);
+void	handle_redirection_write(t_cmd * cmd);
+void	handle_redir(t_cmd * cmd);
 
 //run_comands.c
 int check_command(char *command);

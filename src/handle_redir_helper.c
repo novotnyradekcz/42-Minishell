@@ -6,91 +6,97 @@
 /*   By: rnovotny <rnovotny@student.42prague.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/12 12:05:39 by lmaresov          #+#    #+#             */
-/*   Updated: 2024/10/14 17:28:18 by rnovotny         ###   ########.fr       */
+/*   Updated: 2024/10/16 19:29:23 by rnovotny         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 
-int write_redir(t_cmd *cmd, char * str)
+int write_redir(t_cmd *cmd)
 {
     int fd;
     char * file_name;
-    ssize_t bytes_written;
 
     file_name = cmd->redir_file;
     fd = open(file_name, O_RDWR | O_CREAT | O_TRUNC, 0644);
-    if (fd == -1)
+    if (fd < 0)
     {
         printf ("error opening file\n");
         return 1;
     }
-    bytes_written = write(fd, str, ft_strlen(str));
-    if (bytes_written == -1)
-    {
-        printf( "error in writing to file\n");
-        close(fd);
-        return (1);
-    }
+    if (dup2(fd, STDOUT_FILENO) < 0)
+	{
+		perror("error dup2");
+		return (1);
+	}
     close(fd);
     return (0);
 }
 
-int append_redir(t_cmd *cmd, char * str)
+int append_redir(t_cmd *cmd)
 {
     int fd;
     char * file_name;
-    ssize_t bytes_written;
 
     file_name = cmd->redir_file;
     fd = open(file_name, O_WRONLY | O_CREAT | O_APPEND, 0644);
-    if (fd == -1)
+    if (fd < 0)
     {
         printf ("error opening file\n");
         return 1;
     }
-    bytes_written = write(fd, str, ft_strlen(str));
-    if (bytes_written == -1)
-    {
-        printf( "error in writing to file\n");
-        close(fd);
-        return (1);
-    }
+    if (dup2(fd, STDOUT_FILENO) < 0)
+	{
+		perror("error dup2");
+		close(fd);
+		return (1);
+	}
     close(fd);
     return (0);
 }
 
-char *read_redir(t_cmd * cmd)
+int	read_redir(t_cmd * cmd)
 {
     int fd;
     char * file_name;
-    ssize_t bytes_read;
-    char *result;
-    char *tmp;
-    char buffer[1024];
-    
-    bytes_read = 0;
-    result = malloc(sizeof(char));
-    result[0] = '\0';
+
     file_name = cmd->redir_file;
     fd = open(file_name, O_RDWR);
-    while ((bytes_read = read(fd, buffer, sizeof(buffer) - 1)) > 0)
-    {
-        buffer[bytes_read] = '\0';
-        tmp = ft_strjoin(result,(char*)buffer);
-        free(result);
-        result = tmp;
-        ft_memset(buffer, '\0', sizeof(buffer));
-    }
-    return (result);
+	if (fd < 0)
+	{
+		perror("error opening file\n");
+		return (1);
+	}
+	if (dup2(fd, STDIN_FILENO) < 0)
+	{
+		perror("error dup2");
+		close(fd);
+		return (1);
+	}
+	close(fd);
+	return (0);
 }
 
-char * heredoc_redir(t_cmd * cmd)
+int	heredoc_redir(t_cmd * cmd)
 {
     char * str;
+	int fd;
 
     //printf("cmd: %s , eof: %s\n", cmd->command, cmd->redir_file);
     str = get_input_heredoc(cmd->redir_file);
-    //printf("%s", str);
-    return (str);
+	fd = open("heredoc", O_RDWR | O_CREAT | O_TRUNC, 0644);
+	if (fd < 0)
+	{
+		perror("error opening file\n");
+		close(fd);
+		return (1);
+	}
+	write(fd, str, ft_strlen(str));
+    if (dup2(fd, STDIN_FILENO) < 0)
+	{
+		perror("error dup2");
+		return (1);
+	}
+	close(fd);
+	return (0);
 }
