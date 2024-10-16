@@ -6,162 +6,118 @@
 /*   By: rnovotny <rnovotny@student.42prague.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/21 06:33:33 by lmaresov          #+#    #+#             */
-/*   Updated: 2024/10/14 19:58:27 by rnovotny         ###   ########.fr       */
+/*   Updated: 2024/10/16 15:13:31 by rnovotny         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../minishell.h"
-/*
-void ft_cd_helper(char *path)
-{
-    if (chdir(path) != 0)
-    {
-        printf ("chdir error\n");
-        return ;
-    }
-}
 
-void ft_cd(t_ms *ms)
+static int	ft_cdnew(t_ms *ms, char *argv[])
 {
-    char *path;
-    char *temp_key;
-    t_listd *tmp_env;
+	char	cwd[4096];
+	int		r;
+	char	*t;
+	char	*err;
 
-    tmp_env = ms->envar;
-    if(!ms->tokens->next)
-    {
-        path = env_value(ms->envar, "HOME");
-        ft_cd_helper(path);
-    } 
-    else
-    {
-        path = ms->tokens->next->data;
-        ft_cd_helper(path);
-    }
-    path = (char *)malloc(sizeof(char) * 1024);
-    getcwd(path, 1024);
-    while(tmp_env)
-    {
-        temp_key = ((t_env*)tmp_env->data)->env_key;
-        //printf ("temp_key: %s\n", temp_key);
-        if (strcmp(temp_key, "OLDPWD") == 0)
-        {
-            free(((t_env*)tmp_env->data)->env_value);
-            ((t_env*)tmp_env->data)->env_value = ft_strdup(path);
-            return ;
-        }
-        tmp_env = tmp_env->next;
-    }
-    //printf ("chyba- preskoceni cyklu while\n");
-}
-
-*/
-int	ft_cd_helper(char *path, t_ms *ms)
-{
-	if (chdir(path) != 0)
+	t = getcwd(cwd, 4096);
+	r = chdir(argv[1]);
+	if (r < 0)
 	{
-		printf ("chdir error\n");
-		ms->exit_status = 1;
-		return (1);
-	}
-	return (0);
-}
-
-char	*get_args(char **arguments)
-{
-	char	*str;
-
-	str = NULL;
-	if (arguments[0])
-	{
-		str = arguments[0];
-		return (str);
-	}
-	return (str);
-}
-
-char	*check_num_args(char **arguments)
-{
-	char	*str;
-
-	str = NULL;
-	if (arguments[1])
-	{
-		str = arguments[1];
-		return (str);
-	}
-	return (str);
-}
-
-int	ft_cd_25(t_ms *ms)
-{
-	char	*path;
-
-	if (((t_cmd *)ms->commands->data)->arguments[1]
-		&& ((t_cmd *)ms->commands->data)->arguments[0])
-	{
-		printf("function cd takes only one argument\n");
-		ms->exit_status = 1;
-		return (1);
-	}
-	if (!get_args(((t_cmd *)ms->commands->data)->arguments))
-	{
-		path = env_value(ms->envar, "HOME");
-		if (ft_cd_helper(path, ms))
-			return (1);
+		r = errno;
+		err = ft_strjoin("minishell: cd: ", argv[1]);
+		perror(err);
+		free(err);
 	}
 	else
 	{
-		path = get_args(((t_cmd *)ms->commands->data)->arguments);
-		if (ft_cd_helper(path, ms))
-			return (1);
+		ft_changeenvval(ms, "OLDPWD", t);
+		t = getcwd(cwd, 4096);
+		ft_changeenvval(ms, "PWD", t);
+		free(ms->prompt);
+		ft_init_prompt(ms);
 	}
-	return (0);
+	return (r);
 }
 
-void	ft_cd_redir(t_ms *ms)
+static void	ft_update_cdold(t_ms *ms, char *t, char *cwd)
 {
-	t_cmd	*cmd;
+	ft_changeenvval(ms, "OLDPWD", t);
+	t = getcwd(cwd, 4096);
+	ft_changeenvval(ms, "PWD", t);
+	free(ms->prompt);
+	ft_init_prompt(ms);
+	ft_printf("%s\n", t);
+}
 
-	cmd = ms->commands->data;
-	if (cmd->redir)
+static int	ft_cdold(t_ms *ms)
+{
+	char	cwd[4096];
+	int		r;
+	char	*o;
+	char	*t;
+
+	t = getcwd(cwd, 4096);
+	o = ft_getenvval(ms, "OLDPWD");
+	if (!o)
 	{
-		handle_redirection_read(cmd);
-		handle_redirection_write(cmd, "");
+		r = 1;
+		ft_printf_fd(2, "minishell: cd: OLDPWD not set\n");
+		return (r);
 	}
-}
-
-char	*get_path_variable(void)
-{
-	char	*path;
-
-	path = (char *)malloc(sizeof(char) * 1024);
-	getcwd(path, 1024);
-	return (path);
-}
-
-void	ft_cd(t_ms *ms)
-{
-	char	*path;
-	char	*temp_key;
-	t_listd	*tmp_env;
-
-	ft_cd_redir(ms);
-	if (ft_cd_25(ms))
-		return ;
-	tmp_env = ms->envar;
-	path = get_path_variable();
-	while (tmp_env)
+	r = chdir(o);
+	if (r < 0)
 	{
-		temp_key = ((t_env *)tmp_env->data)->env_key;
-		if (strcmp(temp_key, "OLDPWD") == 0)
-		{
-			free(((t_env *)tmp_env->data)->env_value);
-			((t_env *)tmp_env->data)->env_value = ft_strdup(path);
-			ms->exit_status = 0;
-			return ;
-		}
-		tmp_env = tmp_env->next;
+		r = errno;
+		perror("cd");
 	}
-	free(path);
+	else
+		ft_update_cdold(ms, t, cwd);
+	return (r);
+}
+
+static int	ft_cdhome(t_ms *ms)
+{
+	char	cwd[4096];
+	int		r;
+	char	*h;
+	char	*t;
+
+	t = getcwd(cwd, 4096);
+	h = ft_getenvval(ms, "HOME");
+	r = chdir(h);
+	if (r < 0)
+	{
+		r = errno;
+		perror("cd");
+	}
+	else
+	{
+		ft_changeenvval(ms, "OLDPWD", t);
+		t = getcwd(cwd, 4096);
+		ft_changeenvval(ms, "PWD", t);
+		free(ms->prompt);
+		ft_init_prompt(ms);
+	}
+	return (r);
+}
+
+void	ft_cd(t_ms *ms, char *argv[])
+{
+	int	r;
+
+	r = 0;
+	if (!argv[1] || (argv[1][0] == '-' && argv[1][1] == '-' && !argv[1][2]))
+		ft_cdhome(ms);
+	else if (argv[2])
+	{
+		ft_printf_fd(2, "minishell: cd: too many arguments\n");
+		r = 1;
+	}
+	else if (argv[1][0] == '-' && !argv[1][1])
+		r = ft_cdold(ms);
+	else
+		r = ft_cdnew(ms, argv);
+	ms->err[0] = r;
+	ms->error = r;
+	ms->err[1] = 1;
 }

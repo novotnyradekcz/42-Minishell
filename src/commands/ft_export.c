@@ -6,137 +6,108 @@
 /*   By: rnovotny <rnovotny@student.42prague.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/21 06:34:02 by lmaresov          #+#    #+#             */
-/*   Updated: 2024/10/14 19:54:59 by rnovotny         ###   ########.fr       */
+/*   Updated: 2024/10/16 15:17:18 by rnovotny         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../minishell.h"
 
-void	set_env(t_ms *ms, char *key, char *value)
+static void	ft_put_export_env(t_list *el)
 {
-	t_listd	*envar;
-	t_env	*new_env;
-	t_listd	*new_node;
+	t_list	*lst;
+	t_ev	*ev;
 
-	envar = ms->envar;
-	new_env = malloc(sizeof(t_env));
-	new_env->env_key = key;
-	new_env->env_value = value;
-	new_node = malloc(sizeof(t_listd));
-	new_node->data = new_env;
-	new_node->next = NULL;
-	if (!envar)
+	lst = el;
+	while (lst)
 	{
-		ms->envar = new_node;
-		new_node->prev = NULL;
-	}
-	else
-	{
-		while (envar->next)
+		if (lst->content)
 		{
-			if (ft_strcmp(((t_env *)envar->data)->env_key, key) == 0)
-			{
-				((t_env *)envar->data)->env_value = value;
-				free(key);
-				free(new_env);
-				free(new_node);
-				return ;
-			}
-			envar = envar->next;
+			ev = lst->content;
+			ft_printf("declare -x %s\n", ev->s);
 		}
-		if (ft_strcmp(((t_env *)envar->data)->env_key, key) == 0)
-		{
-			((t_env *)envar->data)->env_value = value;
-			free(key);
-			free(new_env);
-			free(new_node);
-			return ;
-		}
-		new_node->prev = envar;
-		envar->next = new_node;
+		lst = lst->next;
 	}
 }
 
-char	*check_export_arg(char *arg)
+t_list	*ft_check_var(t_list *el, char *v)
 {
-	int		i;
-	char	*key;
+	t_list	*lst;
+	t_ev	*ev;
 
-	i = 0;
-	while (arg[i])
-		i++;
-	if (arg[i - 1] == '=')
+	lst = el;
+	while (lst)
 	{
-		key = malloc(sizeof(char) * i);
-		ft_strlcpy(key, arg, i);
-		return (key);
+		ev = lst->content;
+		if (!ft_strncmp(ev->var, v, 1024))
+			return (lst);
+		lst = lst->next;
 	}
 	return (NULL);
 }
 
-char	*check_export_arg2(char *arg)
+static int	ft_isvalidvar(char *s)
 {
 	int		i;
-	char	*value;
 
 	i = 0;
-	while (arg[i])
+	if (s[i] == '_' || ft_isalpha(s[i]))
 	{
-		if (arg[i] == '=')
-			return (NULL);
 		i++;
 	}
-	value = malloc(sizeof(char) * i + 1);
-	ft_strlcpy(value, arg, i + 1);
-	return (value);
+	else
+		return (0);
+	while (s[i] == '_' || ft_isalnum(s[i]))
+		i++;
+	if (s[i] == '=')
+		return (1);
+	return (0);
 }
 
-void	ft_export(t_ms *ms)
+static void	ft_exportlst_setup(t_ms *ms, t_ev *ev, int *r)
 {
-	int		i;
-	t_listd	*envar;
-	char	*key;
-	char	*value;
-	char	**key_value;
+	t_list	*lst;
 
-	envar = ms->envar;
-	if (!(((t_cmd *)ms->commands->data)->arguments[0]))
+	lst = ft_check_var(ms->el, ev->var);
+	if (lst)
 	{
-		while (envar)
-		{
-			if (((t_env *)envar->data)->env_value[0] == '\0')
-				printf("%s=''\n", ((t_env *)envar->data)->env_key);
-			else
-				printf("%s=%s\n", ((t_env *)envar->data)->env_key,
-					((t_env *)envar->data)->env_value);
-			envar = envar->next;
-		}
-		ms->exit_status = 0;
-		return ;
+		ft_free_ev(lst->content);
+		lst->content = ev;
 	}
-	i = -1;
-	while (((t_cmd *)ms->commands->data)->arguments[++i])
+	else
 	{
-		key = check_export_arg(((t_cmd *)ms->commands->data)->arguments[i]);
-		value = ((t_cmd *)ms->commands->data)->arguments[i + 1];
-		if (value)
-			value = check_export_arg2(value);
-		if (key)
-		{
-			if (value)
-			{
-				set_env(ms, key, value);
-				i += 2;
-			}
-		}
-		if (!(((t_cmd *)ms->commands->data)->arguments[i]))
-			break ;
-		key_value = ft_split(((t_cmd *)ms->commands->data)->arguments[i], '=');
-		if (!key_value[1])
-			set_env(ms, key_value[0], "");
-		else
-			set_env(ms, key_value[0], key_value[1]);
-		free(key_value);
+		lst = ft_lstnew(ev);
+		if (!ev || !lst)
+			*r = 1;
+		ft_lstadd_back(&ms->el, lst);
+		ft_sortenv(ms->el);
 	}
-	ms->exit_status = 0;
+}
+
+void	ft_export(t_ms *ms, char *argv[])
+{
+	int		r;
+	int		i;
+	t_ev	*ev;
+
+	r = 0;
+	i = 1;
+	if (!argv[1])
+		ft_put_export_env(ms->el);
+	while (argv[i])
+	{
+		if (ft_isvalidvar(argv[i]))
+		{
+			ev = ft_evinit(argv[i]);
+			ft_exportlst_setup(ms, ev, &r);
+		}
+		else if (ft_printf_fd(2, "minishell: export: '%s'", argv[i]), 1)
+		{
+			r = 1;
+			ft_printf_fd(2, ": not a valid identifier\n");
+		}
+		i++;
+	}
+	ms->err[0] = r;
+	ms->err[1] = 1;
+	ms->error = 0;
 }

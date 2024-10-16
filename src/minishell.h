@@ -6,7 +6,7 @@
 /*   By: rnovotny <rnovotny@student.42prague.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/01 09:30:55 by lmaresov          #+#    #+#             */
-/*   Updated: 2024/10/16 14:45:40 by rnovotny         ###   ########.fr       */
+/*   Updated: 2024/10/16 15:15:23 by rnovotny         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -139,6 +139,61 @@ void	ft_extra_check(t_list *lst, t_check *check);
 void	ft_check_stuff(t_check *check);
 void	ft_check_text(t_check *check);
 
+// commands/ft_cd.c
+void	ft_cd(t_ms *ms, char *argv[]);
+
+// commands/ft_echo.c
+void	ft_echo(t_ms *ms, char *argv[]);
+
+// commands/ft_env.c
+void	ft_env(t_ms *ms, char *argv[]);
+
+// commands/ft_exit.c
+void	ft_exit_builtin(t_ms *ms, char *argv[]);
+
+// commands/ft_export.c
+void	ft_export(t_ms *ms, char *argv[]);
+
+// commands/ft_pwd.c
+void	ft_pwd(t_ms *ms, char *argv[]);
+
+// commands/ft_unset.c
+void	ft_unset(t_ms *ms, char *argv[]);
+
+// exec/execute_0.c
+int		ft_dup(t_ms *ms, int i, int j);
+
+// exec/execute_1.c
+int		ft_executor(t_ms *ms);
+int		ft_execcs(t_ms *ms, int i);
+int		ft_open_pipes(t_ms *ms, int i);
+
+// exec/execute_2.c
+int		ft_exec(t_ms *ms, char **cmd);
+void	ft_closefds(t_ms *ms, int i);
+void	ft_closepipes(t_ms *ms, int i);
+char	*ft_pathjoin(char *path, char *cmd);
+
+// exec/execute_3.c
+int		ft_execct(t_ms *ms, int i, int j);
+
+// exec/execute_4.c
+void	ft_forking_helper(t_ms *ms, int i, int j);
+
+// exec/execute_5.c
+void	ft_heredoc(t_ms *ms, int i, int j);
+int		ft_newin(t_ms *ms, int i, int j);
+int		ft_newout(t_ms *ms, int i, int j);
+
+// expand/expand_0.c
+char	*ft_expand(t_ms *ms, char *s);
+
+// expand/expand_1.c
+int		ft_jointext(t_ms *ms);
+
+// expand/expand_2.c
+int		ft_expand_strings(t_ms *ms);
+
 // lex/lexer_0.c
 t_list	*ft_lexer(t_ms *ms);
 void	ft_gettextquote(t_token *token, char **strptr, char quote);
@@ -166,14 +221,5 @@ int		ft_createct(t_ms *ms);
 int		ft_parser(t_ms *ms);
 int		ft_createcs(t_ms *ms);
 void	ft_updatectn(t_ms *ms);
-
-// expand/expand_0.c
-char	*ft_expand(t_ms *ms, char *s);
-
-// expand/expand_1.c
-int		ft_jointext(t_ms *ms);
-
-// expand/expand_2.c
-int		ft_expand_strings(t_ms *ms);
 
 #endif

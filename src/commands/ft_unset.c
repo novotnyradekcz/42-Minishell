@@ -6,55 +6,71 @@
 /*   By: rnovotny <rnovotny@student.42prague.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/21 06:34:12 by lmaresov          #+#    #+#             */
-/*   Updated: 2024/10/14 19:56:24 by rnovotny         ###   ########.fr       */
+/*   Updated: 2024/10/16 15:18:16 by rnovotny         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../minishell.h"
 
-void	rm_from_env(t_ms *ms, char *key)
+void	ft_lstrm(t_ms *ms, t_list *lst)
 {
-	t_listd	*envar;
-	t_listd	*prev;
+	t_list	*l;
 
-	envar = ms->envar;
-	prev = NULL;
-	while (envar)
+	if (lst == ms->el)
 	{
-		if (!(ft_strcmp(((t_env *)envar->data)->env_key, key)))
+		ms->el = ms->el->next;
+		ft_lstdelone(lst, ft_free_ev);
+	}
+	else
+	{
+		l = ms->el;
+		while (l)
 		{
-			if (prev)
-				prev->next = envar->next;
-			else
-				ms->envar = envar->next;
-			free(((t_env *)envar->data)->env_key);
-			if (((t_env *)envar->data)->env_value[0])
-				free(((t_env *)envar->data)->env_value);
-			free(envar->data);
-			free(envar);
-			return ;
+			if (l->next == lst)
+			{
+				l->next = lst->next;
+				ft_lstdelone(lst, ft_free_ev);
+			}
+			l = l->next;
 		}
-		prev = envar;
-		envar = envar->next;
 	}
 }
 
-void	ft_unset(t_ms *ms)
+int	ft_envlist_rm(t_ms *ms, t_list *el, char *str)
 {
-	int		i;
-	t_listd	*envar;
+	t_list	*lst;
+	t_ev	*ev;
 
-	envar = ms->envar;
-	if (!(((t_cmd *)ms->commands->data)->arguments[0]))
+	lst = el;
+	while (lst)
 	{
-		printf("unset: not enough arguments\n");
-		ms->exit_status = 1;
-		return ;
+		ev = lst->content;
+		if (!ft_strncmp(ev->var, str, ft_strlen(str) + 1))
+		{
+			ft_lstrm(ms, lst);
+			return (0);
+		}
+		lst = lst->next;
 	}
-	if (!envar)
-		return ;
-	i = -1;
-	while (((t_cmd *)ms->commands->data)->arguments[++i])
-		rm_from_env(ms, ((t_cmd *)ms->commands->data)->arguments[i]);
-	ms->exit_status = 0;
+	return (0);
+}
+
+void	ft_unset(t_ms *ms, char *argv[])
+{
+	int		r;
+	int		i;
+
+	r = 0;
+	i = 1;
+	if (!argv[1])
+	{
+		ft_printf_fd(2, "unset: not enought arguments\n");
+		r = 1;
+	}
+	while (argv[i])
+	{
+		r = ft_envlist_rm(ms, ms->el, argv[i]);
+		i++;
+	}
+	ms->error = r;
 }
