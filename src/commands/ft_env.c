@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ft_env.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: lmaresov <lmaresov@student.42prague.com    +#+  +:+       +#+        */
+/*   By: rnovotny <rnovotny@student.42prague.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/21 06:33:41 by lmaresov          #+#    #+#             */
-/*   Updated: 2024/10/16 16:38:16 by lmaresov         ###   ########.fr       */
+/*   Updated: 2024/10/16 18:45:56 by rnovotny         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -72,7 +72,7 @@ void	ft_env(t_ms *ms)
 	new_str = all_env_str(tmp, new_str);
 	cmd = ms->commands->data;
 	if (cmd->redir)
-		handle_redir(cmd, new_str);
+		handle_redir(cmd);
 	else
 		printf("%s", new_str);
 	ms->exit_status = 0;

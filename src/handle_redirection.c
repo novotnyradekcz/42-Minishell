@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   handle_redirection.c                               :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: lmaresov <lmaresov@student.42prague.com    +#+  +:+       +#+        */
+/*   By: rnovotny <rnovotny@student.42prague.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/12 11:59:28 by lmaresov          #+#    #+#             */
-/*   Updated: 2024/10/13 12:52:38 by lmaresov         ###   ########.fr       */
+/*   Updated: 2024/10/16 19:08:29 by rnovotny         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,50 +14,39 @@
 #include "minishell.h"
 
 
-char * handle_redirection_read(t_cmd * cmd)
+void	handle_redirection_read(t_cmd * cmd)
 {
-    char *result;
-
-    result = "nic\n";
     if(ft_strcmp(cmd->redir, "<") == 0)
     {
-        result = read_redir(cmd);
-        if (ft_strcmp(cmd->command, "cat") == 0)
-        {
-            //printf("%s", result);
-            return(result);
-        }    
-            
+        read_redir(cmd);
     }
     if(ft_strcmp(cmd->redir, "<<") == 0)
     {
-        result = heredoc_redir(cmd);
+        heredoc_redir(cmd);
         //printf("result:%s\n",result);
-        return (result);
+        return ;
     }
-    return (result);
 }
 
 
-void handle_redirection_write(t_cmd * cmd, char * str)
+void handle_redirection_write(t_cmd * cmd)
 {
     if(ft_strcmp(cmd->redir, ">") == 0)
-        write_redir(cmd, str);
+        write_redir(cmd);
     else if(ft_strcmp(cmd->redir, ">>") == 0)
-        append_redir(cmd, str);
+        append_redir(cmd);
 }
 
-void handle_redir(t_cmd * cmd, char *str)
+void handle_redir(t_cmd * cmd)
 {
     if (cmd->redir && (ft_strcmp(cmd->redir, ">") == 0 || ft_strcmp(cmd->redir, ">>") == 0 ))
     {
-        handle_redirection_write(cmd, str);
+        handle_redirection_write(cmd);
         //printf ("chyba3\n");
     }   
     else if (cmd->redir && (ft_strcmp(cmd->redir, "<") == 0 || ft_strcmp(cmd->redir, "<<") == 0 ))
     {
         handle_redirection_read(cmd);
         //printf ("chyba4\n");
-        printf("%s", str);
     }      
 }

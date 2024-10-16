@@ -6,7 +6,7 @@
 /*   By: rnovotny <rnovotny@student.42prague.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/21 06:33:33 by lmaresov          #+#    #+#             */
-/*   Updated: 2024/10/14 19:58:27 by rnovotny         ###   ########.fr       */
+/*   Updated: 2024/10/16 18:45:15 by rnovotny         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -127,7 +127,7 @@ void	ft_cd_redir(t_ms *ms)
 	if (cmd->redir)
 	{
 		handle_redirection_read(cmd);
-		handle_redirection_write(cmd, "");
+		handle_redirection_write(cmd);
 	}
 }
 

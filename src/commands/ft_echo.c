@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ft_echo.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: lmaresov <lmaresov@student.42prague.com    +#+  +:+       +#+        */
+/*   By: rnovotny <rnovotny@student.42prague.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/21 06:23:47 by lmaresov          #+#    #+#             */
-/*   Updated: 2024/10/16 16:31:38 by lmaresov         ###   ########.fr       */
+/*   Updated: 2024/10/16 18:45:42 by rnovotny         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -53,7 +53,7 @@ void	ft_echo(t_ms *ms)
 	if (!cmd->option)
 		str = ft_strjoin(str, "\n");
 	if (cmd->redir)
-		handle_redir(cmd, str);
+		handle_redir(cmd);
 	else
 		printf("%s", str);
 	ms->exit_status = 0;
