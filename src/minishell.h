@@ -6,7 +6,7 @@
 /*   By: rnovotny <rnovotny@student.42prague.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/01 09:30:55 by lmaresov          #+#    #+#             */
-/*   Updated: 2024/10/16 15:15:23 by rnovotny         ###   ########.fr       */
+/*   Updated: 2024/10/16 15:41:48 by rnovotny         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -124,6 +124,12 @@ typedef struct s_cs
 // minishell.c
 int		minishell(t_ms *ms);
 
+// init.c
+void	ft_init(t_ms *ms);
+void	ft_init_prompt(t_ms *ms);
+t_ev	*ft_evinit(char *str);
+void	ft_sortenv(t_list *el);
+
 // signals.c
 void	ft_newline(int signal);
 void	ft_global_sig(int signal);
@@ -221,5 +227,16 @@ int		ft_createct(t_ms *ms);
 int		ft_parser(t_ms *ms);
 int		ft_createcs(t_ms *ms);
 void	ft_updatectn(t_ms *ms);
+
+//	utils/free.c
+void	ft_free_ev(void *ptr);
+void	ft_free_token(void *ptr);
+void	ft_free(t_ms *ms);
+void	ft_free_cs(t_ms *ms);
+
+// utils/wait.c
+void	ft_wait(t_ms *ms, int pid, int options);
+void	ft_exit(t_ms *ms, int err);
+void	ft_mini_free(t_ms *ms);
 
 #endif
