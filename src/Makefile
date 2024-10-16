@@ -3,10 +3,10 @@
 #                                                         :::      ::::::::    #
 #    Makefile                                           :+:      :+:    :+:    #
 #                                                     +:+ +:+         +:+      #
-#    By: rnovotny <rnovotny@student.42prague.com    +#+  +:+       +#+         #
+#    By: lmaresov <lmaresov@student.42prague.com    +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2024/08/31 10:49:44 by lmaresov          #+#    #+#              #
-#    Updated: 2024/10/15 19:25:19 by rnovotny         ###   ########.fr        #
+#    Updated: 2024/10/16 17:46:17 by lmaresov         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -22,7 +22,6 @@ SRCS = minishell.c\
 	expand_envar.c\
 	free_memory_helper.c\
 	free_memory.c\
-	ft_libft.c\
 	handle_redir_helper.c\
 	handle_redirection.c\
 	run_commands.c\
@@ -40,6 +39,14 @@ SRCS = minishell.c\
 	utils/ft_atoi.c \
 	utils/ft_split.c \
 	utils/ft_strlcpy.c \
+	utils/ft_is.c \
+	utils/ft_memset.c \
+	utils/ft_strchr.c \
+	utils/ft_strcmp.c \
+	utils/ft_strdup.c \
+	utils/ft_strjoin.c \
+	utils/ft_strlen.c \
+	utils/ft_substr.c \
 
 
 OBJS = $(SRCS:.c=.o)

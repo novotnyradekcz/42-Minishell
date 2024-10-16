@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minishell.h                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: rnovotny <rnovotny@student.42prague.com    +#+  +:+       +#+        */
+/*   By: lmaresov <lmaresov@student.42prague.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/01 09:30:55 by lmaresov          #+#    #+#             */
-/*   Updated: 2024/10/15 19:25:07 by rnovotny         ###   ########.fr       */
+/*   Updated: 2024/10/16 17:43:55 by lmaresov         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,6 +21,7 @@
 #include <signal.h>
 #include <unistd.h>
 #include <fcntl.h>
+#include <sys/wait.h>
 
 
 
@@ -119,21 +120,6 @@ void free_ms_envar(t_listd **header);
 void free_all(t_ms *ms);
 void free_ms_commands(t_ms *ms);
 
-
-//ft_libft.c
-int	ft_isascii(int c);
-size_t	ft_strlen(const char *s);
-char	*ft_substr(char const *s, unsigned int start, size_t len);
-int ft_strcmp(char *s1, char *s2);
-char	*ft_strchr(const char *s, int c);
-int	ft_isprint(int c);
-int is_whitespace(int c);
-void	*ft_memset(void *s, int c, size_t n);
-char	*ft_strjoin(char const *s1, char const *s2);
-char	*ft_strjoin_with_space(char const *s1, char const *s2);
-char	*ft_strjoin_freeleft(char *s1, char *s2);
-char	*ft_strdup(const char *s);
-
 //handle_redir_helper.c
 int write_redir(t_cmd *cmd, char * str);
 int append_redir(t_cmd *cmd, char * str);
@@ -191,5 +177,17 @@ void	ft_unset(t_ms *ms);
 int		ft_atoi(const char *nptr);
 char	**ft_split(char const *s, char c);
 size_t	ft_strlcpy(char *dst, const char *src, size_t size);
+int	ft_isascii(int c);
+size_t	ft_strlen(const char *s);
+char	*ft_substr(char const *s, unsigned int start, size_t len);
+int ft_strcmp(char *s1, char *s2);
+char	*ft_strchr(const char *s, int c);
+int	ft_isprint(int c);
+int is_whitespace(int c);
+void	*ft_memset(void *s, int c, size_t n);
+char	*ft_strjoin(char const *s1, char const *s2);
+char	*ft_strjoin_with_space(char const *s1, char const *s2);
+char	*ft_strjoin_freeleft(char *s1, char *s2);
+char	*ft_strdup(const char *s);
 
 #endif
