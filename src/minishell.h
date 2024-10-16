@@ -6,10 +6,9 @@
 /*   By: rnovotny <rnovotny@student.42prague.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/01 09:30:55 by lmaresov          #+#    #+#             */
-/*   Updated: 2024/10/15 19:51:12 by rnovotny         ###   ########.fr       */
+/*   Updated: 2024/10/16 12:35:08 by rnovotny         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
-
 
 #ifndef MINISHELL_H
 #define MINISHELL_H
@@ -22,177 +21,137 @@
 #include <unistd.h>
 #include <fcntl.h>
 
-
-
-
-typedef struct s_list t_list;
-typedef struct s_listd t_listd;
+extern int	g_signal;
 
 typedef struct s_list
 {
-    t_list *next;
-    void *data;
-} t_list;
+	void			*content;
+	struct s_list	*next;
+}	t_list;
 
-typedef struct s_listd
+typedef struct s_dlist
 {
-    void * data;
-    t_listd *prev;
-    t_listd *next;
-    
-}t_listd;
+	void			*content;
+	struct s_dlist	*prev;
+	struct s_dlist	*next;
+}	t_dlist;
 
 typedef struct s_ms
 {
-    char *input;
-    t_list *tokens;
-    t_listd *envar;
-    t_list *commands;
-    int num_of_cmd;
-    int single_quotes;
-    int double_quotes;
-	int exit_status;
-    
-}t_ms;
+	int		live;
+	int		signal;
+	int		parent;
+	int		child;
+	int		err[2];
+	int		error;
+	int		exit;
+	int		csn;
+	char	*prompt;
+	char	*pwd;
+	char	*s;
+	char	**ev;
+	t_cs	*cs;
+	t_list	*el;
+	t_list	*lex;
+	t_list	*exe;
+}	t_ms;
 
-typedef struct s_env
+typedef struct s_ev
 {
-    char *env_key;
-    char *env_value;
-    
-}t_env;
+	char	*s;
+	char	*var;
+	char	*val;
+	char	**vals;
+}	t_ev;
 
-typedef struct s_cmd
+typedef struct s_token
 {
-    char *command;
-    char **arguments;
-    char *redir;
-    int num_of_args;
-    char *in_file;
-	char *out_file;
-    char *here_doc;
-    char *option;
-	int fd_in;
-	int fd_out;
-}t_cmd;
+	unsigned int	type;
+	int				csi;
+	char			*text;
+}	t_token;
 
+typedef enum e_type
+{
+	SINGLEQUOTE = 0x1,
+	DOUBLEQUOTE = 0x2,
+	NOQUOTE = 0x4,
+	PIPE = 0x8,
+	INFILE = 0x10,
+	HEREDOC = 0x20,
+	OUTFILE = 0x40,
+	APPEND = 0x80,
+	ERRFILE = 0x100,
+	ERRAPPEND = 0x200,
+	INOUTFILE = 0x400,
+	SPACETOKEN = 0x800,
+	AND = 0x1000,
+	OR = 0x2000,
+	OPENPAR = 0x4000,
+	CLOSEPAR = 0x8000,
+	TEXT = 0x7,
+	ANDOR = 0x3000,		
+	REDIRECTS = 0x7F0,
+	PAR = 0xC000,
+	BONUS = 0xFFFF0000
+}	t_type;
 
-//divide_input.c
-void divide_input(t_ms *ms);
-void expand_envar(t_ms *ms);
-void separate_tokens(t_ms *ms, char *input);
+typedef struct s_checker
+{
+	t_token	*token;
+	int		text;
+	int		stuff;
+	int		parentheses;
+	int		status;
+}	t_check;
 
-//env_to_listd.c
-int get_key_len(char *envv, char sep);
-char *get_key(char *envv, char sep, int *i, int key_len);
-char *get_value(char *envv, int *i, int value_len);
-char **split_key_value(char *envv, char sep);
-char **split_env(char *envv);
-t_env * put_envvar_to_envstruct(char ** env_var);
-t_listd *listd_new_node(void *data);
-void listd_add_header(t_listd **listd_header, t_listd *new_node);
-t_listd * listd_last_node(t_listd *listd_header);
-void listd_to_ms(t_listd ** listd_header, t_listd *new_node);
-void add_envv_to_listd(t_ms *ms, t_env *env_struct);
-void env_to_listd(t_ms *ms, char **env);
+typedef struct s_ct
+{
+	char	**argv;
+	char	*hd;
+	int		hdpipe[2];
+	int		fds[3][2];
+}	t_ct;
 
+typedef struct s_cs
+{
+	int		ctn;
+	int		*pids;
+	int		(*pipes)[2];
+	t_ct	*ct;
+}	t_cs;
 
-//expand_envar_help.c
-char *env_key(char *str);
-t_listd *get_envar_node(t_listd *envar, char *key);
-char *env_value(t_listd *envar, char *key);
-void no_env_value(t_ms *ms, int *i, char *key);
-char *get_exp_input(char*value, char*input, int start, int end);
+//		minishell.c
+int		minishell(t_ms *ms);
 
-//expand_envar.c
-void quote_checker(char character, int *quote);
-void get_envar(t_ms *ms, int *i);
+//		signals.c
+void	ft_newline(int signal);
+void	ft_global_sig(int signal);
+void	ft_newglobal_sig(int signal);
+void	ft_exit_sig(int signal);
 
-//free_memory_helper.c
-void free_header_ptr(void **ptr);
-void del_header_list(t_list **header);
-void del_tokens(t_list **header);
-void del_header_listd(t_listd **header);
+// check/check_tokens_0.c
+int		ft_tokenchecker(t_ms *ms);
 
+// check/check_tokens_1.c
+void	ft_extra_check_test(t_check *check);
+void	ft_extra_check(t_list *lst, t_check *check);
+void	ft_check_stuff(t_check *check);
+void	ft_check_text(t_check *check);
 
-//free_memory.c
-void free_ms_input(t_ms *ms);
-void free_ms_tokens(t_ms *ms);
-void free_ms_envar(t_listd **header);
-void free_all(t_ms *ms);
-void free_ms_commands(t_ms *ms);
+// lex/lexer_0.c
+t_list	*ft_lexer(t_ms *ms);
+void	ft_gettextquote(t_token *token, char **strptr, char quote);
+void	ft_getspace(t_token *token, char **strptr);
 
+// lex/lexer_1.c
+int		ft_isspace(int c);
+int		ft_istoken(int c);
+int		ft_isquote(int c);
+void	ft_settoken(t_token *token, int type, char *s);
+void	ft_gettext(t_token *token, char **strptr);
 
-//ft_libft.c
-int	ft_isascii(int c);
-size_t	ft_strlen(const char *s);
-char	*ft_substr(char const *s, unsigned int start, size_t len);
-int ft_strcmp(char *s1, char *s2);
-char	*ft_strchr(const char *s, int c);
-int	ft_isprint(int c);
-int is_whitespace(int c);
-void	*ft_memset(void *s, int c, size_t n);
-char	*ft_strjoin(char const *s1, char const *s2);
-char	*ft_strjoin_with_space(char const *s1, char const *s2);
-char	*ft_strjoin_freeleft(char *s1, char *s2);
-char	*ft_strdup(const char *s);
-
-//handle_redir_helper.c
-int write_redir(t_cmd *cmd, char * str);
-int append_redir(t_cmd *cmd, char * str);
-char *read_redir(t_cmd * cmd);
-char * heredoc_redir(t_cmd * cmd);
-
-//handle_redirection.c
-//void handle_redirection(t_cmd * cmd, char * str);
-char * handle_redirection_read(t_cmd * cmd);
-void handle_redirection_write(t_cmd * cmd, char * str);
-void handle_redir(t_cmd * cmd, char *str);
-
-//run_comands.c
-int check_command(char *command);
-int one_command(t_ms *ms);
-
-
-void run_commands(t_ms *ms);
-
-
-
-
-
-//separate_tokens_ft_helper.c
-void add_token_to_list(t_ms *ms, int start, int end);
-t_list *save_token(char *data);
-void add_token_to_mstokens(t_list **header, t_list *new_token);
-int only_remain_char_checker(char c);
-
-//separate_tokens_ft.c
-void redirection_token(t_ms *ms, char *input, int *i);
-void quotation_marks_token(t_ms*ms, char *input, int *i);
-void remaining_arg_token(t_ms *ms, char *input, int *i);
-
-//syntax_error.c
-int syntax_error(t_ms *ms);
-
-//utils.c
-char *get_input();
-int only_whitespace(char *str);
-char *get_input_heredoc(char *eof);
-
-//commands/ft_echo.c
-char *ft_echo_helper(char **arguments);
-//commands
-void	ft_echo(t_ms *ms);
-void	ft_env(t_ms *ms);
-void	ft_pwd(t_ms *ms);
-void	ft_cd(t_ms *ms);
-void	ft_exit(t_ms *ms);
-void	ft_export(t_ms *ms);
-void	ft_unset(t_ms *ms);
-
-//utils
-int		ft_atoi(const char *nptr);
-char	**ft_split(char const *s, char c);
-size_t	ft_strlcpy(char *dst, const char *src, size_t size);
+// lex/lexer_2.c
+t_token	*ft_gettoken(char **strptr);
 
 #endif

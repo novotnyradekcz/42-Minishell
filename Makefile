@@ -6,7 +6,7 @@
 #    By: rnovotny <rnovotny@student.42prague.com    +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2024/08/31 10:49:44 by lmaresov          #+#    #+#              #
-#    Updated: 2024/10/15 19:25:19 by rnovotny         ###   ########.fr        #
+#    Updated: 2024/10/16 12:08:14 by rnovotny         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -15,31 +15,8 @@ NAME = minishell
 CC = gcc
 CFLAGS = -Wall -Wextra -Werror -I/opt/homebrew/Cellar/readline/8.2.13/include
 LDFLAGS = -lreadline -L/opt/homebrew/Cellar/readline/8.2.13/lib
-SRCS = minishell.c\
-	divide_input.c\
-	env_to_listd.c\
-	expand_envar_help.c\
-	expand_envar.c\
-	free_memory_helper.c\
-	free_memory.c\
-	ft_libft.c\
-	handle_redir_helper.c\
-	handle_redirection.c\
-	run_commands.c\
-	separate_tokens_ft_helper.c\
-	separate_tokens_ft.c\
-	syntax_error.c\
-	utils.c\
-	commands/ft_cd.c\
-	commands/ft_echo.c\
-	commands/ft_env.c\
-	commands/ft_exit.c\
-	commands/ft_export.c\
-	commands/ft_pwd.c\
-	commands/ft_unset.c \
-	utils/ft_atoi.c \
-	utils/ft_split.c \
-	utils/ft_strlcpy.c \
+SRCS = minishell.c \
+	signals.c \
 
 
 OBJS = $(SRCS:.c=.o)

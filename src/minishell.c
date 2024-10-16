@@ -6,106 +6,67 @@
 /*   By: rnovotny <rnovotny@student.42prague.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/01 09:30:12 by lmaresov          #+#    #+#             */
-/*   Updated: 2024/10/14 19:58:14 by rnovotny         ###   ########.fr       */
+/*   Updated: 2024/10/16 12:06:58 by rnovotny         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 
-void ft_handle_signal(int signal)
+int	g_signal;
+
+void	ft_errorcheck(t_ms *ms)
 {
-    if (signal == SIGINT)
-    {
-        rl_replace_line("", 0);
-        printf("\n");
-        rl_on_new_line();
-        rl_redisplay();
-    }
+	if (ms->err[1])
+		ms->err[1] = 0;
+	else if (ms->err[0])
+		ms->err[0] = 0;
 }
 
-void allocate_memory(t_ms **ms, size_t size, char *message)
+void	ft_analyse(t_ms *ms)
 {
-    *ms = malloc(size);
-    if (!*ms)
-    {
-        printf("%s\n", message);
-        return ;
-    }
-    ft_memset(*ms, '\0', size);
+	ms->lex = ft_lexer(ms);
+	if (ft_tokenchecker(ms))
+		return ;
+	if (ft_parser(ms))
+		ft_printf_fd(2, "Unexpected token or something bad\n");
+	if (ft_bonus_executor(ms))
+		ft_printf_fd(2, "Executor error\n");
 }
 
-void init_ms(t_ms *ms, char **env)
+int	minishell(t_ms *ms)
 {
-    env_to_listd(ms, env);
-    ms->num_of_cmd = 1;
-    ms->double_quotes = 0;
-    ms->single_quotes = 0;
-	ms->exit_status = 0;
+	while (ms->live)
+	{
+		signal(SIGINT, ft_newline);
+		ms->s = readline(ms->prompt);
+		if (!ms->s)
+			break ;
+		else
+		{
+			if (ms->s[0])
+				add_history (ms->s);
+			ft_analyse(ms);
+			ft_errorcheck(ms);
+			free(ms->s);
+			ft_mini_free(ms);
+		}
+	}
+	write(1, "exit\n", 5);
+	ft_free(ms);
+	return (ms->exit);
 }
-
-
 
 int main (int argc, char **argv, char **env)
 {
-    t_ms *ms;
-   
+    t_ms	ms;
 
-    if (argc != 1)
-    {
-        printf("run program ./minishell without arguments\n");
-        exit(1);
-    }
-    signal(SIGINT, ft_handle_signal);
-    signal(SIGQUIT, SIG_IGN);
-    allocate_memory(&ms, sizeof(t_ms), "Error: ms malloc");
-    init_ms(ms, env);
-    while(1)
-    {
-        ms->input = get_input();
-        if(ft_strcmp(ms->input, "") == 0 || only_whitespace(ms->input))
-            continue;
-        if (syntax_error(ms))
-            continue;
-        divide_input(ms);
-		if (ft_strcmp(((t_cmd *)ms->commands->data)->command, "echo") == 0 && ft_strcmp(((t_cmd *)ms->commands->data)->arguments[0], "$?") == 0)
-			{
-				printf("%d\n", ms->exit_status);
-				ms->exit_status = 0;
-			}
-
-        /*
-        t_list *command_list = ms->commands;
-        int cmd_num = 1;
-        while (command_list)
-        {
-            t_cmd *cmd = (t_cmd *)command_list->data;
-            printf("command%d: %s\n", cmd_num, cmd->command);
-            if (cmd->arguments && cmd->arguments[0])
-            {
-                printf("argument%d: %s\n", cmd_num, cmd->arguments[0]);
-            }
-            cmd_num++;
-            command_list = command_list->next;
-        }*/
-
-        else
-        	run_commands(ms);
-       
-       
-       
-        //printf("num of comands: %d\n", ms->num_of_cmd);
-        //printf("double quotes: %d\n", ms->double_quotes);
-        //printf("single quotes: %d\n", ms->single_quotes);
-        //printf("%s\n", (char*)ms->envar->data);
-        free_ms_input(ms);
-        free_ms_tokens(ms);
-        free_ms_commands(ms);
-    }
-
-    //////////////////
-    if ( !argv)
-    {
-
-    }
-    return (0);
+	(void)argc;
+	(void)argv;
+	g_signal = 0;
+	ms.ev = env;
+	signal(SIGQUIT, SIG_IGN);
+	signal(SIGINT, ft_newline);
+	ft_init(&ms);
+	minishell(&ms);
+	return (ms.exit);
 }
