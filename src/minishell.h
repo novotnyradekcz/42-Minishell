@@ -6,7 +6,7 @@
 /*   By: rnovotny <rnovotny@student.42prague.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/01 09:30:55 by lmaresov          #+#    #+#             */
-/*   Updated: 2024/10/16 12:35:08 by rnovotny         ###   ########.fr       */
+/*   Updated: 2024/10/16 14:45:40 by rnovotny         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -121,10 +121,10 @@ typedef struct s_cs
 	t_ct	*ct;
 }	t_cs;
 
-//		minishell.c
+// minishell.c
 int		minishell(t_ms *ms);
 
-//		signals.c
+// signals.c
 void	ft_newline(int signal);
 void	ft_global_sig(int signal);
 void	ft_newglobal_sig(int signal);
@@ -153,5 +153,27 @@ void	ft_gettext(t_token *token, char **strptr);
 
 // lex/lexer_2.c
 t_token	*ft_gettoken(char **strptr);
+
+// parse/parser_0.c
+int		ft_fillcts(t_ms *ms, int i, int j);
+void	ft_updatecsn(t_ms *ms);
+
+// parse/parser_1.c
+int		ft_fillctfd(t_ct *ct, char *file, int *r);
+
+// parse/parser_2.c
+int		ft_createct(t_ms *ms);
+int		ft_parser(t_ms *ms);
+int		ft_createcs(t_ms *ms);
+void	ft_updatectn(t_ms *ms);
+
+// expand/expand_0.c
+char	*ft_expand(t_ms *ms, char *s);
+
+// expand/expand_1.c
+int		ft_jointext(t_ms *ms);
+
+// expand/expand_2.c
+int		ft_expand_strings(t_ms *ms);
 
 #endif
