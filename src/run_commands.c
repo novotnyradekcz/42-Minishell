@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   run_commands.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: rnovotny <rnovotny@student.42prague.com    +#+  +:+       +#+        */
+/*   By: lmaresov <lmaresov@student.42prague.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/20 09:11:11 by lmaresov          #+#    #+#             */
-/*   Updated: 2024/10/15 19:25:55 by rnovotny         ###   ########.fr       */
+/*   Updated: 2024/10/16 18:28:44 by lmaresov         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -220,6 +220,8 @@ void	execute_other(t_ms *ms)
 	pid = fork();
 	if (pid == 0)
 	{
+		
+		
 		signal(SIGINT, SIG_DFL);
 		signal(SIGQUIT, SIG_DFL);
 		child_process(ms, env, arg);
