@@ -6,7 +6,7 @@
 /*   By: rnovotny <rnovotny@student.42prague.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/01 09:30:55 by lmaresov          #+#    #+#             */
-/*   Updated: 2024/10/15 19:25:07 by rnovotny         ###   ########.fr       */
+/*   Updated: 2024/10/15 19:51:12 by rnovotny         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -68,9 +68,12 @@ typedef struct s_cmd
     char **arguments;
     char *redir;
     int num_of_args;
-    char *redir_file;
+    char *in_file;
+	char *out_file;
     char *here_doc;
     char *option;
+	int fd_in;
+	int fd_out;
 }t_cmd;
 
 

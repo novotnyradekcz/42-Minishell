@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   divide_input.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: lmaresov <lmaresov@student.42prague.com    +#+  +:+       +#+        */
+/*   By: rnovotny <rnovotny@student.42prague.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/01 09:29:31 by lmaresov          #+#    #+#             */
-/*   Updated: 2024/10/14 18:14:47 by lmaresov         ###   ########.fr       */
+/*   Updated: 2024/10/15 20:21:58 by rnovotny         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,14 +28,14 @@ char **get_arguments(t_cmd *curr_cmd, t_ms *ms)
         if (ft_strcmp((char *)ms->tokens->data, ">") == 0 || ft_strcmp((char *)ms->tokens->data, ">>") == 0)
         {
             curr_cmd->redir = ft_strdup((char *)ms->tokens->data);
-            curr_cmd->redir_file = ft_strdup((char *)ms->tokens->next->data);
+            curr_cmd->out_file = ft_strdup((char *)ms->tokens->next->data);
             ms->tokens = ms->tokens->next;
             return args;
         }
         else if (ft_strcmp((char *)ms->tokens->data, "<") == 0 || ft_strcmp((char *)ms->tokens->data, "<<") == 0)
         {
             curr_cmd->redir = ft_strdup((char *)ms->tokens->data);
-            curr_cmd->redir_file = ft_strdup((char *)ms->tokens->next->data);
+            curr_cmd->in_file = ft_strdup((char *)ms->tokens->next->data);
             ms->tokens = ms->tokens->next;
             return args;
         }
@@ -68,7 +68,10 @@ void init_cmd(t_cmd *cmd)
     cmd->num_of_args = 0;
     cmd->option = NULL;
     cmd->redir = NULL;
-    cmd->redir_file = NULL;
+    cmd->in_file = NULL;
+	cmd->out_file = NULL;
+	cmd->fd_in = 0;
+	cmd->fd_out = 1;
 }
 
 t_cmd *get_one_cmd(t_ms * ms)
@@ -131,9 +134,24 @@ void divide_commands(t_ms *ms)
     }
 }
 
+void	redir_cmds(t_ms *ms)
+{
+	t_list	*cmds;
+	t_cmd	*cmd;
+
+	cmds = ms->commands;
+	while (cmds)
+	{
+		cmd = (t_cmd *)cmds->data;
+		if (cmd->out_file && ft_strcmp(cmd->redir, ">") == 0)
+			write_redir(cmd, "TODO: put something here");
+		cmds = cmds->next;
+	}
+}
+
 void divide_input(t_ms *ms)
 {
-    expand_envar(ms);
+	expand_envar(ms);
     //printf("ms->input after expanding envvar: %s\n", ms->input);
    // return ;
     separate_tokens(ms, ms->input);
@@ -145,6 +163,7 @@ void divide_input(t_ms *ms)
             ms->tokens = ms->tokens->next; 
         }
     }
+	redir_cmds(ms);
 //
 //
 //

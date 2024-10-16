@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   free_memory.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: lmaresov <lmaresov@student.42prague.com    +#+  +:+       +#+        */
+/*   By: rnovotny <rnovotny@student.42prague.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/20 05:22:57 by lmaresov          #+#    #+#             */
-/*   Updated: 2024/09/30 08:25:59 by lmaresov         ###   ########.fr       */
+/*   Updated: 2024/10/15 19:55:05 by rnovotny         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -65,8 +65,10 @@ void free_ms_commands(t_ms *ms)
         // Uvolnění přesměrování (redir a redir_file)
         if (cmd->redir)
             free(cmd->redir);
-        if (cmd->redir_file)
-            free(cmd->redir_file);
+        if (cmd->in_file)
+            free(cmd->in_file);
+		if (cmd->out_file)
+			free(cmd->out_file);
 
         // Uvolnění struktury t_cmd
         free(cmd);
