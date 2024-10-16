@@ -3,66 +3,14 @@
 /*                                                        :::      ::::::::   */
 /*   ft_echo.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: rnovotny <rnovotny@student.42prague.com    +#+  +:+       +#+        */
+/*   By: lmaresov <lmaresov@student.42prague.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/21 06:23:47 by lmaresov          #+#    #+#             */
-/*   Updated: 2024/10/14 19:26:05 by rnovotny         ###   ########.fr       */
+/*   Updated: 2024/10/16 16:31:38 by lmaresov         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../minishell.h"
-/*
-char *ft_echo_helper(t_list *tmp)
-{
-    char *str;
-    char *tmp_str;
-
-    str = malloc(1);
-    if (!str)
-        return (NULL);
-    str[0] = '\0';
-    while (tmp->next)
-    {
-        tmp_str = ft_strjoin_with_space(str, tmp->data);
-        free(str);
-        str = tmp_str;
-        tmp = tmp->next;
-    }
-    tmp_str = ft_strjoin(str, tmp->data);
-    free(str);
-    str = tmp_str;
-    return (str);
-}
-
-void ft_echo(t_ms *ms)
-{
-    char *str;
-    //char *str_tmp;
-    int flag;
-    t_list *tmp;
-
-
-    tmp = ms->tokens->next;
-   // str_tmp = tmp->data;
-    //printf ("%c,   %c, ", str_tmp[0] , str_tmp[1]);
-    //if (str_tmp[0] == '-' && str_tmp[1] != 'n')
-   // {
-   //     printf("invalid option");
-   //     return ;
-   // }
-    flag = strcmp(tmp->data, "-n");
-    if (flag == 0)
-    {
-        tmp = tmp->next;
-        str = ft_echo_helper(tmp);
-        printf("%s", str);
-    }
-    else
-    {
-        str = ft_echo_helper(tmp);
-        printf("%s\n", str);
-    }
-}*/
 
 char	*ft_echo_helper(char **arguments)
 {
@@ -92,47 +40,21 @@ char	*ft_echo_helper(char **arguments)
 	str = tmp_str;
 	return (str);
 }
-/*
-void ft_echo(t_ms *ms)
-{
-    char *str;
-    
-   
-    if (((t_cmd *)ms->commands->data)->option && (ft_strcmp(((t_cmd *)ms->commands->data)->option, "-n") == 0))
-    {
-        str = ft_echo_helper(((t_cmd *)ms->commands->data)->arguments);
-        printf("%s", str);
-    }
-    else
-    {
-        str = ft_echo_helper(((t_cmd *)ms->commands->data)->arguments);
-        printf("%s\n", str);   
-    }
-}
-*/
-void ft_echo(t_ms *ms)
-{
-    char *str;
-    t_cmd *cmd;
 
-    str = "";
-    cmd = ms->commands->data;
-    if (cmd->arguments[0])
-        str = ft_echo_helper(((t_cmd *)ms->commands->data)->arguments);
-    if (!cmd->option)
-        str = ft_strjoin(str, "\n");
-    if ( cmd->redir)
-        handle_redir(cmd, str);
-    /*if (cmd->redir && (ft_strcmp(cmd->redir, ">") == 0 || ft_strcmp(cmd->redir, ">>") == 0))
-    {
-        handle_redirection_write(cmd, str);
-    }
-    else if (cmd->redir && ((ft_strcmp(cmd->redir, "<<") == 0) || ft_strcmp(cmd->redir, "<") == 0))  
-    {
-        handle_redirection_read(cmd);
-        printf("%s", str);
-    }*/
-    else
-        printf("%s", str);
+void	ft_echo(t_ms *ms)
+{
+	char	*str;
+	t_cmd	*cmd;
+
+	str = "";
+	cmd = ms->commands->data;
+	if (cmd->arguments[0])
+		str = ft_echo_helper(((t_cmd *)ms->commands->data)->arguments);
+	if (!cmd->option)
+		str = ft_strjoin(str, "\n");
+	if (cmd->redir)
+		handle_redir(cmd, str);
+	else
+		printf("%s", str);
 	ms->exit_status = 0;
 }
