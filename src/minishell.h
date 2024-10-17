@@ -6,7 +6,7 @@
 /*   By: rnovotny <rnovotny@student.42prague.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/01 09:30:55 by lmaresov          #+#    #+#             */
-/*   Updated: 2024/10/16 15:41:48 by rnovotny         ###   ########.fr       */
+/*   Updated: 2024/10/17 15:56:40 by rnovotny         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,6 +35,22 @@ typedef struct s_dlist
 	struct s_dlist	*prev;
 	struct s_dlist	*next;
 }	t_dlist;
+
+typedef struct s_ct
+{
+	char	**argv;
+	char	*hd;
+	int		hdpipe[2];
+	int		fds[3][2];
+}	t_ct;
+
+typedef struct s_cs
+{
+	int		ctn;
+	int		*pids;
+	int		(*pipes)[2];
+	t_ct	*ct;
+}	t_cs;
 
 typedef struct s_ms
 {
@@ -104,22 +120,6 @@ typedef struct s_checker
 	int		parentheses;
 	int		status;
 }	t_check;
-
-typedef struct s_ct
-{
-	char	**argv;
-	char	*hd;
-	int		hdpipe[2];
-	int		fds[3][2];
-}	t_ct;
-
-typedef struct s_cs
-{
-	int		ctn;
-	int		*pids;
-	int		(*pipes)[2];
-	t_ct	*ct;
-}	t_cs;
 
 // minishell.c
 int		minishell(t_ms *ms);
