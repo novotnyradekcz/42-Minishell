@@ -6,7 +6,11 @@
 /*   By: lmaresov <lmaresov@student.42prague.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/20 09:11:11 by lmaresov          #+#    #+#             */
+<<<<<<< HEAD
 /*   Updated: 2024/10/16 19:47:26 by lmaresov         ###   ########.fr       */
+=======
+/*   Updated: 2024/10/16 19:52:28 by rnovotny         ###   ########.fr       */
+>>>>>>> origin/master
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -173,7 +177,6 @@ void	child_process(t_ms *ms, char **env, char **arg)
 		exit(127);
 	}
 	execve(path, arg, env);
-	
 }
 
 char **arguments_to_arg(char *command, char **arguments)
@@ -235,6 +238,7 @@ void	execute_other(t_ms *ms)
 	else
 	{
 		waitpid(pid, &ms->exit_status, 0);
+		unlink("heredoc");
 	}
 }
 
