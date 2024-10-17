@@ -6,7 +6,7 @@
 /*   By: lmaresov <lmaresov@student.42prague.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/16 17:40:47 by lmaresov          #+#    #+#             */
-/*   Updated: 2024/10/16 17:49:08 by lmaresov         ###   ########.fr       */
+/*   Updated: 2024/10/17 13:51:01 by lmaresov         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -94,6 +94,6 @@ char	*ft_strjoin_with_space(char const *s1, char const *s2)
 		j++;
 	}
 	new_str[i] = ' ';
-	new_str[i+1] = '\0';
+	new_str[i + 1] = '\0';
 	return (new_str);
 }

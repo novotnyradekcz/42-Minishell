@@ -6,7 +6,7 @@
 /*   By: lmaresov <lmaresov@student.42prague.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/27 05:28:42 by lmaresov          #+#    #+#             */
-/*   Updated: 2024/10/13 11:50:43 by lmaresov         ###   ########.fr       */
+/*   Updated: 2024/10/17 16:13:35 by lmaresov         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -80,3 +80,44 @@ int only_whitespace(char *str)
     return (1);
 }
 
+void    close_fd(t_cmd *cmd, int original_stdout)
+{
+	if (cmd->redir)
+	{   
+		if (ft_strcmp(cmd->redir, ">") == 0 || ft_strcmp(cmd->redir, ">>") == 0 )
+		{
+			if (dup2(original_stdout, STDOUT_FILENO) < 0)
+			{
+				perror("dup2 restore stdout\n");
+				return ;
+			}
+		}
+		else if(ft_strcmp(cmd->redir, "<") == 0 || ft_strcmp(cmd->redir, "<<") == 0)
+		{
+			if (dup2(original_stdout, STDIN_FILENO) < 0)
+			{
+				perror("dup2 restore stdout\n");
+				return ;
+			}
+		}
+		close(original_stdout);
+	}
+	if (cmd->redir && ft_strcmp(cmd->redir, "<<") == 0)
+		unlink("heredoc");
+}
+
+int setup_fd(t_cmd * cmd)
+{
+	int original_fd;
+	
+	if (cmd->redir)
+	{
+		if (ft_strcmp(cmd->redir, ">") == 0 || ft_strcmp(cmd->redir, ">>") == 0 )
+			original_fd = dup(STDOUT_FILENO);
+		else if (ft_strcmp(cmd->redir, "<") == 0 || ft_strcmp(cmd->redir, "<<") == 0)
+			original_fd = dup(STDIN_FILENO);
+		handle_redir(cmd);
+		return (original_fd);
+	}
+	return (-1);
+}

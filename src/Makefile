@@ -6,7 +6,7 @@
 #    By: lmaresov <lmaresov@student.42prague.com    +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2024/08/31 10:49:44 by lmaresov          #+#    #+#              #
-#    Updated: 2024/10/16 17:46:17 by lmaresov         ###   ########.fr        #
+#    Updated: 2024/10/17 16:37:49 by lmaresov         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -30,12 +30,14 @@ SRCS = minishell.c\
 	syntax_error.c\
 	utils.c\
 	commands/ft_cd.c\
+	commands/ft_cd_helper.c\
 	commands/ft_echo.c\
 	commands/ft_env.c\
 	commands/ft_exit.c\
 	commands/ft_export.c\
 	commands/ft_pwd.c\
 	commands/ft_unset.c \
+	commands/buildin_helper.c\
 	utils/ft_atoi.c \
 	utils/ft_split.c \
 	utils/ft_strlcpy.c \

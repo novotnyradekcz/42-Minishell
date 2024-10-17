@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ft_env.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: rnovotny <rnovotny@student.42prague.com    +#+  +:+       +#+        */
+/*   By: lmaresov <lmaresov@student.42prague.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/21 06:33:41 by lmaresov          #+#    #+#             */
-/*   Updated: 2024/10/16 18:45:56 by rnovotny         ###   ########.fr       */
+/*   Updated: 2024/10/17 16:59:59 by lmaresov         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -53,7 +53,8 @@ void	ft_env(t_ms *ms)
 {
 	t_listd	*tmp;
 	char	*new_str;
-	t_cmd	*cmd;
+	//t_cmd	*cmd;
+	int		original_fd;
 
 	new_str = malloc(sizeof(char));
 	new_str[0] = '\0';
@@ -70,11 +71,11 @@ void	ft_env(t_ms *ms)
 		tmp = tmp->next;
 	}
 	new_str = all_env_str(tmp, new_str);
-	cmd = ms->commands->data;
-	if (cmd->redir)
-		handle_redir(cmd);
-	else
-		printf("%s", new_str);
+	//cmd = ms->commands->data;
+	//original_fd = setup_fd(cmd);
+	original_fd = setup_fd(ms->commands->data);
+	printf("%s", new_str);
+	close_fd(ms->commands->data, original_fd);
 	ms->exit_status = 0;
 	free(new_str);
 }

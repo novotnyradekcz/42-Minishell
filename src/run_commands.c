@@ -6,11 +6,7 @@
 /*   By: lmaresov <lmaresov@student.42prague.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/20 09:11:11 by lmaresov          #+#    #+#             */
-<<<<<<< HEAD
-/*   Updated: 2024/10/16 19:47:26 by lmaresov         ###   ########.fr       */
-=======
-/*   Updated: 2024/10/16 19:52:28 by rnovotny         ###   ########.fr       */
->>>>>>> origin/master
+/*   Updated: 2024/10/17 16:23:40 by lmaresov         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -68,28 +64,8 @@ int one_command(t_ms *ms)
     return (1);   
 }
 
-int	check_builtin(t_ms *ms)
-{
-	char	*command;
-	
-	command = ((t_cmd *)ms->commands->data)->command;
-	if (!ft_strcmp(command, "echo"))
-		return (1);
-	else if (!ft_strcmp(command, "cd"))
-		return (1);
-	else if (!ft_strcmp(command, "pwd"))
-		return (1);
-	else if (!ft_strcmp(command, "export"))
-		return (1);
-	else if (!ft_strcmp(command, "unset"))
-		return (1);
-	else if (!ft_strcmp(command, "env"))
-		return (1);
-	else if (!ft_strcmp(command, "exit"))
-		return (1);
-	else
-		return (0);
-}
+
+
 
 char **env_to_char(t_listd *envar)
 {
@@ -123,11 +99,17 @@ char **env_to_char(t_listd *envar)
 
 int	check_exec_or_dir(char *path)
 {
-	printf("check_exec_or_dir\n");
+	//printf("check_exec_or_dir\n");
 	if (ft_strchr(path, '/') != NULL && (path[0] == '/' || path[0] == '.'))
-		{printf("true\n"); return (1);}
+		{
+			//printf("true\n"); 
+			return (1);
+			}
 	else
-		{printf("false\n"); return (0);}
+		{
+			//printf("false\n"); 
+			return (0);
+		}
 		
 }
 
@@ -154,30 +136,31 @@ void	child_process(t_ms *ms, char **env, char **arg)
 	char	*path;
 	char	**path_array;
 
-	printf("child process\n");
+	//printf("child process\n");
 	if (check_exec_or_dir(arg[0]))
 	{
-		printf("error");
+		//printf("error");
 		path = ft_strdup(arg[0]);
-		printf("path 0: %s\n", path);
+		//printf("path 0: %s\n", path);
 	}
 	else
 	{
-		printf("chyba");
+		//printf("chyba");
 		path_array = ft_split(env_value(ms->envar, "PATH"), ':');
-		printf("path_array: %s\n", path_array[0]);
+		//printf("path_array: %s\n", path_array[0]);
 		path = get_path(path_array, arg[0]);
-		printf("path 2: %s\n", path);
+		//printf("path 2: %s\n", path);
 	}
-	printf("chyba2");
+	//printf("chyba2");
 	if (!path)
 	{
 		ms->exit_status = 127;
-		printf("minishell: %s: command not found\n", arg[0]);
+		//printf("minishell: %s: command not found\n", arg[0]);
 		exit(127);
 	}
 	execve(path, arg, env);
 }
+
 
 char **arguments_to_arg(char *command, char **arguments)
 {
@@ -207,7 +190,7 @@ void	execute_other(t_ms *ms)
 	char	**arg;
 	char	**env;
 	
-	printf("execute other\n");
+	//printf("execute other\n");
 	arg = arguments_to_arg(((t_cmd *)ms->commands->data)->command, 
 		((t_cmd *)ms->commands->data)->arguments);
 	env = env_to_char(ms->envar);
@@ -242,14 +225,8 @@ void	execute_other(t_ms *ms)
 	}
 }
 
-/*void more_commands(t_ms *ms)
-{
-    
-}*/
-
 void run_commands(t_ms *ms)
 {
-    
     if (ms->num_of_cmd == 1)
     {
         if (check_builtin(ms))

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ft_echo.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: rnovotny <rnovotny@student.42prague.com    +#+  +:+       +#+        */
+/*   By: lmaresov <lmaresov@student.42prague.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/21 06:23:47 by lmaresov          #+#    #+#             */
-/*   Updated: 2024/10/16 18:45:42 by rnovotny         ###   ########.fr       */
+/*   Updated: 2024/10/17 16:51:36 by lmaresov         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -45,16 +45,16 @@ void	ft_echo(t_ms *ms)
 {
 	char	*str;
 	t_cmd	*cmd;
+	int		original_fd;
 
 	str = "";
 	cmd = ms->commands->data;
 	if (cmd->arguments[0])
 		str = ft_echo_helper(((t_cmd *)ms->commands->data)->arguments);
-	if (!cmd->option)
+	if (!cmd->option || ft_strcmp(cmd->option, "-n") != 0)
 		str = ft_strjoin(str, "\n");
-	if (cmd->redir)
-		handle_redir(cmd);
-	else
-		printf("%s", str);
+	original_fd = setup_fd(cmd);
+	printf("%s", str);
+	close_fd(cmd, original_fd);
 	ms->exit_status = 0;
 }

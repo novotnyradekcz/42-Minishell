@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ft_pwd.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: rnovotny <rnovotny@student.42prague.com    +#+  +:+       +#+        */
+/*   By: lmaresov <lmaresov@student.42prague.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/21 06:34:07 by lmaresov          #+#    #+#             */
-/*   Updated: 2024/10/16 18:46:12 by rnovotny         ###   ########.fr       */
+/*   Updated: 2024/10/17 17:00:51 by lmaresov         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,6 +25,7 @@ void	ft_pwd(t_ms *ms)
 {
 	char	*cwd;
 	t_cmd	*cmd;
+	int		original_fd;
 
 	cmd = ms->commands->data;
 	if (check_args(((t_cmd *)ms->commands->data)->arguments))
@@ -42,10 +43,9 @@ void	ft_pwd(t_ms *ms)
 	if (getcwd(cwd, 1024) != NULL)
 	{
 		cwd = ft_strjoin(cwd, "\n");
-		if (cmd->redir)
-			handle_redir(cmd);
-		else
-			printf("%s", cwd);
+		original_fd = setup_fd(cmd);
+		printf("%s", cwd);
+		close_fd(cmd, original_fd);
 	}
 	else
 		printf ("error in getcwd function\n");
