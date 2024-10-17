@@ -1,38 +1,28 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_atoi.c                                          :+:      :+:    :+:   */
+/*   ft_lstadd_back.c                                   :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: rnovotny <rnovotny@student.42prague.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2024/09/22 09:48:53 by rnovotny          #+#    #+#             */
-/*   Updated: 2024/10/13 12:19:13 by rnovotny         ###   ########.fr       */
+/*   Created: 2023/01/17 14:25:23 by rnovotny          #+#    #+#             */
+/*   Updated: 2023/01/22 00:16:02 by rnovotny         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../minishell.h"
+#include "libft.h"
 
-int	ft_atoi(const char *nptr)
+void	ft_lstadd_back(t_list **lst, t_list *new)
 {
-	int				i;
-	int				neg;
-	unsigned int	res;
+	t_list	*node;
 
-	neg = 1;
-	res = 0;
-	i = 0;
-	while ((nptr[i] >= 9 && nptr[i] <= 13) || nptr[i] == 32)
-		i++;
-	if (nptr[i] == '-' || nptr[i] == '+')
+	if (lst == 0 || *lst == 0)
 	{
-		if (nptr[i] == '-')
-			neg = -neg;
-		i++;
+		*lst = new;
+		return ;
 	}
-	while (nptr[i] >= 48 && nptr[i] <= 57)
-	{
-		res = res * 10 + (nptr[i] - 48);
-		i++;
-	}
-	return (neg * res);
+	node = *lst;
+	while (node->next != 0)
+		node = node->next;
+	node->next = new;
 }

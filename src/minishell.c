@@ -6,7 +6,7 @@
 /*   By: rnovotny <rnovotny@student.42prague.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/01 09:30:12 by lmaresov          #+#    #+#             */
-/*   Updated: 2024/10/17 15:57:44 by rnovotny         ###   ########.fr       */
+/*   Updated: 2024/10/17 16:16:38 by rnovotny         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,8 +29,10 @@ void	ft_analyse(t_ms *ms)
 		return ;
 	if (ft_parser(ms))
 		perror("Unexpected token or something bad\n");
-	if (ft_bonus_executor(ms))
+	if (ft_executor(ms))
 		perror("Executor error\n");
+	// if (ft_bonus_executor(ms))
+	// 	perror("Executor error\n");
 }
 
 int	minishell(t_ms *ms)

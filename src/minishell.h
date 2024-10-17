@@ -6,7 +6,7 @@
 /*   By: rnovotny <rnovotny@student.42prague.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/01 09:30:55 by lmaresov          #+#    #+#             */
-/*   Updated: 2024/10/17 15:56:40 by rnovotny         ###   ########.fr       */
+/*   Updated: 2024/10/17 16:26:00 by rnovotny         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,14 +20,9 @@
 #include <signal.h>
 #include <unistd.h>
 #include <fcntl.h>
+#include "libft/libft.h"
 
 extern int	g_signal;
-
-typedef struct s_list
-{
-	void			*content;
-	struct s_list	*next;
-}	t_list;
 
 typedef struct s_dlist
 {
