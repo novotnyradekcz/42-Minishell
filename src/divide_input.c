@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   divide_input.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: lmaresov <lmaresov@student.42prague.com    +#+  +:+       +#+        */
+/*   By: rnovotny <rnovotny@student.42prague.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/01 09:29:31 by lmaresov          #+#    #+#             */
-/*   Updated: 2024/10/16 17:03:57 by lmaresov         ###   ########.fr       */
+/*   Updated: 2024/10/17 20:37:51 by rnovotny         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,14 +28,14 @@ char	**get_arguments(t_cmd *curr_cmd, t_ms *ms)
 		{
 			curr_cmd->redir = ft_strdup((char *)ms->tokens->data);
 			curr_cmd->redir_file = ft_strdup((char *)ms->tokens->next->data);
-			ms->tokens = ms->tokens->next;
+			ms->tokens = ms->tokens->next->next;
 			return (args);
 		}
 		else if (ft_strcmp((char *)ms->tokens->data, "<") == 0 || ft_strcmp((char *)ms->tokens->data, "<<") == 0)
 		{
 			curr_cmd->redir = ft_strdup((char *)ms->tokens->data);
 			curr_cmd->redir_file = ft_strdup((char *)ms->tokens->next->data);
-			ms->tokens = ms->tokens->next;
+			ms->tokens = ms->tokens->next->next;
 			return (args);
 		}
 		num_of_args++;

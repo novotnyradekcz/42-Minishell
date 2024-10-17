@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ft_cd.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: lmaresov <lmaresov@student.42prague.com    +#+  +:+       +#+        */
+/*   By: rnovotny <rnovotny@student.42prague.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/21 06:33:33 by lmaresov          #+#    #+#             */
-/*   Updated: 2024/10/17 16:50:03 by lmaresov         ###   ########.fr       */
+/*   Updated: 2024/10/17 18:24:06 by rnovotny         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,6 +17,7 @@ void	ft_cd_redir(t_ms *ms)
 	t_cmd	*cmd;
 	int		original_fd;
 
+	original_fd = -1;
 	cmd = ms->commands->data;
 	if (cmd->redir)
 	{

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   run_commands.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: lmaresov <lmaresov@student.42prague.com    +#+  +:+       +#+        */
+/*   By: rnovotny <rnovotny@student.42prague.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/20 09:11:11 by lmaresov          #+#    #+#             */
-/*   Updated: 2024/10/17 16:23:40 by lmaresov         ###   ########.fr       */
+/*   Updated: 2024/10/17 20:43:17 by rnovotny         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -190,20 +190,9 @@ void	execute_other(t_ms *ms)
 	char	**arg;
 	char	**env;
 	
-	//printf("execute other\n");
 	arg = arguments_to_arg(((t_cmd *)ms->commands->data)->command, 
 		((t_cmd *)ms->commands->data)->arguments);
 	env = env_to_char(ms->envar);
-	// while (*arg)
-	// {
-	// 	printf("arg: %s\n", *arg);
-	// 	arg++;
-	// }
-	// while (*env)
-	// {
-	// 	printf("env: %s\n", *env);
-	// 	env++;
-	// }
 	pid = fork();
 	if (pid == 0)
 	{
@@ -224,6 +213,157 @@ void	execute_other(t_ms *ms)
 		unlink("heredoc");
 	}
 }
+/*
+void	run_pipe(t_ms *ms)
+{
+	int		pid;
+	int		pipefd[2];
+	int		first;
+	t_list	*cmd;
+
+	first = 1;
+	cmd = ms->commands;
+	while (cmd)
+	{
+		if (!(cmd->next))
+		{
+			pipe(pipefd);
+		}
+		pid = fork();
+		if (pid == 0)
+		{
+			if (!first)
+			{
+				dup2(((t_cmd *)cmd->data)->in_fd, STDIN_FILENO);
+				close(((t_cmd *)cmd->data)->in_fd);
+				close(((t_cmd *)cmd->data)->out_fd);
+			}
+			if (cmd->next)
+			{
+				dup2(pipefd[1], STDOUT_FILENO);
+				close(pipefd[1]);
+				close(pipefd[0]);
+			}
+			if (check_builtin(ms))
+				one_command(ms);
+			else
+				execute_other(ms);
+			exit(0);
+		}
+		else if (pid < 0)
+		{
+			printf("Error: fork failed\n");
+			ms->exit_status = 1;
+			exit(1);
+		}
+		else
+		{
+			printf("run_pipe: parent\n");
+			if (!first)
+			{
+				close(((t_cmd *)cmd->data)->in_fd);
+				close(((t_cmd *)cmd->data)->out_fd);
+			}
+			if (cmd->next)
+			{
+				close(pipefd[1]);
+				((t_cmd *)cmd->next->data)->in_fd = pipefd[0];
+				((t_cmd *)cmd->data)->out_fd = pipefd[1];
+			}
+			cmd = cmd->next;
+			first = 0;
+			// waitpid(pid, &ms->exit_status, 0);
+		}
+	}
+	waitpid(pid, &ms->exit_status, 0);
+	// while(wait(NULL) > 0);
+}
+*/
+
+void	run_pipe(t_ms *ms)
+{
+	int		prev_pipe[2];
+	int		curr_pipe[2];
+	t_list	*cmd;
+	int		first;
+	int		pid;
+	// int		original_fd;
+
+	cmd = ms->commands;
+	// if (((t_cmd *)cmd->data)->redir)
+	// {
+	// 	printf("redir: %s\n", ((t_cmd *)cmd->data)->redir);
+	// 	if (ft_strcmp(((t_cmd *)cmd->data)->redir, ">") == 0 || ft_strcmp(((t_cmd *)cmd->data)->redir, ">>") == 0 )
+	// 		original_fd = dup(STDOUT_FILENO);
+	// 	else if (ft_strcmp(((t_cmd *)cmd->data)->redir, "<") == 0 || ft_strcmp(((t_cmd *)cmd->data)->redir, "<<") == 0)
+	// 		original_fd = dup(STDIN_FILENO);
+	// }
+	printf("run_pipe: %s\n", ((t_cmd *)cmd->data)->command);
+	printf("run_pipe: %s\n", ((t_cmd *)cmd->data)->redir_file);
+	
+	printf("run_pipe: %s\n", ((t_cmd *)cmd->next->data)->command);
+	printf("run_pipe: %s\n", ((t_cmd *)cmd->next->data)->redir_file);
+
+	printf("run_pipe: %s\n", ((t_cmd *)cmd->next->next->data)->command);
+	printf("run_pipe: %s\n", ((t_cmd *)cmd->next->next->data)->redir_file);
+
+	printf("run_pipe: %s\n", ((t_cmd *)cmd->next->next->next->data)->command);
+	printf("run_pipe: %s\n", ((t_cmd *)cmd->next->next->next->data)->redir_file);
+	while (cmd)
+	{
+		if (cmd->next)
+		{
+			if (pipe(curr_pipe) == -1)
+			{
+				perror("Error: pipe failed\n");
+				ms->exit_status = 1;
+				exit(1);
+			}
+		}
+		pid = fork();
+		if (pid < 0)
+		{
+			perror("Error: fork failed\n");
+			ms->exit_status = 1;
+			exit(1);
+		}
+		if (pid == 0)
+		{
+			if (!first)
+			{
+				dup2(prev_pipe[0], STDIN_FILENO);
+				close(prev_pipe[0]);
+				close(prev_pipe[1]);
+			}
+			if (cmd->next)
+			{
+				close(curr_pipe[0]);
+				dup2(curr_pipe[1], STDOUT_FILENO);
+				close(curr_pipe[1]);
+			}
+			if (check_builtin(ms))
+				one_command(ms);
+			else
+				execute_other(ms);
+			// if (((t_cmd *)cmd->data)->redir)
+			// 	close_fd(((t_cmd *)cmd->data), original_fd);
+			exit(0);
+		}
+		if (!first)
+		{
+			close(prev_pipe[0]);
+			close(prev_pipe[1]);
+		}
+		prev_pipe[0] = curr_pipe[0];
+		prev_pipe[1] = curr_pipe[1];
+		cmd = cmd->next;
+		first = 0;
+	}
+	// close(curr_pipe[0]);
+	// close(curr_pipe[1]);
+	while (wait(NULL) > 0);
+	
+}
 
 void run_commands(t_ms *ms)
 {
@@ -234,8 +374,10 @@ void run_commands(t_ms *ms)
 		else
 			execute_other(ms);
 	}
-    /*else if (ms->num_of_cmd > 1)
+    else if (ms->num_of_cmd > 1)
     {
-        more_commands(ms);
-    }*/
+        // printf("run_commands\n");
+		run_pipe(ms);
+		printf("exit_status: %d\n", ms->exit_status);
+    }
 }
