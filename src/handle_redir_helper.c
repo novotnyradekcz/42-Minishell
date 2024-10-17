@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   handle_redir_helper.c                              :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: rnovotny <rnovotny@student.42prague.com    +#+  +:+       +#+        */
+/*   By: lmaresov <lmaresov@student.42prague.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/12 12:05:39 by lmaresov          #+#    #+#             */
-/*   Updated: 2024/10/16 19:29:23 by rnovotny         ###   ########.fr       */
+/*   Updated: 2024/10/16 19:43:52 by lmaresov         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -82,6 +82,7 @@ int	heredoc_redir(t_cmd * cmd)
     char * str;
 	int fd;
 
+    printf("heredock_redir\n");
     //printf("cmd: %s , eof: %s\n", cmd->command, cmd->redir_file);
     str = get_input_heredoc(cmd->redir_file);
 	fd = open("heredoc", O_RDWR | O_CREAT | O_TRUNC, 0644);
@@ -91,6 +92,7 @@ int	heredoc_redir(t_cmd * cmd)
 		close(fd);
 		return (1);
 	}
+    printf("str from heredoc:%s\n", str);
 	write(fd, str, ft_strlen(str));
     if (dup2(fd, STDIN_FILENO) < 0)
 	{
