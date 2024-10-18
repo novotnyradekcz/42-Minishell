@@ -6,7 +6,7 @@
 /*   By: rnovotny <rnovotny@student.42prague.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/08 07:01:11 by lmaresov          #+#    #+#             */
-/*   Updated: 2024/10/16 12:40:43 by rnovotny         ###   ########.fr       */
+/*   Updated: 2024/10/18 14:46:50 by rnovotny         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,7 +19,7 @@ static int	ft_fillct_helper(t_ct *ct, char *text)
 		ct->argv = malloc(sizeof(char *) * 2);
 		if (!ct->argv)
 			return (1);
-		ct->argv[0] = ft_stringcopy(text);
+		ct->argv[0] = ft_strdup(text);
 		if (!ct->argv[0])
 			return (1);
 		ct->argv[1] = NULL;

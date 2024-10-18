@@ -6,7 +6,7 @@
 /*   By: rnovotny <rnovotny@student.42prague.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/01 09:30:55 by lmaresov          #+#    #+#             */
-/*   Updated: 2024/10/17 16:26:00 by rnovotny         ###   ########.fr       */
+/*   Updated: 2024/10/18 18:44:20 by rnovotny         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,6 +21,8 @@
 #include <unistd.h>
 #include <fcntl.h>
 #include "libft/libft.h"
+
+#define PROMPT "minishell> "
 
 extern int	g_signal;
 
@@ -233,5 +235,12 @@ void	ft_free_cs(t_ms *ms);
 void	ft_wait(t_ms *ms, int pid, int options);
 void	ft_exit(t_ms *ms, int err);
 void	ft_mini_free(t_ms *ms);
+
+// utils/envvar.c
+char	**ft_list2split(t_list *lst);
+char	**ft_getenvvals(t_ms *ms, char *var);
+char	*ft_getenvval(t_ms *ms, char *var);
+void	ft_changeenvval(t_ms *ms, char *var, char *val);
+void	ft_putenv(t_list *el);
 
 #endif

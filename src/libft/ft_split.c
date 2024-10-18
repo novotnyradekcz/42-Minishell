@@ -6,11 +6,45 @@
 /*   By: rnovotny <rnovotny@student.42prague.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/10 13:47:17 by rnovotny          #+#    #+#             */
-/*   Updated: 2023/01/22 01:26:29 by rnovotny         ###   ########.fr       */
+/*   Updated: 2024/10/18 14:55:04 by rnovotny         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "libft.h"
+
+int	ft_array_len(char **split)
+{
+	int	i;
+
+	if (!split)
+		return (-1);
+	i = 0;
+	while (split[i])
+		i++;
+	return (i);
+}
+
+char	**ft_copy_array(char **arr)
+{
+	int		i;
+	int		l;
+	char	**newarr;
+
+	i = 0;
+	l = ft_array_len(arr) + 1;
+	if (l < 0)
+		return (NULL);
+	newarr = malloc(sizeof(char *) * l);
+	while (arr[i])
+	{
+		l = ft_strlen(arr[i]) + 1;
+		newarr[i] = ft_calloc(sizeof(char), l);
+		ft_strlcpy(newarr[i], arr[i], l);
+		i++;
+	}
+	newarr[i] = NULL;
+	return (newarr);
+}
 
 static int	ft_freeall(char **result, int k)
 {

@@ -6,7 +6,7 @@
 #    By: rnovotny <rnovotny@student.42prague.com    +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2024/08/31 10:49:44 by lmaresov          #+#    #+#              #
-#    Updated: 2024/10/17 15:54:48 by rnovotny         ###   ########.fr        #
+#    Updated: 2024/10/18 18:54:45 by rnovotny         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -45,7 +45,6 @@ SRCS = src/minishell.c \
 	src/utils/envvar.c \
 	src/utils/free.c \
 	src/utils/wait.c \
-	
 
 OBJS = $(SRCS:.c=.o)
 

@@ -6,7 +6,7 @@
 /*   By: rnovotny <rnovotny@student.42prague.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/16 14:39:40 by rnovotny          #+#    #+#             */
-/*   Updated: 2024/10/16 14:39:51 by rnovotny         ###   ########.fr       */
+/*   Updated: 2024/10/18 14:46:31 by rnovotny         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,11 +20,11 @@ static char	*ft_replacetilda(t_ms *ms, char *s, int *i)
 
 	home = ft_getenvval(ms, "HOME");
 	if (home)
-		strend = ft_stringcopy((&s[(*i) + 1]));
+		strend = ft_strdup((&s[(*i) + 1]));
 	else
 		return (s);
 	s[*i] = 0;
-	strstart = ft_stringcopy((s));
+	strstart = ft_strdup((s));
 	s = ft_strjoin(strstart, home);
 	s = ft_strjoin_freeleft(s, strend);
 	free(strend);

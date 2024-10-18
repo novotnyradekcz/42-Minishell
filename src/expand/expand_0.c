@@ -6,7 +6,7 @@
 /*   By: rnovotny <rnovotny@student.42prague.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/16 14:37:03 by rnovotny          #+#    #+#             */
-/*   Updated: 2024/10/16 14:37:12 by rnovotny         ###   ########.fr       */
+/*   Updated: 2024/10/18 14:46:12 by rnovotny         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -59,11 +59,11 @@ static char	*ft_replacevar(t_ms *ms, char *s, int *i)
 	var = ft_getvar(&s[(*i) + 1]);
 	val = ft_getenvval(ms, var);
 	if (j < 0)
-		strend = ft_stringcopy((&s[(*i)]));
+		strend = ft_strdup((&s[(*i)]));
 	else
-		strend = ft_stringcopy((&s[(*i) + j + 1]));
+		strend = ft_strdup((&s[(*i) + j + 1]));
 	s[*i] = 0;
-	strstart = ft_stringcopy((s));
+	strstart = ft_strdup((s));
 	s = ft_strjoin(strstart, val);
 	s = ft_strjoin_freeleft(s, strend);
 	if (val)
@@ -84,11 +84,11 @@ static char	*ft_replace_qm(t_ms *ms, char *s, int *i)
 	j = 1;
 	val = ft_itoa(ms->error);
 	if (j < 0)
-		strend = ft_stringcopy((&s[(*i)]));
+		strend = ft_strdup((&s[(*i)]));
 	else
-		strend = ft_stringcopy((&s[(*i) + j + 1]));
+		strend = ft_strdup((&s[(*i) + j + 1]));
 	s[*i] = 0;
-	strstart = ft_stringcopy((s));
+	strstart = ft_strdup((s));
 	s = ft_strjoin(strstart, val);
 	s = ft_strjoin_freeleft(s, strend);
 	if (val)

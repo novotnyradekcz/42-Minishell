@@ -6,7 +6,7 @@
 /*   By: rnovotny <rnovotny@student.42prague.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/16 12:05:50 by rnovotny          #+#    #+#             */
-/*   Updated: 2023/01/21 18:13:16 by rnovotny         ###   ########.fr       */
+/*   Updated: 2024/10/18 14:56:22 by rnovotny         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -66,5 +66,10 @@ void	ft_lstdelone(t_list *lst, void (*del)(void*));
 void	ft_lstclear(t_list **lst, void (*del)(void*));
 void	ft_lstiter(t_list *lst, void (*f)(void *));
 t_list	*ft_lstmap(t_list *lst, void *(*f)(void *), void (*del)(void *));
+
+int		ft_array_len(char **split);
+char	**ft_copy_array(char **arr);
+char	*ft_strjoin_freeleft(char *s1, char const *s2);
+char	*ft_strjoin_freeright(char const *s1, char *s2);
 
 #endif

@@ -6,7 +6,7 @@
 /*   By: rnovotny <rnovotny@student.42prague.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/16 15:36:54 by rnovotny          #+#    #+#             */
-/*   Updated: 2024/10/16 15:37:18 by rnovotny         ###   ########.fr       */
+/*   Updated: 2024/10/18 14:47:04 by rnovotny         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -48,7 +48,7 @@ void	ft_changeenvval(t_ms *ms, char *var, char *val)
 			var = ft_strjoin(var, "=");
 			var = ft_strjoin_freeleft(var, val);
 			ev->s = var;
-			ev->var = ft_stringcopy(var);
+			ev->var = ft_strdup(var);
 			ev->var[l] = 0;
 			ev->val = &ev->var[l + 1];
 			ev->vals = ft_split(ev->val, ':');
@@ -116,7 +116,7 @@ char	**ft_list2split(t_list *lst)
 	while (lst)
 	{
 		ev = lst->content;
-		env[i] = ft_stringcopy(ev->s);
+		env[i] = ft_strdup(ev->s);
 		i++;
 		lst = lst->next;
 	}

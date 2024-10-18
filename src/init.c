@@ -6,7 +6,7 @@
 /*   By: rnovotny <rnovotny@student.42prague.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/20 06:56:54 by lmaresov          #+#    #+#             */
-/*   Updated: 2024/10/16 15:34:26 by rnovotny         ###   ########.fr       */
+/*   Updated: 2024/10/18 18:48:55 by rnovotny         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,19 +15,19 @@
 void	ft_init_prompt(t_ms *ms)
 {
 	char	cwd[4096];
-	char	*s;
-	char	*h;
+	char	*dir;
+	char	*home;
 
-	h = ft_getenvval(ms, "HOME");
-	s = getcwd(cwd, 4096);
-	if (h && !ft_strncmp(s, h, ft_strlen(h)))
+	home = ft_getenvval(ms, "HOME");
+	dir = getcwd(cwd, 4096);
+	if (home && !ft_strncmp(dir, home, ft_strlen(home)))
 	{
-		s = s + (ft_strlen(h) - 1);
-		s[0] = '~';
+		dir = dir + (ft_strlen(home) - 1);
+		dir[0] = '~';
 	}
-	ms->prompt = ft_strjoin(PROMPT1, PROMPT2);
-	ms->prompt = ft_strjoin_freeleft(ms->prompt, s);
-	ms->prompt = ft_strjoin_freeleft(ms->prompt, PROMPT3);
+	ms->prompt = PROMPT;
+	ms->prompt = ft_strjoin_freeleft(ms->prompt, dir);
+	ms->prompt = ft_strjoin_freeleft(ms->prompt, " %% ");
 }
 
 t_ev	*ft_evinit(char *str)
@@ -39,8 +39,8 @@ t_ev	*ft_evinit(char *str)
 	ev = malloc(sizeof(t_ev));
 	if (!ev)
 		return (NULL);
-	ev->s = ft_stringcopy(str);
-	ev->var = ft_stringcopy(str);
+	ev->s = ft_strdup(str);
+	ev->var = ft_strdup(str);
 	while (ev->var[i] && ev->var[i] != '=')
 		i++;
 	if (ev->var[i] == '=')
@@ -125,7 +125,7 @@ void	ft_init(t_ms *ms)
 	ms->cs = NULL;
 	ms->lex = NULL;
 	ms->exe = NULL;
-	ms->ev = ft_copy_split(ms->ev);
+	ms->ev = ft_copy_array(ms->ev);
 	ms->el = ft_split2list(ms->ev);
 	ft_exit(ms, 0);
 	ft_init_prompt(ms);

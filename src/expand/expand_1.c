@@ -6,7 +6,7 @@
 /*   By: rnovotny <rnovotny@student.42prague.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/16 14:38:46 by rnovotny          #+#    #+#             */
-/*   Updated: 2024/10/16 14:39:01 by rnovotny         ###   ########.fr       */
+/*   Updated: 2024/10/18 14:46:14 by rnovotny         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,7 +18,7 @@ static int	ft_jointext_helper(t_token *token, t_token *ntoken, t_list *lst)
 	char	*str;
 
 	token->type = TEXT;
-	str = ft_stringcopy(token->text);
+	str = ft_strdup(token->text);
 	free(token->text);
 	token->text = ft_strjoin(str, ntoken->text);
 	free(str);
