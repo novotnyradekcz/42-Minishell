@@ -6,79 +6,83 @@
 /*   By: lmaresov <lmaresov@student.42prague.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/01 09:30:55 by lmaresov          #+#    #+#             */
-/*   Updated: 2024/10/17 16:46:37 by lmaresov         ###   ########.fr       */
+/*   Updated: 2024/10/18 20:47:23 by lmaresov         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-
 #ifndef MINISHELL_H
-#define MINISHELL_H
+# define MINISHELL_H
 
-#include <stdio.h>
-#include <readline/readline.h>
-#include <readline/history.h>
-#include <stdlib.h>
-#include <signal.h>
-#include <unistd.h>
-#include <fcntl.h>
-#include <sys/wait.h>
+# include <stdio.h>
+# include <readline/readline.h>
+# include <readline/history.h>
+# include <stdlib.h>
+# include <signal.h>
+# include <unistd.h>
+# include <fcntl.h>
+# include <sys/wait.h>
 
-
-
-
-typedef struct s_list t_list;
-typedef struct s_listd t_listd;
+typedef struct s_list	t_list;
+typedef struct s_listd	t_listd;
 
 typedef struct s_list
 {
-    t_list *next;
-    void *data;
-} t_list;
+	t_list	*next;
+	void	*data;
+}	t_list;
 
 typedef struct s_listd
 {
-    void * data;
-    t_listd *prev;
-    t_listd *next;
-    
-}t_listd;
+	void	*data;
+	t_listd	*prev;
+	t_listd	*next;
+}	t_listd;
 
 typedef struct s_ms
 {
-    char *input;
-    t_list *tokens;
-    t_listd *envar;
-    t_list *commands;
-    int num_of_cmd;
-    int single_quotes;
-    int double_quotes;
-	int exit_status;
-    
-}t_ms;
+	char	*input;
+	t_list	*tokens;
+	t_listd	*envar;
+	t_list	*commands;
+	int		num_of_cmd;
+	int		single_quotes;
+	int		double_quotes;
+	int		exit_status;
+}	t_ms;
 
 typedef struct s_env
 {
-    char *env_key;
-    char *env_value;
-    
-}t_env;
+	char	*env_key;
+	char	*env_value;
+}	t_env;
 
 typedef struct s_cmd
 {
-    char *command;
-    char **arguments;
-    char *redir;
-    int num_of_args;
-    char *redir_file;
-    char *here_doc;
-    char *option;
-}t_cmd;
+	char	*command;
+	char	**arguments;
+	char	*redir;
+	int		num_of_args;
+	char	*redir_file;
+	char	*here_doc;
+	char	*option;
+}	t_cmd;
 
+//ma_helper.c
+void	ft_handle_signal(int signal);
+void	main_helper(int argc, char **argv);
+int		check_input(t_ms *ms);
+void	free_one_input(t_ms *ms);
+void	ex_commands(t_ms *ms);
 
 //divide_input.c
 void	divide_input(t_ms *ms);
 void	expand_envar(t_ms *ms);
 void	separate_tokens(t_ms *ms, char *input);
+
+//divide_input_helper.c
+t_cmd	*get_one_cmd(t_ms *ms);
+void	init_cmd(t_cmd *cmd);
+char	**get_arguments(t_cmd *curr_cmd, t_ms *ms);
 
 //env_to_listd.c
 int		get_key_len(char *envv, char sep);
@@ -86,14 +90,13 @@ char	*get_key(char *envv, char sep, int *i, int key_len);
 char	*get_value(char *envv, int *i, int value_len);
 char	**split_key_value(char *envv, char sep);
 char	**split_env(char *envv);
-t_env	*put_envvar_to_envstruct(char ** env_var);
+t_env	*put_envvar_to_envstruct(char **env_var);
 t_listd	*listd_new_node(void *data);
 void	listd_add_header(t_listd **listd_header, t_listd *new_node);
 t_listd	*listd_last_node(t_listd *listd_header);
-void	listd_to_ms(t_listd ** listd_header, t_listd *new_node);
+void	listd_to_ms(t_listd **listd_header, t_listd *new_node);
 void	add_envv_to_listd(t_ms *ms, t_env *env_struct);
 void	env_to_listd(t_ms *ms, char **env);
-
 
 //expand_envar_help.c
 char	*env_key(char *str);
@@ -112,7 +115,6 @@ void	del_header_list(t_list **header);
 void	del_tokens(t_list **header);
 void	del_header_listd(t_listd **header);
 
-
 //free_memory.c
 void	free_ms_input(t_ms *ms);
 void	free_ms_tokens(t_ms *ms);
@@ -123,24 +125,20 @@ void	free_ms_commands(t_ms *ms);
 //handle_redir_helper.c
 int		write_redir(t_cmd *cmd);
 int		append_redir(t_cmd *cmd);
-int		read_redir(t_cmd * cmd);
-int		heredoc_redir(t_cmd * cmd);
+int		read_redir(t_cmd *cmd);
+int		heredoc_redir(t_cmd *cmd);
 
 //handle_redirection.c
 //void handle_redirection(t_cmd * cmd, char * str);
-void	handle_redirection_read(t_cmd * cmd);
-void	handle_redirection_write(t_cmd * cmd);
-void	handle_redir(t_cmd * cmd);
+void	handle_redirection_read(t_cmd *cmd);
+void	handle_redirection_write(t_cmd *cmd);
+void	handle_redir(t_cmd *cmd);
 
 //run_comands.c
 int		check_command(char *command);
 int		one_command(t_ms *ms);
 
 void	run_commands(t_ms *ms);
-
-
-
-
 
 //separate_tokens_ft_helper.c
 void	add_token_to_list(t_ms *ms, int start, int end);
@@ -157,11 +155,11 @@ void	remaining_arg_token(t_ms *ms, char *input, int *i);
 int		syntax_error(t_ms *ms);
 
 //utils.c
-char	*get_input();
+char	*get_input(void);
 int		only_whitespace(char *str);
 char	*get_input_heredoc(char *eof);
 void	close_fd(t_cmd *cmd, int original_stdout);
-int		setup_fd(t_cmd * cmd);
+int		setup_fd(t_cmd *cmd);
 
 //commands/ft_echo.c
 char	*ft_echo_helper(char **arguments);
@@ -176,12 +174,10 @@ void	ft_unset(t_ms *ms);
 int		check_builtin(t_ms *ms);
 
 //commands/ft_cd_helper.c
-int	ft_cd_helper(char *path, t_ms *ms);
-int	ft_cd_25(t_ms *ms);
+int		ft_cd_helper(char *path, t_ms *ms);
+int		ft_cd_25(t_ms *ms);
 char	*get_args(char **arguments);
 char	*check_num_args(char **arguments);
-
-
 
 //utils
 int		ft_atoi(const char *nptr);
@@ -190,14 +186,15 @@ size_t	ft_strlcpy(char *dst, const char *src, size_t size);
 int		ft_isascii(int c);
 size_t	ft_strlen(const char *s);
 char	*ft_substr(char const *s, unsigned int start, size_t len);
-int 	ft_strcmp(char *s1, char *s2);
+int		ft_strcmp(char *s1, char *s2);
 char	*ft_strchr(const char *s, int c);
 int		ft_isprint(int c);
-int 	is_whitespace(int c);
+int		is_whitespace(int c);
 void	*ft_memset(void *s, int c, size_t n);
 char	*ft_strjoin(char const *s1, char const *s2);
 char	*ft_strjoin_with_space(char const *s1, char const *s2);
 char	*ft_strjoin_freeleft(char *s1, char *s2);
 char	*ft_strdup(const char *s);
+int		only_whitespace(char *str);
 
 #endif

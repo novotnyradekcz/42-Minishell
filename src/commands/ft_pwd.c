@@ -6,7 +6,7 @@
 /*   By: lmaresov <lmaresov@student.42prague.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/21 06:34:07 by lmaresov          #+#    #+#             */
-/*   Updated: 2024/10/17 17:00:51 by lmaresov         ###   ########.fr       */
+/*   Updated: 2024/10/18 18:54:43 by lmaresov         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,19 +21,11 @@ static int	check_args(char **arguments)
 	return (0);
 }
 
-void	ft_pwd(t_ms *ms)
+void	ft_pwd_helper(t_cmd *cmd)
 {
-	char	*cwd;
-	t_cmd	*cmd;
 	int		original_fd;
+	char	*cwd;
 
-	cmd = ms->commands->data;
-	if (check_args(((t_cmd *)ms->commands->data)->arguments))
-	{
-		printf ("pwd: too many arguments\n");
-		ms->exit_status = 1;
-		return ;
-	}
 	cwd = (char *)malloc(sizeof(char) * 1024);
 	if (!cwd)
 	{
@@ -50,5 +42,19 @@ void	ft_pwd(t_ms *ms)
 	else
 		printf ("error in getcwd function\n");
 	free(cwd);
+}
+
+void	ft_pwd(t_ms *ms)
+{
+	t_cmd	*cmd;
+
+	cmd = ms->commands->data;
+	if (check_args(((t_cmd *)ms->commands->data)->arguments))
+	{
+		printf ("pwd: too many arguments\n");
+		ms->exit_status = 1;
+		return ;
+	}
+	ft_pwd_helper(cmd);
 	ms->exit_status = 0;
 }

@@ -6,7 +6,7 @@
 #    By: lmaresov <lmaresov@student.42prague.com    +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2024/08/31 10:49:44 by lmaresov          #+#    #+#              #
-#    Updated: 2024/10/17 16:37:49 by lmaresov         ###   ########.fr        #
+#    Updated: 2024/10/18 20:00:25 by lmaresov         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -16,8 +16,12 @@ CC = gcc
 CFLAGS = -Wall -Wextra -Werror -I/opt/homebrew/Cellar/readline/8.2.13/include
 LDFLAGS = -lreadline -L/opt/homebrew/Cellar/readline/8.2.13/lib
 SRCS = minishell.c\
+	ma_helper.c\
 	divide_input.c\
+	divide_input_helper.c\
 	env_to_listd.c\
+	env_to_list_helper.c\
+	env_to_listd_helper.c\
 	expand_envar_help.c\
 	expand_envar.c\
 	free_memory_helper.c\

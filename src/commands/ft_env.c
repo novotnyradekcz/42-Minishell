@@ -6,7 +6,7 @@
 /*   By: lmaresov <lmaresov@student.42prague.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/21 06:33:41 by lmaresov          #+#    #+#             */
-/*   Updated: 2024/10/17 16:59:59 by lmaresov         ###   ########.fr       */
+/*   Updated: 2024/10/18 18:56:42 by lmaresov         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -53,7 +53,6 @@ void	ft_env(t_ms *ms)
 {
 	t_listd	*tmp;
 	char	*new_str;
-	//t_cmd	*cmd;
 	int		original_fd;
 
 	new_str = malloc(sizeof(char));
@@ -71,8 +70,6 @@ void	ft_env(t_ms *ms)
 		tmp = tmp->next;
 	}
 	new_str = all_env_str(tmp, new_str);
-	//cmd = ms->commands->data;
-	//original_fd = setup_fd(cmd);
 	original_fd = setup_fd(ms->commands->data);
 	printf("%s", new_str);
 	close_fd(ms->commands->data, original_fd);
