@@ -6,7 +6,7 @@
 #    By: lmaresov <lmaresov@student.42prague.com    +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2024/08/31 10:49:44 by lmaresov          #+#    #+#              #
-#    Updated: 2024/10/18 20:00:25 by lmaresov         ###   ########.fr        #
+#    Updated: 2024/10/19 13:09:52 by lmaresov         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -22,13 +22,16 @@ SRCS = minishell.c\
 	env_to_listd.c\
 	env_to_list_helper.c\
 	env_to_listd_helper.c\
+	execute_other.c\
 	expand_envar_help.c\
 	expand_envar.c\
 	free_memory_helper.c\
 	free_memory.c\
 	handle_redir_helper.c\
 	handle_redirection.c\
+	one_command.c\
 	run_commands.c\
+	run_pipe.c\
 	separate_tokens_ft_helper.c\
 	separate_tokens_ft.c\
 	syntax_error.c\
