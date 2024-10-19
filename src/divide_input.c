@@ -3,92 +3,14 @@
 /*                                                        :::      ::::::::   */
 /*   divide_input.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: rnovotny <rnovotny@student.42prague.com    +#+  +:+       +#+        */
+/*   By: lmaresov <lmaresov@student.42prague.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/01 09:29:31 by lmaresov          #+#    #+#             */
-/*   Updated: 2024/10/17 20:37:51 by rnovotny         ###   ########.fr       */
+/*   Updated: 2024/10/18 19:19:34 by lmaresov         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
-
-char	**get_arguments(t_cmd *curr_cmd, t_ms *ms)
-{
-	char	**args;
-	char	**tmp;
-	int		num_of_args;
-	int		i;
-
-	num_of_args = 0;
-	args = (char **)malloc(sizeof(char *));
-	args[0] = NULL;
-	while (ms->tokens && (ft_strcmp((char *)ms->tokens->data, "|") != 0))
-	{
-		if (ft_strcmp((char *)ms->tokens->data, ">") == 0 || ft_strcmp((char *)ms->tokens->data, ">>") == 0)
-		{
-			curr_cmd->redir = ft_strdup((char *)ms->tokens->data);
-			curr_cmd->redir_file = ft_strdup((char *)ms->tokens->next->data);
-			ms->tokens = ms->tokens->next->next;
-			return (args);
-		}
-		else if (ft_strcmp((char *)ms->tokens->data, "<") == 0 || ft_strcmp((char *)ms->tokens->data, "<<") == 0)
-		{
-			curr_cmd->redir = ft_strdup((char *)ms->tokens->data);
-			curr_cmd->redir_file = ft_strdup((char *)ms->tokens->next->data);
-			ms->tokens = ms->tokens->next->next;
-			return (args);
-		}
-		num_of_args++;
-		tmp = (char **)malloc(sizeof(char *) * (num_of_args + 1));
-		if (!tmp)
-			return (NULL);
-		i = 0;
-		while (args[i])
-		{
-			tmp[i] = ft_strdup(args[i]);
-			free(args[i]);
-			i++;
-		}
-		tmp[i] = ft_strdup((char *)ms->tokens->data);
-		tmp[i + 1] = NULL;
-		free(args);
-		args = tmp;
-		ms->tokens = ms->tokens->next;
-	}
-	curr_cmd->num_of_args = num_of_args;
-	return (args);
-}
-
-void	init_cmd(t_cmd *cmd)
-{
-	cmd->arguments = NULL;
-	cmd->command = NULL;
-	cmd->here_doc = NULL;
-	cmd->num_of_args = 0;
-	cmd->option = NULL;
-	cmd->redir = NULL;
-	cmd->redir_file = NULL;
-}
-
-t_cmd	*get_one_cmd(t_ms *ms)
-{
-	t_cmd	*curr_cmd;
-	char	**arguments;
-
-	curr_cmd = (t_cmd *)malloc(sizeof(t_cmd));
-	init_cmd(curr_cmd);
-	arguments = NULL;
-	curr_cmd->command = ft_strdup((char *)ms->tokens->data);
-	if (ms->tokens->next && (ft_strcmp((char *)ms->tokens->data, "echo") == 0) && (ft_strcmp((char *)ms->tokens->next->data, "-n") == 0))
-	{
-		ms->tokens = ms->tokens->next;
-		curr_cmd->option = ft_strdup((char *)ms->tokens->data);
-	}
-	ms->tokens = ms->tokens->next;
-	arguments = get_arguments(curr_cmd, ms);
-	curr_cmd->arguments = arguments;
-	return (curr_cmd);
-}
 
 void	put_node_to_ms(t_list **header, t_list *new_node)
 {

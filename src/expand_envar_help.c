@@ -6,7 +6,7 @@
 /*   By: lmaresov <lmaresov@student.42prague.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/08 07:02:12 by lmaresov          #+#    #+#             */
-/*   Updated: 2024/10/16 17:19:02 by lmaresov         ###   ########.fr       */
+/*   Updated: 2024/10/18 19:31:00 by lmaresov         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,7 +18,8 @@ char	*env_key(char *str)
 	char	*key;
 
 	i = 0;
-	while (ft_isprint(str[i]) && !is_whitespace(str[i]) && str[i] != '\'' && str[i] != '\"' && str[i] != '$' && str[i] != '=')
+	while (ft_isprint(str[i]) && !is_whitespace(str[i]) && str[i] != '\''
+		&& str[i] != '\"' && str[i] != '$' && str[i] != '=')
 		i++;
 	key = ft_substr(str, 0, i);
 	return (key);
