@@ -6,7 +6,7 @@
 /*   By: lmaresov <lmaresov@student.42prague.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/18 19:00:56 by lmaresov          #+#    #+#             */
-/*   Updated: 2024/10/18 19:21:00 by lmaresov         ###   ########.fr       */
+/*   Updated: 2024/10/19 17:33:26 by lmaresov         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -45,10 +45,16 @@ char	**get_args_helper(int num_of_args, char **args, t_ms *ms)
 	while (args[i])
 	{
 		tmp[i] = ft_strdup(args[i]);
+		if (!tmp[i])
+			if (!free_tmp(tmp, i))
+				return (NULL);
 		free(args[i]);
 		i++;
 	}
 	tmp[i] = ft_strdup((char *)ms->tokens->data);
+	if (!tmp[i])
+		if (!free_tmp(tmp, i))
+			return (NULL);
 	tmp[i + 1] = NULL;
 	free(args);
 	args = tmp;

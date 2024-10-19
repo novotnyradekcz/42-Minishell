@@ -6,7 +6,7 @@
 /*   By: lmaresov <lmaresov@student.42prague.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/20 05:22:57 by lmaresov          #+#    #+#             */
-/*   Updated: 2024/10/16 17:29:50 by lmaresov         ###   ########.fr       */
+/*   Updated: 2024/10/19 17:37:23 by lmaresov         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,41 +31,6 @@ void	free_ms_tokens(t_ms *ms)
 		del_tokens(&ms->tokens);
 		ms->tokens = NULL;
 	}
-}
-
-void	free_ms_commands(t_ms *ms)
-{
-	t_list	*current_node;
-	t_list	*next_node;
-	t_cmd	*cmd;
-	int		i;
-
-	current_node = ms->commands;
-	while (current_node)
-	{
-		cmd = (t_cmd *)current_node->data;
-		if (cmd->command)
-			free(cmd->command);
-		if (cmd->arguments)
-		{
-			i = 0;
-			while (cmd->arguments[i])
-			{
-				free(cmd->arguments[i]);
-				i++;
-			}
-			free(cmd->arguments);
-		}
-		if (cmd->redir)
-			free(cmd->redir);
-		if (cmd->redir_file)
-			free(cmd->redir_file);
-		free(cmd);
-		next_node = current_node->next;
-		free(current_node);
-		current_node = next_node;
-	}
-	ms->commands = NULL;
 }
 
 void	free_ms_envar(t_listd **header)

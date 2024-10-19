@@ -6,7 +6,7 @@
 /*   By: lmaresov <lmaresov@student.42prague.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/20 05:27:00 by lmaresov          #+#    #+#             */
-/*   Updated: 2024/10/16 17:23:51 by lmaresov         ###   ########.fr       */
+/*   Updated: 2024/10/19 18:41:59 by lmaresov         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,19 +30,37 @@ void	del_header_list(t_list **header)
 		printf("error:del_header_list");
 		return ;
 	}
-	if (!((*header)->next))
-	{
-		if ((*header)->data)
-			free((*header)->data);
-		free_header_ptr((void **)header);
-		return ;
-	}
 	tmp = (*header)->next;
-	if ((*header)->data)
-		free((*header)->data);
-	free_header_ptr((void **)header);
+	if((*header)->data)
+	{
+		free_header_ptr((void **)&(*header)->data);
+	}
+	free_header_ptr((void**)header);
 	*header = tmp;
+	
 }
+// void	del_header_list(t_list **header)
+// {
+// 	t_list	*tmp;
+
+// 	if (!header || !(*header))
+// 	{
+// 		printf("error:del_header_list");
+// 		return ;
+// 	}
+// 	if (!((*header)->next))
+// 	{
+// 		if ((*header)->data)
+// 			free((*header)->data);
+// 		free_header_ptr((void **)header);
+// 		return ;
+// 	}
+// 	tmp = (*header)->next;
+// 	if ((*header)->data)
+// 		free((*header)->data);
+// 	free_header_ptr((void **)header);
+// 	*header = tmp;
+// }
 
 void	del_tokens(t_list **header)
 {
@@ -79,4 +97,17 @@ void	del_header_listd(t_listd **header)
 		free((*header)->data);
 	free_header_ptr((void **)header);
 	*header = tmp;
+}
+
+void	free_path_array(char **path_array)
+{
+	int	i;
+
+	i = 0;
+	if (path_array)
+	{
+		while (path_array[i])
+			free(path_array[i++]);
+		free(path_array);
+	}
 }

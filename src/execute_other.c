@@ -6,7 +6,7 @@
 /*   By: lmaresov <lmaresov@student.42prague.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/19 11:44:16 by lmaresov          #+#    #+#             */
-/*   Updated: 2024/10/19 12:03:33 by lmaresov         ###   ########.fr       */
+/*   Updated: 2024/10/19 16:20:17 by lmaresov         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -68,15 +68,17 @@ char	*get_path(char **path_array, char *command)
 {
 	int		i;
 	char	*path;
+	char	*tmp;
 
 	i = 0;
 	while (path_array[i])
 	{
-		path = ft_strjoin(path_array[i], "/");
-		path = ft_strjoin(path, command);
+		tmp = ft_strjoin(path_array[i], "/");
+		path = ft_strjoin(tmp, command);
 		if (access(path, X_OK) == 0)
 			return (path);
 		free(path);
+		free(tmp);
 		i++;
 	}
 	return (NULL);
@@ -99,7 +101,10 @@ void	child_process(t_ms *ms, char **env, char **arg)
 	if (!path)
 	{
 		ms->exit_status = 127;
+		free_path_array(path_array);
 		exit(127);
 	}
+	free_path_array(path_array);
 	execve(path, arg, env);
+	free(path);
 }

@@ -6,7 +6,7 @@
 /*   By: lmaresov <lmaresov@student.42prague.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/21 06:34:07 by lmaresov          #+#    #+#             */
-/*   Updated: 2024/10/18 18:54:43 by lmaresov         ###   ########.fr       */
+/*   Updated: 2024/10/19 15:27:20 by lmaresov         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,6 +25,7 @@ void	ft_pwd_helper(t_cmd *cmd)
 {
 	int		original_fd;
 	char	*cwd;
+	char	*cwd_1;
 
 	cwd = (char *)malloc(sizeof(char) * 1024);
 	if (!cwd)
@@ -34,10 +35,11 @@ void	ft_pwd_helper(t_cmd *cmd)
 	}
 	if (getcwd(cwd, 1024) != NULL)
 	{
-		cwd = ft_strjoin(cwd, "\n");
+		cwd_1 = ft_strjoin(cwd, "\n");
 		original_fd = setup_fd(cmd);
-		printf("%s", cwd);
+		printf("%s", cwd_1);
 		close_fd(cmd, original_fd);
+		free(cwd_1);
 	}
 	else
 		printf ("error in getcwd function\n");

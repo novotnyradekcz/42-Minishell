@@ -6,7 +6,7 @@
 /*   By: lmaresov <lmaresov@student.42prague.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/01 09:30:55 by lmaresov          #+#    #+#             */
-/*   Updated: 2024/10/19 13:11:26 by lmaresov         ###   ########.fr       */
+/*   Updated: 2024/10/19 17:39:43 by lmaresov         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -131,13 +131,17 @@ void	free_header_ptr(void **ptr);
 void	del_header_list(t_list **header);
 void	del_tokens(t_list **header);
 void	del_header_listd(t_listd **header);
+void	free_path_array(char **path_array);
 
 //free_memory.c
 void	free_ms_input(t_ms *ms);
 void	free_ms_tokens(t_ms *ms);
 void	free_ms_envar(t_listd **header);
 void	free_all(t_ms *ms);
+
+//free_memory_help.c
 void	free_ms_commands(t_ms *ms);
+int		free_tmp(char **tmp, int i);
 
 //handle_redir_helper.c
 int		write_redir(t_cmd *cmd);
