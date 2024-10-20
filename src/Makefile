@@ -3,10 +3,10 @@
 #                                                         :::      ::::::::    #
 #    Makefile                                           :+:      :+:    :+:    #
 #                                                     +:+ +:+         +:+      #
-#    By: lmaresov <lmaresov@student.42prague.com    +#+  +:+       +#+         #
+#    By: rnovotny <rnovotny@student.42prague.com    +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2024/08/31 10:49:44 by lmaresov          #+#    #+#              #
-#    Updated: 2024/10/19 17:45:26 by lmaresov         ###   ########.fr        #
+#    Updated: 2024/10/20 17:40:13 by rnovotny         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 

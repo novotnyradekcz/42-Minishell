@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   divide_input_helper.c                              :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: lmaresov <lmaresov@student.42prague.com    +#+  +:+       +#+        */
+/*   By: rnovotny <rnovotny@student.42prague.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/18 19:00:56 by lmaresov          #+#    #+#             */
-/*   Updated: 2024/10/20 15:54:54 by lmaresov         ###   ########.fr       */
+/*   Updated: 2024/10/20 17:41:40 by rnovotny         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -86,7 +86,6 @@ char	**get_arguments(t_cmd *curr_cmd, t_ms *ms)
 	return (args);
 }
 
-
 void	init_cmd(t_cmd *cmd)
 {
 	cmd->arguments = NULL;
@@ -97,6 +96,7 @@ void	init_cmd(t_cmd *cmd)
 	cmd->redir = NULL;
 	cmd->redir_file = NULL;
 }
+
 void free_token_node(t_list * tokens)
 {
 	if (tokens->data)

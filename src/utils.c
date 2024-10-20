@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   utils.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: lmaresov <lmaresov@student.42prague.com    +#+  +:+       +#+        */
+/*   By: rnovotny <rnovotny@student.42prague.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/27 05:28:42 by lmaresov          #+#    #+#             */
-/*   Updated: 2024/10/20 13:51:37 by lmaresov         ###   ########.fr       */
+/*   Updated: 2024/10/20 17:43:37 by rnovotny         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 

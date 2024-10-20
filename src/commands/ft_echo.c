@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ft_echo.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: lmaresov <lmaresov@student.42prague.com    +#+  +:+       +#+        */
+/*   By: rnovotny <rnovotny@student.42prague.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/21 06:23:47 by lmaresov          #+#    #+#             */
-/*   Updated: 2024/10/20 11:47:47 by lmaresov         ###   ########.fr       */
+/*   Updated: 2024/10/20 17:41:00 by rnovotny         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
