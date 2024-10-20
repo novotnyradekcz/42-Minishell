@@ -6,7 +6,7 @@
 /*   By: rnovotny <rnovotny@student.42prague.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/18 19:00:56 by lmaresov          #+#    #+#             */
-/*   Updated: 2024/10/20 17:41:40 by rnovotny         ###   ########.fr       */
+/*   Updated: 2024/10/20 23:40:12 by rnovotny         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -65,8 +65,8 @@ char	**get_arguments(t_cmd *curr_cmd, t_ms *ms)
 {
 	char	**args;
 	int		num_of_args;
-	t_list *tmp;
-	
+	t_list	*tmp;
+
 	num_of_args = 0;
 	args = (char **)malloc(sizeof(char *));
 	args[0] = NULL;
@@ -97,22 +97,12 @@ void	init_cmd(t_cmd *cmd)
 	cmd->redir_file = NULL;
 }
 
-void free_token_node(t_list * tokens)
-{
-	if (tokens->data)
-	{
-		free(tokens->data);
-		tokens->data = NULL;
-	}
-	free(tokens);
-}
-
 t_cmd	*get_one_cmd(t_ms *ms)
 {
 	t_cmd	*curr_cmd;
 	char	**arguments;
-	t_list *tmp;
-	
+	t_list	*tmp;
+
 	curr_cmd = (t_cmd *)malloc(sizeof(t_cmd));
 	init_cmd(curr_cmd);
 	arguments = NULL;

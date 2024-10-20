@@ -6,7 +6,7 @@
 /*   By: rnovotny <rnovotny@student.42prague.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/27 05:28:42 by lmaresov          #+#    #+#             */
-/*   Updated: 2024/10/20 17:43:37 by rnovotny         ###   ########.fr       */
+/*   Updated: 2024/10/20 23:42:17 by rnovotny         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -60,8 +60,6 @@ char	*get_input_heredoc(char *eof)
 	return (new_line);
 }
 
-
-
 char	*get_input(t_ms *ms)
 {
 	char	*line;
@@ -114,6 +112,7 @@ int	setup_fd(t_cmd *cmd)
 {
 	int	original_fd;
 
+	original_fd = -1;
 	if (cmd->redir)
 	{
 		if (ft_strcmp(cmd->redir, ">") == 0

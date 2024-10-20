@@ -6,7 +6,7 @@
 /*   By: rnovotny <rnovotny@student.42prague.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/01 09:30:55 by lmaresov          #+#    #+#             */
-/*   Updated: 2024/10/20 17:43:16 by rnovotny         ###   ########.fr       */
+/*   Updated: 2024/10/20 23:46:14 by rnovotny         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -76,13 +76,14 @@ void	ft_exit(t_ms *ms);
 void	ft_export(t_ms *ms);
 void	ft_unset(t_ms *ms);
 int		check_builtin(t_ms *ms);
+void	set_env(t_ms *ms, char *key, char *value);
 
 //ma_helper.c
 void	ft_handle_signal(int signal);
 void	main_helper(int argc, char **argv);
 int		check_input(t_ms *ms);
-void	free_one_input(t_ms *ms);
 void	ex_commands(t_ms *ms);
+void	free_token_node(t_list *tokens);
 
 //divide_input.c
 void	divide_input(t_ms *ms);
@@ -94,7 +95,7 @@ t_cmd	*get_one_cmd(t_ms *ms);
 void	init_cmd(t_cmd *cmd);
 char	**get_arguments(t_cmd *curr_cmd, t_ms *ms);
 // char	**get_arguments(t_cmd *curr_cmd, t_list *tmp);
-void free_token_node(t_list * tokens);
+void	free_token_node(t_list *tokens);
 
 //env_to_listd.c
 int		get_key_len(char *envv, char sep);

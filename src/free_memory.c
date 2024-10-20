@@ -6,7 +6,7 @@
 /*   By: rnovotny <rnovotny@student.42prague.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/20 05:22:57 by lmaresov          #+#    #+#             */
-/*   Updated: 2024/10/20 17:42:30 by rnovotny         ###   ########.fr       */
+/*   Updated: 2024/10/20 23:42:51 by rnovotny         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,12 +28,11 @@ void	free_ms_tokens(t_ms *ms)
 {
 	t_list	*tmp;
 	t_list	*tokens;
-	
+
 	tokens = ms->tokens;
 	while (tokens)
 	{
 		tmp = tokens->next;
-		
 		if (tokens->data)
 		{
 			free(tokens->data);
@@ -62,7 +61,6 @@ void	free_all(t_ms *ms)
 		{
 			free_ms_tokens(ms);
 		}
-			
 		if (ms->commands)
 			free_ms_commands(ms);
 		if (ms->envar)

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   syntax_error.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: lmaresov <lmaresov@student.42prague.com    +#+  +:+       +#+        */
+/*   By: rnovotny <rnovotny@student.42prague.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/20 06:56:54 by lmaresov          #+#    #+#             */
-/*   Updated: 2024/10/20 16:34:50 by lmaresov         ###   ########.fr       */
+/*   Updated: 2024/10/20 23:45:52 by rnovotny         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -49,7 +49,6 @@ void	ms_int_init(t_ms *ms)
 		i = ms_int_init_helper(ms, i);
 		if (ms->input[i])
 			i++;
-		
 	}
 }
 

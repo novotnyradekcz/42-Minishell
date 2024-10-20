@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   env_to_list_helper.c                               :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: lmaresov <lmaresov@student.42prague.com    +#+  +:+       +#+        */
+/*   By: rnovotny <rnovotny@student.42prague.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/18 19:23:03 by lmaresov          #+#    #+#             */
-/*   Updated: 2024/10/20 16:01:51 by lmaresov         ###   ########.fr       */
+/*   Updated: 2024/10/20 23:43:25 by rnovotny         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -88,7 +88,6 @@ char	**split_key_value(char *envv, char sep)
 	splited_envar[0] = get_key(envv, sep, &i, key_len);
 	i++;
 	splited_envar[1] = get_value(envv, &i, value_len);
-	// splited_envar[2] = NULL;
 	return (splited_envar);
 }
 

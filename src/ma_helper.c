@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ma_helper.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: lmaresov <lmaresov@student.42prague.com    +#+  +:+       +#+        */
+/*   By: rnovotny <rnovotny@student.42prague.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/18 20:00:43 by lmaresov          #+#    #+#             */
-/*   Updated: 2024/10/20 12:50:23 by lmaresov         ###   ########.fr       */
+/*   Updated: 2024/10/20 23:40:54 by rnovotny         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -55,4 +55,14 @@ void	ex_commands(t_ms *ms)
 	}
 	else
 		run_commands(ms);
+}
+
+void	free_token_node(t_list *tokens)
+{
+	if (tokens->data)
+	{
+		free(tokens->data);
+		tokens->data = NULL;
+	}
+	free(tokens);
 }
