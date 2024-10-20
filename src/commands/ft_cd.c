@@ -6,7 +6,7 @@
 /*   By: rnovotny <rnovotny@student.42prague.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/21 06:33:33 by lmaresov          #+#    #+#             */
-/*   Updated: 2024/10/19 10:44:34 by rnovotny         ###   ########.fr       */
+/*   Updated: 2024/10/20 20:14:20 by rnovotny         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,7 +25,7 @@ static int	ft_cdnew(t_ms *ms, char *argv[])
 	{
 		r = errno;
 		err = ft_strjoin("minishell: cd: ", argv[1]);
-		ft_werror(err, NULL, NULL);
+		perror(err);
 		free(err);
 	}
 	else
@@ -34,7 +34,7 @@ static int	ft_cdnew(t_ms *ms, char *argv[])
 		t = getcwd(cwd, 4096);
 		ft_changeenvval(ms, "PWD", t);
 		free(ms->prompt);
-		ft_init_prompt(ms);
+		init_prompt(ms);
 	}
 	return (r);
 }
@@ -45,7 +45,7 @@ static void	ft_update_cdold(t_ms *ms, char *t, char *cwd)
 	t = getcwd(cwd, 4096);
 	ft_changeenvval(ms, "PWD", t);
 	free(ms->prompt);
-	ft_init_prompt(ms);
+	init_prompt(ms);
 	printf("%s\n", t);
 }
 
@@ -61,14 +61,14 @@ static int	ft_cdold(t_ms *ms)
 	if (!o)
 	{
 		r = 1;
-		ft_werror("minishell: cd: OLDPWD not set\n", NULL, NULL);
+		write(2, "minishell: cd: OLDPWD not set\n", 30);
 		return (r);
 	}
 	r = chdir(o);
 	if (r < 0)
 	{
 		r = errno;
-		ft_werror("cd", NULL, NULL);
+		perror("minishell: cd");
 	}
 	else
 		ft_update_cdold(ms, t, cwd);
@@ -88,7 +88,7 @@ static int	ft_cdhome(t_ms *ms)
 	if (r < 0)
 	{
 		r = errno;
-		ft_werror("cd", NULL, NULL);
+		perror("minishell: cd");
 	}
 	else
 	{
@@ -96,7 +96,7 @@ static int	ft_cdhome(t_ms *ms)
 		t = getcwd(cwd, 4096);
 		ft_changeenvval(ms, "PWD", t);
 		free(ms->prompt);
-		ft_init_prompt(ms);
+		init_prompt(ms);
 	}
 	return (r);
 }
@@ -110,7 +110,7 @@ void	ft_cd(t_ms *ms, char *argv[])
 		ft_cdhome(ms);
 	else if (argv[2])
 	{
-		perror("minishell: cd: too many arguments\n");
+		write(2, "minishell: cd: too many arguments\n", 34);
 		r = 1;
 	}
 	else if (argv[1][0] == '-' && !argv[1][1])

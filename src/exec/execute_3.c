@@ -6,7 +6,7 @@
 /*   By: rnovotny <rnovotny@student.42prague.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/16 14:53:45 by rnovotny          #+#    #+#             */
-/*   Updated: 2024/10/16 14:54:00 by rnovotny         ###   ########.fr       */
+/*   Updated: 2024/10/20 12:38:29 by rnovotny         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -96,7 +96,7 @@ int	ft_execct(t_ms *ms, int i, int j)
 		exit(255);
 	if (ms->cs[i].pids[j] == 0)
 	{
-		signal(SIGINT, ft_exit_sig);
+		signal(SIGINT, exit_sig);
 		ms->child = 1;
 		ft_heredoc(ms, i, j);
 		if (ft_dup(ms, i, j))
@@ -104,6 +104,6 @@ int	ft_execct(t_ms *ms, int i, int j)
 		ft_exec_child(ms, i, j);
 	}
 	else
-		signal(SIGINT, ft_global_sig);
+		signal(SIGINT, global_sig);
 	return (0);
 }

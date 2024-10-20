@@ -6,7 +6,7 @@
 /*   By: rnovotny <rnovotny@student.42prague.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/01 09:30:55 by lmaresov          #+#    #+#             */
-/*   Updated: 2024/10/20 08:56:14 by rnovotny         ###   ########.fr       */
+/*   Updated: 2024/10/20 12:54:58 by rnovotny         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -125,15 +125,15 @@ int		minishell(t_ms *ms);
 
 // init.c
 void	ft_init(t_ms *ms);
-void	ft_init_prompt(t_ms *ms);
-t_ev	*ft_evinit(char *str);
-void	ft_sortenv(t_list *el);
+void	init_prompt(t_ms *ms);
+t_ev	*init_ev(char *str);
+void	sort_env(t_list *el);
 
 // signals.c
-void	ft_newline(int signal);
-void	ft_global_sig(int signal);
-void	ft_newglobal_sig(int signal);
-void	ft_exit_sig(int signal);
+void	newline_sig(int signal);
+void	global_sig(int signal);
+void	new_global_sig(int signal);
+void	exit_sig(int signal);
 
 // check/check_tokens_0.c
 int		ft_tokenchecker(t_ms *ms);

@@ -6,13 +6,13 @@
 /*   By: rnovotny <rnovotny@student.42prague.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/16 12:18:58 by rnovotny          #+#    #+#             */
-/*   Updated: 2024/10/16 12:19:34 by rnovotny         ###   ########.fr       */
+/*   Updated: 2024/10/20 12:40:31 by rnovotny         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 
-void	ft_newline(int signal)
+void	newline_sig(int signal)
 {
 	if (signal == SIGINT)
 	{
@@ -23,7 +23,7 @@ void	ft_newline(int signal)
 	}
 }
 
-void	ft_global_sig(int signal)
+void	global_sig(int signal)
 {
 	if (signal == SIGINT)
 	{
@@ -31,14 +31,14 @@ void	ft_global_sig(int signal)
 	}
 }
 
-void	ft_newglobal_sig(int signal)
+void	new_global_sig(int signal)
 {
 	write(1, "\n", 1);
 	if (signal == SIGINT)
 		exit(130);
 }
 
-void	ft_exit_sig(int signal)
+void	exit_sig(int signal)
 {
 	if (signal == SIGINT)
 		exit(130);

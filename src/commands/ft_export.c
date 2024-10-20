@@ -6,7 +6,7 @@
 /*   By: rnovotny <rnovotny@student.42prague.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/21 06:34:02 by lmaresov          #+#    #+#             */
-/*   Updated: 2024/10/19 10:44:56 by rnovotny         ###   ########.fr       */
+/*   Updated: 2024/10/20 12:55:05 by rnovotny         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -79,7 +79,7 @@ static void	ft_exportlst_setup(t_ms *ms, t_ev *ev, int *r)
 		if (!ev || !lst)
 			*r = 1;
 		ft_lstadd_back(&ms->el, lst);
-		ft_sortenv(ms->el);
+		sort_env(ms->el);
 	}
 }
 
@@ -97,7 +97,7 @@ void	ft_export(t_ms *ms, char *argv[])
 	{
 		if (ft_isvalidvar(argv[i]))
 		{
-			ev = ft_evinit(argv[i]);
+			ev = init_ev(argv[i]);
 			ft_exportlst_setup(ms, ev, &r);
 		}
 		else

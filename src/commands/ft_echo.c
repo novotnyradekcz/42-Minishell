@@ -6,7 +6,7 @@
 /*   By: rnovotny <rnovotny@student.42prague.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/21 06:23:47 by lmaresov          #+#    #+#             */
-/*   Updated: 2024/10/19 10:44:47 by rnovotny         ###   ########.fr       */
+/*   Updated: 2024/10/20 13:08:03 by rnovotny         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,7 +37,7 @@ static int	ft_echo2(char *argv[])
 		i++;
 	}
 	if (!n && e >= 0)
-		e = write(1, "\n", 1);
+		e = printf("\n");
 	return (e);
 }
 

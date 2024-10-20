@@ -6,7 +6,7 @@
 /*   By: rnovotny <rnovotny@student.42prague.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/16 14:54:27 by rnovotny          #+#    #+#             */
-/*   Updated: 2024/10/19 12:23:08 by rnovotny         ###   ########.fr       */
+/*   Updated: 2024/10/20 12:35:49 by rnovotny         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -63,7 +63,7 @@ void	ft_forking_helper(t_ms *ms, int i, int j)
 	ft_exit_helper(ms, line, i, pid);
 	if (pid == 0)
 	{
-		signal(SIGINT, ft_newglobal_sig);
+		signal(SIGINT, new_global_sig);
 		while (1)
 		{
 			// write (1, "> ", 2);

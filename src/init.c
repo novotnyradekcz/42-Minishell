@@ -6,13 +6,13 @@
 /*   By: rnovotny <rnovotny@student.42prague.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/20 06:56:54 by lmaresov          #+#    #+#             */
-/*   Updated: 2024/10/20 08:57:38 by rnovotny         ###   ########.fr       */
+/*   Updated: 2024/10/20 12:54:51 by rnovotny         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 
-void	ft_init_prompt(t_ms *ms)
+void	init_prompt(t_ms *ms)
 {
 	char	cwd[4096];
 	char	*dir;
@@ -30,7 +30,7 @@ void	ft_init_prompt(t_ms *ms)
 	ms->prompt = ft_strjoin_freeleft(ms->prompt, " $ ");
 }
 
-t_ev	*ft_evinit(char *str)
+t_ev	*init_ev(char *str)
 {
 	t_ev	*ev;
 	int		i;
@@ -62,7 +62,7 @@ static t_list	*ft_split2list(char **esplit)
 	t_ev	*ev;
 
 	i = 1;
-	ev = ft_evinit(esplit[0]);
+	ev = init_ev(esplit[0]);
 	if (!ev)
 		exit(1);
 	lstart = ft_lstnew((void *)ev);
@@ -70,7 +70,7 @@ static t_list	*ft_split2list(char **esplit)
 		exit(1);
 	while (esplit[i])
 	{
-		ev = ft_evinit(esplit[i]);
+		ev = init_ev(esplit[i]);
 		if (!ev)
 			exit(1);
 		lst = ft_lstnew((void *)ev);
@@ -82,7 +82,7 @@ static t_list	*ft_split2list(char **esplit)
 	return (lstart);
 }
 
-void	ft_sortenv(t_list *el)
+void	sort_env(t_list *el)
 {
 	int		sort;
 	t_list	*lst;
@@ -128,6 +128,6 @@ void	ft_init(t_ms *ms)
 	ms->ev = ft_copy_array(ms->ev);
 	ms->el = ft_split2list(ms->ev);
 	ft_exit(ms, 0);
-	ft_init_prompt(ms);
-	ft_sortenv(ms->el);
+	init_prompt(ms);
+	sort_env(ms->el);
 }

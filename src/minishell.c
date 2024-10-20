@@ -6,7 +6,7 @@
 /*   By: rnovotny <rnovotny@student.42prague.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/01 09:30:12 by lmaresov          #+#    #+#             */
-/*   Updated: 2024/10/17 16:16:38 by rnovotny         ###   ########.fr       */
+/*   Updated: 2024/10/20 12:40:54 by rnovotny         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -39,7 +39,7 @@ int	minishell(t_ms *ms)
 {
 	while (ms->live)
 	{
-		signal(SIGINT, ft_newline);
+		signal(SIGINT, newline_sig);
 		ms->s = readline(ms->prompt);
 		if (!ms->s)
 			break ;
@@ -67,7 +67,7 @@ int main (int argc, char **argv, char **env)
 	g_signal = 0;
 	ms.ev = env;
 	signal(SIGQUIT, SIG_IGN);
-	signal(SIGINT, ft_newline);
+	signal(SIGINT, newline_sig);
 	ft_init(&ms);
 	minishell(&ms);
 	return (ms.exit);
