@@ -6,7 +6,7 @@
 /*   By: rnovotny <rnovotny@student.42prague.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/01 09:30:55 by lmaresov          #+#    #+#             */
-/*   Updated: 2024/10/20 08:10:50 by rnovotny         ###   ########.fr       */
+/*   Updated: 2024/10/20 08:56:14 by rnovotny         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,7 +24,7 @@
 #include <fcntl.h>
 #include "libft/libft.h"
 
-#define PROMPT "minishell> "
+#define PROMPT "minishell: "
 
 extern int	g_signal;
 

@@ -6,7 +6,7 @@
 /*   By: rnovotny <rnovotny@student.42prague.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/20 06:56:54 by lmaresov          #+#    #+#             */
-/*   Updated: 2024/10/18 18:48:55 by rnovotny         ###   ########.fr       */
+/*   Updated: 2024/10/20 08:57:38 by rnovotny         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,8 +26,8 @@ void	ft_init_prompt(t_ms *ms)
 		dir[0] = '~';
 	}
 	ms->prompt = PROMPT;
-	ms->prompt = ft_strjoin_freeleft(ms->prompt, dir);
-	ms->prompt = ft_strjoin_freeleft(ms->prompt, " %% ");
+	ms->prompt = ft_strjoin(ms->prompt, dir);
+	ms->prompt = ft_strjoin_freeleft(ms->prompt, " $ ");
 }
 
 t_ev	*ft_evinit(char *str)

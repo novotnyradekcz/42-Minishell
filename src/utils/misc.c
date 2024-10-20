@@ -6,7 +6,7 @@
 /*   By: rnovotny <rnovotny@student.42prague.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/20 05:27:00 by lmaresov          #+#    #+#             */
-/*   Updated: 2024/10/20 08:12:45 by rnovotny         ###   ########.fr       */
+/*   Updated: 2024/10/20 08:44:58 by rnovotny         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -38,36 +38,6 @@ void	ft_wait(t_ms *ms, int pid, int options)
 	}
 	if (g_signal)
 		g_signal = 0;
-}
-
-void	ft_free_array(char ***arrptr)
-{
-	int		i;
-	char	**arr;
-
-	arr = *arrptr;
-	i = 0;
-	while (arr[i])
-	{
-		free(arr[i]);
-		arr[i] = NULL;
-		i++;
-	}
-	free(arr);
-	arr = NULL;
-}
-
-void	ft_mini_free(t_ms *ms)
-{
-	if (ms->lex)
-		ft_lstclear(&ms->lex, ft_free_token);
-	ms->lex = NULL;
-	if (ms->exe)
-		ft_lstclear(&ms->exe, ft_free_token);
-	ms->exe = NULL;
-	if (ms->csn)
-		ft_free_cs(ms);
-	ms->csn = 0;
 }
 
 void	ft_exit(t_ms *ms, int err)
