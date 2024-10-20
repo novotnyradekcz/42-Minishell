@@ -6,7 +6,7 @@
 /*   By: rnovotny <rnovotny@student.42prague.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/08 07:02:12 by lmaresov          #+#    #+#             */
-/*   Updated: 2024/10/16 12:41:52 by rnovotny         ###   ########.fr       */
+/*   Updated: 2024/10/20 08:12:24 by rnovotny         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,7 +29,9 @@ int	ft_fillctfd_helper_err(t_ct *ct, char *file, int *r, int fd)
 {
 	ct->fds[fd][0] = -1;
 	ct->fds[fd][1] = -1;
-	ft_printf_fd(2, "minishell: %s: %s\n", file, strerror(errno));
+	write(2, "minishell: ", 11);
+	ft_werror(file, ": ", strerror(errno));
+	write(2, "\n", 1);
 	*r = 0;
 	return (0);
 }
@@ -92,7 +94,7 @@ int	ft_fillctfd(t_ct *ct, char *file, int *r)
 	}
 	else if (*r & INOUTFILE)
 	{
-		ft_printf("<> not implemented\n");
+		printf("<> not implemented\n");
 	}
 	*r = 0;
 	return (0);

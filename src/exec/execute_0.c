@@ -6,7 +6,7 @@
 /*   By: rnovotny <rnovotny@student.42prague.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/20 09:11:11 by lmaresov          #+#    #+#             */
-/*   Updated: 2024/10/16 14:50:47 by rnovotny         ###   ########.fr       */
+/*   Updated: 2024/10/19 00:35:22 by rnovotny         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,7 +23,7 @@ static int	ft_check_newin(int newin)
 {
 	if (dup2(newin, STDIN_FILENO) < 0)
 	{
-		ft_printf_fd(2, "Error duplicating input\n");
+		ft_werror("Error duplicating input\n", NULL, NULL);
 		return (1);
 	}
 	else
@@ -34,7 +34,7 @@ static int	ft_check_newout(int newout)
 {
 	if (dup2(newout, STDOUT_FILENO) < 0)
 	{
-		ft_printf_fd(2, "Error duplicating output\n");
+		ft_werror("Error duplicating output\n", NULL, NULL);
 		return (2);
 	}
 	else
@@ -44,8 +44,7 @@ static int	ft_check_newout(int newout)
 static int	ft_check_newerr(int newerr)
 {
 	if (dup2(newerr, STDERR_FILENO) < 0)
-	{
-		ft_printf_fd(2, "Error duplicating error output\n");
+	{ft_werror("Error duplicating error output\n", NULL, NULL);
 		return (3);
 	}
 	else

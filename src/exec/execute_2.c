@@ -6,7 +6,7 @@
 /*   By: rnovotny <rnovotny@student.42prague.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/12 12:05:39 by lmaresov          #+#    #+#             */
-/*   Updated: 2024/10/16 14:53:01 by rnovotny         ###   ########.fr       */
+/*   Updated: 2024/10/19 12:12:38 by rnovotny         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -105,9 +105,9 @@ static void	ft_fail_exec(t_ms *ms, char *cmd)
 		i++;
 	}
 	if (!x)
-		ft_printf_fd(2, "%s: command not found\n", cmd);
+		ft_werror(cmd, ": command not found\n", NULL);
 	else
-		ft_printf_fd(2, "minishell: %s: Permission denied\n", cmd);
+		ft_werror("minishell: ", cmd, ": Permission denied\n");
 	ft_exit(NULL, 127 - x);
 }
 
@@ -133,7 +133,7 @@ int	ft_exec(t_ms *ms, char **cmd)
 		free(cmdp);
 		i++;
 	}
-	ft_free_split(&env);
+	ft_free_array(&env);
 	ft_fail_exec(ms, cmd[0]);
 	return (fail);
 }

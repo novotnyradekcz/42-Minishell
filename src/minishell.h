@@ -6,16 +6,18 @@
 /*   By: rnovotny <rnovotny@student.42prague.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/01 09:30:55 by lmaresov          #+#    #+#             */
-/*   Updated: 2024/10/18 18:44:20 by rnovotny         ###   ########.fr       */
+/*   Updated: 2024/10/20 08:10:50 by rnovotny         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #ifndef MINISHELL_H
 #define MINISHELL_H
 
+#include <errno.h>
 #include <stdio.h>
 #include <readline/readline.h>
 #include <readline/history.h>
+#include <string.h>
 #include <stdlib.h>
 #include <signal.h>
 #include <unistd.h>
@@ -225,16 +227,23 @@ int		ft_parser(t_ms *ms);
 int		ft_createcs(t_ms *ms);
 void	ft_updatectn(t_ms *ms);
 
-//	utils/free.c
+// utils/array_insert.c
+int	array_insert(char ***array, char *str, int n);
+
+//	utils/free_0.c
 void	ft_free_ev(void *ptr);
 void	ft_free_token(void *ptr);
 void	ft_free(t_ms *ms);
 void	ft_free_cs(t_ms *ms);
 
-// utils/wait.c
+//	utils/free_1.c
+void	ft_free_array(char ***arrptr);
+void	ft_mini_free(t_ms *ms);
+
+// utils/misc.c
 void	ft_wait(t_ms *ms, int pid, int options);
 void	ft_exit(t_ms *ms, int err);
-void	ft_mini_free(t_ms *ms);
+void	ft_werror(char *s1, char *s2, char *s3);
 
 // utils/envvar.c
 char	**ft_list2split(t_list *lst);

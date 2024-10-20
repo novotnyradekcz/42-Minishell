@@ -6,7 +6,7 @@
 /*   By: rnovotny <rnovotny@student.42prague.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/08 07:01:11 by lmaresov          #+#    #+#             */
-/*   Updated: 2024/10/18 14:46:50 by rnovotny         ###   ########.fr       */
+/*   Updated: 2024/10/20 08:09:53 by rnovotny         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,9 +26,9 @@ static int	ft_fillct_helper(t_ct *ct, char *text)
 	}
 	else if (ct->argv && text)
 	{
-		if (ft_split_add(&ct->argv, text, ft_splitlen(ct->argv)))
+		if (array_insert(&ct->argv, text, ft_array_len(ct->argv)))
 		{
-			ft_printf("err3\n");
+			printf("err3\n");
 			return (1);
 		}
 	}

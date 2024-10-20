@@ -6,7 +6,7 @@
 /*   By: rnovotny <rnovotny@student.42prague.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/21 06:34:12 by lmaresov          #+#    #+#             */
-/*   Updated: 2024/10/16 15:18:16 by rnovotny         ###   ########.fr       */
+/*   Updated: 2024/10/19 00:32:36 by rnovotny         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -64,7 +64,7 @@ void	ft_unset(t_ms *ms, char *argv[])
 	i = 1;
 	if (!argv[1])
 	{
-		ft_printf_fd(2, "unset: not enought arguments\n");
+		ft_werror("unset: not enought arguments\n", NULL, NULL);
 		r = 1;
 	}
 	while (argv[i])

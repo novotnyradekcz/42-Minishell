@@ -6,7 +6,7 @@
 /*   By: rnovotny <rnovotny@student.42prague.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/01 08:57:55 by lmaresov          #+#    #+#             */
-/*   Updated: 2024/10/16 12:23:03 by rnovotny         ###   ########.fr       */
+/*   Updated: 2024/10/18 18:56:20 by rnovotny         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -59,7 +59,7 @@ static void	ft_tokenchecker_helper(t_ms *ms, t_list	*lst, t_check *check)
 	{
 		ms->error = 2;
 		ms->csn = 0;
-		ft_printf_fd(2, "minishell: syntax error, unexpected token\n");
+		perror("minishell: syntax error, unexpected token\n");
 	}
 }
 

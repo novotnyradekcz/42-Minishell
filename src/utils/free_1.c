@@ -1,43 +1,32 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   wait.c                                             :+:      :+:    :+:   */
+/*   free_1.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: rnovotny <rnovotny@student.42prague.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2024/09/20 05:27:00 by lmaresov          #+#    #+#             */
-/*   Updated: 2024/10/16 15:41:54 by rnovotny         ###   ########.fr       */
+/*   Created: 2024/10/19 12:28:49 by rnovotny          #+#    #+#             */
+/*   Updated: 2024/10/19 12:29:01 by rnovotny         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "minishell.h"
+#include "../minishell.h"
 
-void	ft_wait(t_ms *ms, int pid, int options)
+void	ft_free_array(char ***arrptr)
 {
-	int		err;
+	int		i;
+	char	**arr;
 
-	waitpid(pid, &err, options);
-	ms->parent--;
-	if (WIFEXITED(err))
+	arr = *arrptr;
+	i = 0;
+	while (arr[i])
 	{
-		ms->error = WEXITSTATUS(err);
+		free(arr[i]);
+		arr[i] = NULL;
+		i++;
 	}
-	else if (WIFSIGNALED(err))
-	{
-		if (WTERMSIG(err) == g_signal)
-		{
-			write(1, "\n", 1);
-			g_signal = 0;
-		}
-		else if (WTERMSIG(err) == SIGQUIT)
-			write(1, "\n", 1);
-	}
-	else
-	{
-		ms->error = 0;
-	}
-	if (g_signal)
-		g_signal = 0;
+	free(arr);
+	arr = NULL;
 }
 
 void	ft_mini_free(t_ms *ms)
@@ -51,17 +40,4 @@ void	ft_mini_free(t_ms *ms)
 	if (ms->csn)
 		ft_free_cs(ms);
 	ms->csn = 0;
-}
-
-void	ft_exit(t_ms *ms, int err)
-{
-	static t_ms	*stat;
-
-	if (!stat)
-		stat = ms;
-	else
-	{
-		ft_free(stat);
-		exit(err);
-	}
 }

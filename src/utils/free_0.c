@@ -6,7 +6,7 @@
 /*   By: rnovotny <rnovotny@student.42prague.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/20 05:22:57 by lmaresov          #+#    #+#             */
-/*   Updated: 2024/10/16 15:41:52 by rnovotny         ###   ########.fr       */
+/*   Updated: 2024/10/19 12:13:36 by rnovotny         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,7 +22,7 @@ void	ft_free_ev(void *ptr)
 	if (ev->var)
 		free(ev->var);
 	if (ev->vals)
-		ft_free_split(&ev->vals);
+		ft_free_array(&ev->vals);
 	free(ev);
 	ev = NULL;
 }
@@ -50,7 +50,7 @@ void	ft_free_ct(t_ms *ms, int i)
 	while (j < ms->cs[i].ctn)
 	{
 		if (ms->cs[i].ct[j].argv)
-			ft_free_split(&ms->cs[i].ct[j].argv);
+			ft_free_array(&ms->cs[i].ct[j].argv);
 		j++;
 	}
 	free(ms->cs[i].ct);
@@ -94,7 +94,7 @@ void	ft_free(t_ms *ms)
 		ms->prompt = NULL;
 	}
 	if (ms->ev)
-		ft_free_split(&ms->ev);
+		ft_free_array(&ms->ev);
 	if (ms->el)
 		ft_lstclear(&ms->el, ft_free_ev);
 	if (ms->lex)

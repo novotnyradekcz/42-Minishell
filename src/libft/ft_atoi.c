@@ -1,37 +1,38 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_env.c                                           :+:      :+:    :+:   */
+/*   ft_atoi.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: rnovotny <rnovotny@student.42prague.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2024/09/21 06:33:41 by lmaresov          #+#    #+#             */
-/*   Updated: 2024/10/19 00:40:15 by rnovotny         ###   ########.fr       */
+/*   Created: 2023/01/09 14:34:46 by rnovotny          #+#    #+#             */
+/*   Updated: 2023/01/21 22:00:59 by rnovotny         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../minishell.h"
+#include "libft.h"
 
-void	ft_env(t_ms *ms, char *argv[])
+int	ft_atoi(const char *nptr)
 {
-	if (!argv[1])
+	int				i;
+	int				neg;
+	unsigned int	res;
+
+	neg = 1;
+	res = 0;
+	i = 0;
+	while ((nptr[i] >= 9 && nptr[i] <= 13) || nptr[i] == 32)
+		i++;
+	if (nptr[i] == '-' || nptr[i] == '+')
 	{
-		ft_putenv(ms->el);
-		ft_exit (NULL, 0);
+		if (nptr[i] == '-')
+			neg = -neg;
+		i++;
 	}
-	if (!(access(argv[1], F_OK)))
+	while (nptr[i] >= 48 && nptr[i] <= 57)
 	{
-		ft_werror("env: ", argv[1], ": Permission denied\n");
-		ft_exit(NULL, 126);
+		res = res * 10 + (nptr[i] - 48);
+		i++;
 	}
-	else if (argv[1])
-	{
-		ft_werror("env: ", argv[1], ": No such file or directory\n");
-		ft_exit(NULL, 127);
-	}
-	else
-	{
-		ft_putenv(ms->el);
-	}
-	ft_exit (NULL, 0);
+	return (neg * res);
 }

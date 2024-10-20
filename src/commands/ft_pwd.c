@@ -6,7 +6,7 @@
 /*   By: rnovotny <rnovotny@student.42prague.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/21 06:34:07 by lmaresov          #+#    #+#             */
-/*   Updated: 2024/10/16 15:17:45 by rnovotny         ###   ########.fr       */
+/*   Updated: 2024/10/19 10:45:05 by rnovotny         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,6 +20,6 @@ void	ft_pwd(t_ms *ms, char *argv[])
 	(void)argv;
 	(void)ms;
 	s = getcwd(cwd, 4096);
-	ft_printf("%s\n", s);
+	printf("%s\n", s);
 	ft_exit(NULL, 0);
 }

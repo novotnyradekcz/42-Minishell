@@ -6,7 +6,7 @@
 /*   By: rnovotny <rnovotny@student.42prague.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/12 11:59:28 by lmaresov          #+#    #+#             */
-/*   Updated: 2024/10/16 15:03:06 by rnovotny         ###   ########.fr       */
+/*   Updated: 2024/10/19 00:38:37 by rnovotny         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,7 +24,7 @@ int	ft_open_pipes(t_ms *ms, int i)
 	{
 		if (pipe(ms->cs[i].pipes[j]) == -1)
 		{
-			ft_printf_fd(2, "Error with creating pipe\n");
+			ft_werror("Error with creating pipe\n", NULL, NULL);
 			return (1);
 		}
 		j++;

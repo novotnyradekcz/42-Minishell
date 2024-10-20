@@ -6,59 +6,11 @@
 /*   By: rnovotny <rnovotny@student.42prague.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/21 06:33:57 by lmaresov          #+#    #+#             */
-/*   Updated: 2024/10/16 15:16:45 by rnovotny         ###   ########.fr       */
+/*   Updated: 2024/10/19 11:13:11 by rnovotny         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../minishell.h"
-
-static int	ft_check_error_isbignumber(char *s)
-{
-	if (ft_strlen(s) > 11)
-		return (1);
-	else
-	{
-		if (ft_latoi(s) < -2147483648
-			|| ft_latoi(s) > 2147483647)
-		{
-			return (1);
-		}
-	}
-	return (0);
-}
-
-static int	ft_check_error_isnumber(char *s)
-{
-	int	j;
-
-	j = 0;
-	if (ft_isdigit(s[j]) || s[j] == '-' || s[j] == '+')
-		j++;
-	while (ft_isdigit(s[j]))
-		j++;
-	if (s[j])
-	{
-		return (1);
-	}
-	if (!ft_isdigit(s[j - 1]))
-	{
-		return (1);
-	}
-	return (0);
-}
-
-static int	ft_check_exit_arg(char *str)
-{
-	if (!str)
-		return (0);
-	if (!str[0])
-		return (1);
-	if (ft_check_error_isnumber(str))
-		return (1);
-	if (ft_check_error_isbignumber(str))
-		return (1);
-	return (0);
-}
 
 void	ft_exit_builtin(t_ms *ms, char *argv[])
 {
@@ -72,14 +24,7 @@ void	ft_exit_builtin(t_ms *ms, char *argv[])
 			ms->exit = 0;
 			ms->live = 1;
 			ms->error = 1;
-			ft_printf_fd(2, "minishell: exit: too many arguments\n");
-		}
-		if (ft_check_exit_arg(argv[1]))
-		{
-			ms->exit = 2;
-			ms->live = 0;
-			ms->error = 2;
-			ft_printf_fd(2, "minishell: exit: numeric argument required\n");
+			write(2, "minishell: exit: too many arguments\n", 36);
 		}
 	}
 }

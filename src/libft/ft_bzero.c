@@ -1,37 +1,27 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_env.c                                           :+:      :+:    :+:   */
+/*   ft_bzero.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: rnovotny <rnovotny@student.42prague.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2024/09/21 06:33:41 by lmaresov          #+#    #+#             */
-/*   Updated: 2024/10/19 00:40:15 by rnovotny         ###   ########.fr       */
+/*   Created: 2023/01/09 13:48:02 by rnovotny          #+#    #+#             */
+/*   Updated: 2023/01/18 22:59:42 by rnovotny         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../minishell.h"
+#include "libft.h"
 
-void	ft_env(t_ms *ms, char *argv[])
+void	ft_bzero(void *s, size_t n)
 {
-	if (!argv[1])
+	size_t	i;
+	char	*ps;
+
+	ps = (char *)s;
+	i = 0;
+	while (i < n)
 	{
-		ft_putenv(ms->el);
-		ft_exit (NULL, 0);
+		ps[i] = 0;
+		i++;
 	}
-	if (!(access(argv[1], F_OK)))
-	{
-		ft_werror("env: ", argv[1], ": Permission denied\n");
-		ft_exit(NULL, 126);
-	}
-	else if (argv[1])
-	{
-		ft_werror("env: ", argv[1], ": No such file or directory\n");
-		ft_exit(NULL, 127);
-	}
-	else
-	{
-		ft_putenv(ms->el);
-	}
-	ft_exit (NULL, 0);
 }

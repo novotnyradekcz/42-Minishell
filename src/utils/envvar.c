@@ -6,7 +6,7 @@
 /*   By: rnovotny <rnovotny@student.42prague.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/16 15:36:54 by rnovotny          #+#    #+#             */
-/*   Updated: 2024/10/18 14:47:04 by rnovotny         ###   ########.fr       */
+/*   Updated: 2024/10/19 12:12:45 by rnovotny         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,7 +23,7 @@ void	ft_putenv(t_list *el)
 		if (lst->content)
 		{
 			ev = lst->content;
-			ft_printf("%s\n", ev->s);
+			printf("%s\n", ev->s);
 		}
 		lst = lst->next;
 	}
@@ -42,7 +42,7 @@ void	ft_changeenvval(t_ms *ms, char *var, char *val)
 		ev = lst->content;
 		if (!ft_strncmp(ev->var, var, l))
 		{
-			ft_free_split(&ev->vals);
+			ft_free_array(&ev->vals);
 			free(ev->s);
 			free(ev->var);
 			var = ft_strjoin(var, "=");

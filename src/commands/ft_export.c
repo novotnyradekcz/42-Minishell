@@ -6,7 +6,7 @@
 /*   By: rnovotny <rnovotny@student.42prague.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/21 06:34:02 by lmaresov          #+#    #+#             */
-/*   Updated: 2024/10/16 15:17:18 by rnovotny         ###   ########.fr       */
+/*   Updated: 2024/10/19 10:44:56 by rnovotny         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,7 +23,7 @@ static void	ft_put_export_env(t_list *el)
 		if (lst->content)
 		{
 			ev = lst->content;
-			ft_printf("declare -x %s\n", ev->s);
+			printf("declare -x %s\n", ev->s);
 		}
 		lst = lst->next;
 	}
@@ -90,22 +90,22 @@ void	ft_export(t_ms *ms, char *argv[])
 	t_ev	*ev;
 
 	r = 0;
-	i = 1;
+	i = 0;
 	if (!argv[1])
 		ft_put_export_env(ms->el);
-	while (argv[i])
+	while (argv[++i])
 	{
 		if (ft_isvalidvar(argv[i]))
 		{
 			ev = ft_evinit(argv[i]);
 			ft_exportlst_setup(ms, ev, &r);
 		}
-		else if (ft_printf_fd(2, "minishell: export: '%s'", argv[i]), 1)
+		else
 		{
 			r = 1;
-			ft_printf_fd(2, ": not a valid identifier\n");
+			ft_werror("minishell: export: '", argv[i], NULL);
+			ft_werror("': not a valid identifier\n", NULL, NULL);
 		}
-		i++;
 	}
 	ms->err[0] = r;
 	ms->err[1] = 1;

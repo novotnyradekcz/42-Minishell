@@ -6,7 +6,7 @@
 /*   By: rnovotny <rnovotny@student.42prague.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/16 14:39:40 by rnovotny          #+#    #+#             */
-/*   Updated: 2024/10/18 14:46:31 by rnovotny         ###   ########.fr       */
+/*   Updated: 2024/10/19 12:24:39 by rnovotny         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -83,8 +83,8 @@ int	ft_expand_strings(t_ms *ms)
 		token = lst->content;
 		if (ft_expand_strings_helper(ms, token))
 			return (1);
-		if (token->type == NOQUOTE)
-			ft_expand_wild(ms, lst);
+		// if (token->type == NOQUOTE)
+		// 	ft_expand_wild(ms, lst);
 		lst = lst->next;
 	}
 	return (0);

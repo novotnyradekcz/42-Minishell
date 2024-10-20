@@ -6,7 +6,7 @@
 /*   By: rnovotny <rnovotny@student.42prague.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/21 06:33:33 by lmaresov          #+#    #+#             */
-/*   Updated: 2024/10/16 15:13:31 by rnovotny         ###   ########.fr       */
+/*   Updated: 2024/10/19 10:44:34 by rnovotny         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,7 +25,7 @@ static int	ft_cdnew(t_ms *ms, char *argv[])
 	{
 		r = errno;
 		err = ft_strjoin("minishell: cd: ", argv[1]);
-		perror(err);
+		ft_werror(err, NULL, NULL);
 		free(err);
 	}
 	else
@@ -46,7 +46,7 @@ static void	ft_update_cdold(t_ms *ms, char *t, char *cwd)
 	ft_changeenvval(ms, "PWD", t);
 	free(ms->prompt);
 	ft_init_prompt(ms);
-	ft_printf("%s\n", t);
+	printf("%s\n", t);
 }
 
 static int	ft_cdold(t_ms *ms)
@@ -61,14 +61,14 @@ static int	ft_cdold(t_ms *ms)
 	if (!o)
 	{
 		r = 1;
-		ft_printf_fd(2, "minishell: cd: OLDPWD not set\n");
+		ft_werror("minishell: cd: OLDPWD not set\n", NULL, NULL);
 		return (r);
 	}
 	r = chdir(o);
 	if (r < 0)
 	{
 		r = errno;
-		perror("cd");
+		ft_werror("cd", NULL, NULL);
 	}
 	else
 		ft_update_cdold(ms, t, cwd);
@@ -88,7 +88,7 @@ static int	ft_cdhome(t_ms *ms)
 	if (r < 0)
 	{
 		r = errno;
-		perror("cd");
+		ft_werror("cd", NULL, NULL);
 	}
 	else
 	{
@@ -110,7 +110,7 @@ void	ft_cd(t_ms *ms, char *argv[])
 		ft_cdhome(ms);
 	else if (argv[2])
 	{
-		ft_printf_fd(2, "minishell: cd: too many arguments\n");
+		perror("minishell: cd: too many arguments\n");
 		r = 1;
 	}
 	else if (argv[1][0] == '-' && !argv[1][1])
