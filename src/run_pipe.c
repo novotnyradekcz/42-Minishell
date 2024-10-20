@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   run_pipe.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: lmaresov <lmaresov@student.42prague.com    +#+  +:+       +#+        */
+/*   By: rnovotny <rnovotny@student.42prague.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/19 13:08:47 by lmaresov          #+#    #+#             */
-/*   Updated: 2024/10/19 13:54:07 by lmaresov         ###   ########.fr       */
+/*   Updated: 2024/10/20 17:43:30 by rnovotny         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,7 +16,7 @@ void	perror_exit(char *str, t_ms *ms)
 {
 	perror(str);
 	ms->exit_status = 1;
-	exit(1);
+	return ;
 }
 
 void	child_process_pipes(t_ms *ms, int prev_fd_read, int *pipefd, int first)

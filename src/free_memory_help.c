@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   free_memory_help.c                                 :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: lmaresov <lmaresov@student.42prague.com    +#+  +:+       +#+        */
+/*   By: rnovotny <rnovotny@student.42prague.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/19 17:35:22 by lmaresov          #+#    #+#             */
-/*   Updated: 2024/10/19 17:47:11 by lmaresov         ###   ########.fr       */
+/*   Updated: 2024/10/20 17:42:01 by rnovotny         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -59,4 +59,14 @@ int	free_tmp(char **tmp, int i)
 		free(tmp[i]);
 	free(tmp);
 	return (0);
+}
+
+void	free_no_input(t_ms *ms)
+{
+	if (ms)
+	{
+		if (ms->envar)
+			free_ms_envar(ms->envar);
+		free(ms);
+	}
 }

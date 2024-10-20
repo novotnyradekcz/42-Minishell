@@ -6,7 +6,7 @@
 /*   By: lmaresov <lmaresov@student.42prague.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/20 06:56:54 by lmaresov          #+#    #+#             */
-/*   Updated: 2024/10/18 20:41:27 by lmaresov         ###   ########.fr       */
+/*   Updated: 2024/10/20 16:34:50 by lmaresov         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -47,7 +47,9 @@ void	ms_int_init(t_ms *ms)
 		while (is_whitespace(ms->input[i]))
 			i++;
 		i = ms_int_init_helper(ms, i);
-		i++;
+		if (ms->input[i])
+			i++;
+		
 	}
 }
 

@@ -6,7 +6,7 @@
 /*   By: lmaresov <lmaresov@student.42prague.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/18 19:23:03 by lmaresov          #+#    #+#             */
-/*   Updated: 2024/10/18 19:26:09 by lmaresov         ###   ########.fr       */
+/*   Updated: 2024/10/20 16:01:51 by lmaresov         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -82,13 +82,13 @@ char	**split_key_value(char *envv, char sep)
 	envv_len = ft_strlen(envv);
 	key_len = get_key_len(envv, sep);
 	value_len = envv_len - key_len - 1;
-	splited_envar = (char **)malloc(sizeof(char *) * 3);
+	splited_envar = (char **)malloc(sizeof(char *) * 2);
 	if (!splited_envar)
 		return (NULL);
 	splited_envar[0] = get_key(envv, sep, &i, key_len);
 	i++;
 	splited_envar[1] = get_value(envv, &i, value_len);
-	splited_envar[2] = NULL;
+	// splited_envar[2] = NULL;
 	return (splited_envar);
 }
 

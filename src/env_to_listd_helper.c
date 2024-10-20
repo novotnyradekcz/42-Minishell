@@ -6,7 +6,7 @@
 /*   By: lmaresov <lmaresov@student.42prague.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/18 19:27:24 by lmaresov          #+#    #+#             */
-/*   Updated: 2024/10/18 19:28:16 by lmaresov         ###   ########.fr       */
+/*   Updated: 2024/10/20 17:21:44 by lmaresov         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,6 +27,7 @@ t_env	*put_envvar_to_envstruct(char **env_var)
 	}
 	env_struct->env_key = env_var[0];
 	env_struct->env_value = env_var[1];
+	free(env_var);
 	return (env_struct);
 }
 

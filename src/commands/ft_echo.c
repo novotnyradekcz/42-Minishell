@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ft_echo.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: lmaresov <lmaresov@student.42prague.com    +#+  +:+       +#+        */
+/*   By: rnovotny <rnovotny@student.42prague.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/21 06:23:47 by lmaresov          #+#    #+#             */
-/*   Updated: 2024/10/19 18:17:30 by lmaresov         ###   ########.fr       */
+/*   Updated: 2024/10/20 17:41:00 by rnovotny         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -44,7 +44,7 @@ char	*ft_echo_helper(char **arguments)
 char	*str_without_option(char *str)
 {
 	char	*str_tmp;
-	
+
 	str_tmp = str;
 	str = ft_strjoin(str_tmp, "\n");
 	free(str_tmp);
@@ -56,7 +56,6 @@ void	ft_echo(t_ms *ms)
 	char	*str;
 	t_cmd	*cmd;
 	int		original_fd;
-	
 
 	str = malloc(sizeof(char));
 	if (!str)

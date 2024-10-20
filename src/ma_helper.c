@@ -6,7 +6,7 @@
 /*   By: lmaresov <lmaresov@student.42prague.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/18 20:00:43 by lmaresov          #+#    #+#             */
-/*   Updated: 2024/10/18 20:12:23 by lmaresov         ###   ########.fr       */
+/*   Updated: 2024/10/20 12:50:23 by lmaresov         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -42,13 +42,6 @@ int	check_input(t_ms *ms)
 	if (syntax_error(ms))
 		return (1);
 	return (0);
-}
-
-void	free_one_input(t_ms *ms)
-{
-	free_ms_input(ms);
-	free_ms_tokens(ms);
-	free_ms_commands(ms);
 }
 
 void	ex_commands(t_ms *ms)

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   free_memory.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: lmaresov <lmaresov@student.42prague.com    +#+  +:+       +#+        */
+/*   By: rnovotny <rnovotny@student.42prague.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/20 05:22:57 by lmaresov          #+#    #+#             */
-/*   Updated: 2024/10/19 17:37:23 by lmaresov         ###   ########.fr       */
+/*   Updated: 2024/10/20 17:42:30 by rnovotny         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,37 +26,47 @@ void	free_ms_input(t_ms *ms)
 
 void	free_ms_tokens(t_ms *ms)
 {
-	if (ms->tokens)
+	t_list	*tmp;
+	t_list	*tokens;
+	
+	tokens = ms->tokens;
+	while (tokens)
 	{
-		del_tokens(&ms->tokens);
-		ms->tokens = NULL;
+		tmp = tokens->next;
+		
+		if (tokens->data)
+		{
+			free(tokens->data);
+			tokens->data = NULL;
+		}
+		free(tokens);
+		tokens = tmp;
 	}
+	ms->tokens = NULL;
 }
 
-void	free_ms_envar(t_listd **header)
+void	free_one_input(t_ms *ms)
 {
-	if (!header || !*header)
-	{
-		printf("error: free_ms_envar");
-		return ;
-	}
-	while (*header)
-	{
-		del_header_listd(header);
-	}
+	free_ms_input(ms);
+	free_ms_tokens(ms);
+	free_ms_commands(ms);
 }
 
 void	free_all(t_ms *ms)
 {
 	if (ms)
 	{
-		free_ms_input(ms);
-		free_ms_tokens(ms);
-		if (ms->envar)
+		if (ms->input)
+			free(ms->input);
+		if (ms->tokens)
 		{
-			free_ms_envar(&ms->envar);
-			ms->envar = NULL;
+			free_ms_tokens(ms);
 		}
+			
+		if (ms->commands)
+			free_ms_commands(ms);
+		if (ms->envar)
+			free_ms_envar(ms->envar);
 		free(ms);
 	}
 }
