@@ -6,7 +6,7 @@
 /*   By: lmaresov <lmaresov@student.42prague.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/08 07:01:11 by lmaresov          #+#    #+#             */
-/*   Updated: 2024/10/16 17:20:27 by lmaresov         ###   ########.fr       */
+/*   Updated: 2024/10/19 16:28:29 by lmaresov         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -47,5 +47,6 @@ void	get_envar(t_ms *ms, int *i)
 		free (ms->input);
 		ms->input = exp_input;
 		*i = *i + ft_strlen(value);
+		free(key);
 	}
 }

@@ -6,7 +6,7 @@
 /*   By: lmaresov <lmaresov@student.42prague.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/21 06:23:47 by lmaresov          #+#    #+#             */
-/*   Updated: 2024/10/17 16:51:36 by lmaresov         ###   ########.fr       */
+/*   Updated: 2024/10/19 18:17:30 by lmaresov         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -41,20 +41,40 @@ char	*ft_echo_helper(char **arguments)
 	return (str);
 }
 
+char	*str_without_option(char *str)
+{
+	char	*str_tmp;
+	
+	str_tmp = str;
+	str = ft_strjoin(str_tmp, "\n");
+	free(str_tmp);
+	return (str);
+}
+
 void	ft_echo(t_ms *ms)
 {
 	char	*str;
 	t_cmd	*cmd;
 	int		original_fd;
+	
 
-	str = "";
+	str = malloc(sizeof(char));
+	if (!str)
+		return ;
+	str[0] = '\0';
 	cmd = ms->commands->data;
 	if (cmd->arguments[0])
+	{
+		free(str);
 		str = ft_echo_helper(((t_cmd *)ms->commands->data)->arguments);
+	}
 	if (!cmd->option || ft_strcmp(cmd->option, "-n") != 0)
-		str = ft_strjoin(str, "\n");
+	{
+		str = str_without_option(str);
+	}
 	original_fd = setup_fd(cmd);
 	printf("%s", str);
 	close_fd(cmd, original_fd);
 	ms->exit_status = 0;
+	free(str);
 }

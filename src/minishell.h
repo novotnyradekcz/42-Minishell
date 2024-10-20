@@ -6,7 +6,7 @@
 /*   By: lmaresov <lmaresov@student.42prague.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/01 09:30:55 by lmaresov          #+#    #+#             */
-/*   Updated: 2024/10/18 20:47:23 by lmaresov         ###   ########.fr       */
+/*   Updated: 2024/10/20 14:31:53 by lmaresov         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -67,6 +67,16 @@ typedef struct s_cmd
 	char	*option;
 }	t_cmd;
 
+//commands/
+void	ft_echo(t_ms *ms);
+void	ft_env(t_ms *ms);
+void	ft_pwd(t_ms *ms);
+void	ft_cd(t_ms *ms);
+void	ft_exit(t_ms *ms);
+void	ft_export(t_ms *ms);
+void	ft_unset(t_ms *ms);
+int		check_builtin(t_ms *ms);
+
 //ma_helper.c
 void	ft_handle_signal(int signal);
 void	main_helper(int argc, char **argv);
@@ -98,6 +108,13 @@ void	listd_to_ms(t_listd **listd_header, t_listd *new_node);
 void	add_envv_to_listd(t_ms *ms, t_env *env_struct);
 void	env_to_listd(t_ms *ms, char **env);
 
+//execute_others.c
+char	**env_to_char(t_listd *envar);
+int		check_exec_or_dir(char *path);
+char	*get_path(char **path_array, char *command);
+void	child_process(t_ms *ms, char **env, char **arg);
+char	**arguments_to_arg(char *command, char **arguments);
+
 //expand_envar_help.c
 char	*env_key(char *str);
 t_listd	*get_envar_node(t_listd *envar, char *key);
@@ -114,13 +131,17 @@ void	free_header_ptr(void **ptr);
 void	del_header_list(t_list **header);
 void	del_tokens(t_list **header);
 void	del_header_listd(t_listd **header);
+void	free_path_array(char **path_array);
 
 //free_memory.c
 void	free_ms_input(t_ms *ms);
 void	free_ms_tokens(t_ms *ms);
 void	free_ms_envar(t_listd **header);
 void	free_all(t_ms *ms);
+
+//free_memory_help.c
 void	free_ms_commands(t_ms *ms);
+int		free_tmp(char **tmp, int i);
 
 //handle_redir_helper.c
 int		write_redir(t_cmd *cmd);
@@ -134,11 +155,18 @@ void	handle_redirection_read(t_cmd *cmd);
 void	handle_redirection_write(t_cmd *cmd);
 void	handle_redir(t_cmd *cmd);
 
-//run_comands.c
+//one_command.c
 int		check_command(char *command);
 int		one_command(t_ms *ms);
 
+//run_comands.c
+char	**arguments_to_arg(char *command, char **arguments);
+void	execute_other_helper(t_ms *ms, char **arg, char **env);
+void	execute_other(t_ms *ms);
 void	run_commands(t_ms *ms);
+
+// run_pipe.c
+void	run_pipe(t_ms *ms);
 
 //separate_tokens_ft_helper.c
 void	add_token_to_list(t_ms *ms, int start, int end);
@@ -163,15 +191,6 @@ int		setup_fd(t_cmd *cmd);
 
 //commands/ft_echo.c
 char	*ft_echo_helper(char **arguments);
-//commands
-void	ft_echo(t_ms *ms);
-void	ft_env(t_ms *ms);
-void	ft_pwd(t_ms *ms);
-void	ft_cd(t_ms *ms);
-void	ft_exit(t_ms *ms);
-void	ft_export(t_ms *ms);
-void	ft_unset(t_ms *ms);
-int		check_builtin(t_ms *ms);
 
 //commands/ft_cd_helper.c
 int		ft_cd_helper(char *path, t_ms *ms);
