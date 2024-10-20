@@ -6,77 +6,46 @@
 /*   By: lmaresov <lmaresov@student.42prague.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/20 05:27:00 by lmaresov          #+#    #+#             */
-/*   Updated: 2024/10/16 17:23:51 by lmaresov         ###   ########.fr       */
+/*   Updated: 2024/10/20 12:49:09 by lmaresov         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 
-void	free_header_ptr(void **ptr)
+void	free_env_var(t_env *env)
 {
-	if (ptr != NULL && *ptr != NULL)
-	{
-		free(*ptr);
-		*ptr = NULL;
-	}
+	if (env->env_key)
+		free(env->env_key);
+	if (env->env_value)
+		free(env->env_value);
 }
 
-void	del_header_list(t_list **header)
-{
-	t_list	*tmp;
-
-	if (!header || !(*header))
-	{
-		printf("error:del_header_list");
-		return ;
-	}
-	if (!((*header)->next))
-	{
-		if ((*header)->data)
-			free((*header)->data);
-		free_header_ptr((void **)header);
-		return ;
-	}
-	tmp = (*header)->next;
-	if ((*header)->data)
-		free((*header)->data);
-	free_header_ptr((void **)header);
-	*header = tmp;
-}
-
-void	del_tokens(t_list **header)
-{
-	if (!header || !(*header))
-	{
-		printf("error:del_tokens");
-		return ;
-	}
-	while (*header)
-	{
-		del_header_list(header);
-	}
-}
-
-void	del_header_listd(t_listd **header)
+void	free_ms_envar(t_listd *envar)
 {
 	t_listd	*tmp;
 
-	if (!header || !(*header))
+	while (envar)
 	{
-		printf("error:del_header_listd");
-		return ;
+		tmp = envar->next;
+		if (envar->data)
+		{
+			free_env_var((t_env *)envar->data);
+			free(envar->data);
+		}
+		free(envar);
+		envar = tmp;
 	}
-	if (!((*header)->next))
+}
+
+void	free_path_array(char **path_array)
+{
+	int	i;
+
+	i = 0;
+	if (path_array)
 	{
-		if ((*header)->data)
-			free((*header)->data);
-		free_header_ptr((void **)header);
-		return ;
+		while (path_array[i])
+			free(path_array[i++]);
+		free(path_array);
 	}
-	tmp = (*header)->next;
-	tmp->prev = NULL;
-	if ((*header)->data)
-		free((*header)->data);
-	free_header_ptr((void **)header);
-	*header = tmp;
 }

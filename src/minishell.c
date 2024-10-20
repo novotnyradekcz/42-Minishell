@@ -6,7 +6,7 @@
 /*   By: lmaresov <lmaresov@student.42prague.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/01 09:30:12 by lmaresov          #+#    #+#             */
-/*   Updated: 2024/10/18 20:13:31 by lmaresov         ###   ########.fr       */
+/*   Updated: 2024/10/20 13:16:09 by lmaresov         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -41,12 +41,13 @@ int	main(int argc, char **argv, char **env)
 	init_ms(ms, env);
 	while (1)
 	{
-		ms->input = get_input();
+		ms->input = get_input(ms);
 		if (check_input(ms))
 			continue ;
 		divide_input(ms);
 		ex_commands(ms);
 		free_one_input(ms);
 	}
+	free_all(ms);
 	return (0);
 }

@@ -6,7 +6,7 @@
 /*   By: lmaresov <lmaresov@student.42prague.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/01 09:30:55 by lmaresov          #+#    #+#             */
-/*   Updated: 2024/10/19 13:11:26 by lmaresov         ###   ########.fr       */
+/*   Updated: 2024/10/20 13:52:09 by lmaresov         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -127,17 +127,21 @@ void	quote_checker(char character, int *quote);
 void	get_envar(t_ms *ms, int *i);
 
 //free_memory_helper.c
-void	free_header_ptr(void **ptr);
-void	del_header_list(t_list **header);
-void	del_tokens(t_list **header);
-void	del_header_listd(t_listd **header);
+void	free_env_var(t_env *env);
+void	free_ms_envar(t_listd *envar);
+void	free_path_array(char **path_array);
 
 //free_memory.c
 void	free_ms_input(t_ms *ms);
 void	free_ms_tokens(t_ms *ms);
-void	free_ms_envar(t_listd **header);
+void	free_one_input(t_ms *ms);
 void	free_all(t_ms *ms);
+
+//free_memory_help.c
+void	free_cmd_args(t_cmd *cmd);
 void	free_ms_commands(t_ms *ms);
+int		free_tmp(char **tmp, int i);
+void	free_no_input(t_ms *ms);
 
 //handle_redir_helper.c
 int		write_redir(t_cmd *cmd);
@@ -179,7 +183,8 @@ void	remaining_arg_token(t_ms *ms, char *input, int *i);
 int		syntax_error(t_ms *ms);
 
 //utils.c
-char	*get_input(void);
+// char	*get_input(void);
+char	*get_input(t_ms *ms);
 int		only_whitespace(char *str);
 char	*get_input_heredoc(char *eof);
 void	close_fd(t_cmd *cmd, int original_stdout);

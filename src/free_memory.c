@@ -6,7 +6,7 @@
 /*   By: lmaresov <lmaresov@student.42prague.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/20 05:22:57 by lmaresov          #+#    #+#             */
-/*   Updated: 2024/10/16 17:29:50 by lmaresov         ###   ########.fr       */
+/*   Updated: 2024/10/20 14:13:57 by lmaresov         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,72 +26,43 @@ void	free_ms_input(t_ms *ms)
 
 void	free_ms_tokens(t_ms *ms)
 {
-	if (ms->tokens)
-	{
-		del_tokens(&ms->tokens);
-		ms->tokens = NULL;
-	}
-}
+	t_list	*tmp;
+	t_list	*tokens;
 
-void	free_ms_commands(t_ms *ms)
-{
-	t_list	*current_node;
-	t_list	*next_node;
-	t_cmd	*cmd;
-	int		i;
-
-	current_node = ms->commands;
-	while (current_node)
+	tokens = ms->tokens;
+	while (tokens)
 	{
-		cmd = (t_cmd *)current_node->data;
-		if (cmd->command)
-			free(cmd->command);
-		if (cmd->arguments)
+		tmp = tokens->next;
+		if (tokens->data)
 		{
-			i = 0;
-			while (cmd->arguments[i])
-			{
-				free(cmd->arguments[i]);
-				i++;
-			}
-			free(cmd->arguments);
+			free(tokens->data);
+			tokens->data = NULL;
 		}
-		if (cmd->redir)
-			free(cmd->redir);
-		if (cmd->redir_file)
-			free(cmd->redir_file);
-		free(cmd);
-		next_node = current_node->next;
-		free(current_node);
-		current_node = next_node;
+		free(tokens);
+		tokens = tmp;
 	}
-	ms->commands = NULL;
+	ms->tokens = NULL;
 }
 
-void	free_ms_envar(t_listd **header)
+void	free_one_input(t_ms *ms)
 {
-	if (!header || !*header)
-	{
-		printf("error: free_ms_envar");
-		return ;
-	}
-	while (*header)
-	{
-		del_header_listd(header);
-	}
+	free_ms_input(ms);
+	free_ms_tokens(ms);
+	free_ms_commands(ms);
 }
 
 void	free_all(t_ms *ms)
 {
 	if (ms)
 	{
-		free_ms_input(ms);
-		free_ms_tokens(ms);
+		if (ms->input)
+			free(ms->input);
+		if (ms->tokens)
+			free_ms_tokens(ms);
+		if (ms->commands)
+			free_ms_commands(ms);
 		if (ms->envar)
-		{
-			free_ms_envar(&ms->envar);
-			ms->envar = NULL;
-		}
+			free_ms_envar(ms->envar);
 		free(ms);
 	}
 }

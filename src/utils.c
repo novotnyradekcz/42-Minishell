@@ -6,7 +6,7 @@
 /*   By: lmaresov <lmaresov@student.42prague.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/27 05:28:42 by lmaresov          #+#    #+#             */
-/*   Updated: 2024/10/18 21:06:15 by lmaresov         ###   ########.fr       */
+/*   Updated: 2024/10/20 13:51:37 by lmaresov         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,13 +15,20 @@
 char	*get_new_line(char *line, char *eof, char *new_line)
 {
 	char	*temp;
+	char	*tmp;
 
 	temp = "";
 	if (ft_strcmp(eof, line) != 0)
 	{
 		temp = ft_strjoin(line, "\n");
-		new_line = ft_strjoin(new_line, temp);
+		if (!temp)
+			return (NULL);
+		tmp = ft_strjoin(new_line, temp);
 		free(temp);
+		if (!tmp)
+			return (NULL);
+		free(new_line);
+		new_line = tmp;
 	}
 	return (new_line);
 }
@@ -33,7 +40,12 @@ char	*get_input_heredoc(char *eof)
 	char	*new_line;
 
 	line = malloc(sizeof(char));
-	new_line = "";
+	if (!line)
+		return (NULL);
+	new_line = malloc(sizeof(char));
+	if (!new_line)
+		return (NULL);
+	new_line[0] = '\0';
 	line[0] = '\0';
 	while (ft_strcmp(eof, line) != 0)
 	{
@@ -41,17 +53,16 @@ char	*get_input_heredoc(char *eof)
 		prompt = "heredoc>";
 		line = readline(prompt);
 		if (!line)
-		{
-			printf("exit\n");
 			return (0);
-		}
 		new_line = get_new_line(line, eof, new_line);
 	}
 	free(line);
 	return (new_line);
 }
 
-char	*get_input(void)
+
+
+char	*get_input(t_ms *ms)
 {
 	char	*line;
 	char	*prompt;
@@ -61,6 +72,7 @@ char	*get_input(void)
 	if (!line)
 	{
 		printf("exit\n");
+		free_no_input(ms);
 		exit(0);
 	}
 	if (line[0] != '\0')

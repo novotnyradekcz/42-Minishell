@@ -6,7 +6,7 @@
 /*   By: lmaresov <lmaresov@student.42prague.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/21 06:33:41 by lmaresov          #+#    #+#             */
-/*   Updated: 2024/10/18 18:56:42 by lmaresov         ###   ########.fr       */
+/*   Updated: 2024/10/19 15:20:57 by lmaresov         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,17 +35,19 @@ char	*env_str(char *env_key, char *env_value)
 	return (new_str);
 }
 
-char	*all_env_str(t_listd *tmp, char *new_str)
+char	*all_env_str(t_listd *tmp, char *new_str_1)
 {
 	char	*temp_env_key;
 	char	*temp_env_value;
 	char	*temp_str;
+	char	*new_str;
 
 	temp_env_key = ((t_env *)tmp->data)->env_key;
 	temp_env_value = ((t_env *)tmp->data)->env_value;
 	temp_str = env_str(temp_env_key, temp_env_value);
-	new_str = ft_strjoin(new_str, temp_str);
+	new_str = ft_strjoin(new_str_1, temp_str);
 	free(temp_str);
+	free(new_str_1);
 	return (new_str);
 }
 

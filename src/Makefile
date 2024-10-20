@@ -6,7 +6,7 @@
 #    By: lmaresov <lmaresov@student.42prague.com    +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2024/08/31 10:49:44 by lmaresov          #+#    #+#              #
-#    Updated: 2024/10/19 13:09:52 by lmaresov         ###   ########.fr        #
+#    Updated: 2024/10/19 17:45:26 by lmaresov         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -27,6 +27,7 @@ SRCS = minishell.c\
 	expand_envar.c\
 	free_memory_helper.c\
 	free_memory.c\
+	free_memory_help.c\
 	handle_redir_helper.c\
 	handle_redirection.c\
 	one_command.c\
