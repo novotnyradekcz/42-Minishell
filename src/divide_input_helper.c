@@ -6,7 +6,7 @@
 /*   By: lmaresov <lmaresov@student.42prague.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/18 19:00:56 by lmaresov          #+#    #+#             */
-/*   Updated: 2024/10/19 17:33:26 by lmaresov         ###   ########.fr       */
+/*   Updated: 2024/10/20 15:54:54 by lmaresov         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -65,7 +65,8 @@ char	**get_arguments(t_cmd *curr_cmd, t_ms *ms)
 {
 	char	**args;
 	int		num_of_args;
-
+	t_list *tmp;
+	
 	num_of_args = 0;
 	args = (char **)malloc(sizeof(char *));
 	args[0] = NULL;
@@ -77,11 +78,14 @@ char	**get_arguments(t_cmd *curr_cmd, t_ms *ms)
 		args = get_args_helper(num_of_args, args, ms);
 		if (!args)
 			return (NULL);
-		ms->tokens = ms->tokens->next;
+		tmp = ms->tokens->next;
+		free_token_node(ms->tokens);
+		ms->tokens = tmp;
 	}
 	curr_cmd->num_of_args = num_of_args;
 	return (args);
 }
+
 
 void	init_cmd(t_cmd *cmd)
 {
@@ -93,12 +97,22 @@ void	init_cmd(t_cmd *cmd)
 	cmd->redir = NULL;
 	cmd->redir_file = NULL;
 }
+void free_token_node(t_list * tokens)
+{
+	if (tokens->data)
+	{
+		free(tokens->data);
+		tokens->data = NULL;
+	}
+	free(tokens);
+}
 
 t_cmd	*get_one_cmd(t_ms *ms)
 {
 	t_cmd	*curr_cmd;
 	char	**arguments;
-
+	t_list *tmp;
+	
 	curr_cmd = (t_cmd *)malloc(sizeof(t_cmd));
 	init_cmd(curr_cmd);
 	arguments = NULL;
@@ -107,10 +121,14 @@ t_cmd	*get_one_cmd(t_ms *ms)
 		&& (ft_strcmp((char *)ms->tokens->data, "echo") == 0)
 		&& (ft_strcmp((char *)ms->tokens->next->data, "-n") == 0))
 	{
-		ms->tokens = ms->tokens->next;
+		tmp = ms->tokens->next;
+		free_token_node(ms->tokens);
+		ms->tokens = tmp;
 		curr_cmd->option = ft_strdup((char *)ms->tokens->data);
 	}
-	ms->tokens = ms->tokens->next;
+	tmp = ms->tokens->next;
+	free_token_node(ms->tokens);
+	ms->tokens = tmp;
 	arguments = get_arguments(curr_cmd, ms);
 	curr_cmd->arguments = arguments;
 	return (curr_cmd);

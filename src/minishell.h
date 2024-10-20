@@ -6,7 +6,7 @@
 /*   By: lmaresov <lmaresov@student.42prague.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/01 09:30:55 by lmaresov          #+#    #+#             */
-/*   Updated: 2024/10/20 13:52:09 by lmaresov         ###   ########.fr       */
+/*   Updated: 2024/10/20 15:55:09 by lmaresov         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -93,6 +93,8 @@ void	separate_tokens(t_ms *ms, char *input);
 t_cmd	*get_one_cmd(t_ms *ms);
 void	init_cmd(t_cmd *cmd);
 char	**get_arguments(t_cmd *curr_cmd, t_ms *ms);
+// char	**get_arguments(t_cmd *curr_cmd, t_list *tmp);
+void free_token_node(t_list * tokens);
 
 //env_to_listd.c
 int		get_key_len(char *envv, char sep);

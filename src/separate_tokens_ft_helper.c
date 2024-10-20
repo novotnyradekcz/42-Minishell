@@ -6,7 +6,7 @@
 /*   By: lmaresov <lmaresov@student.42prague.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/01 08:58:15 by lmaresov          #+#    #+#             */
-/*   Updated: 2024/10/20 14:02:02 by lmaresov         ###   ########.fr       */
+/*   Updated: 2024/10/20 15:15:41 by lmaresov         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,7 +31,7 @@ t_list	*save_token(char *data)
 	{
 		return (NULL);
 	}
-	ft_memset(new_token, '\0', sizeof(t_list));
+	//ft_memset(new_token, '\0', sizeof(t_list));
 	new_token->data = data;
 	new_token->next = 0;
 	return (new_token);

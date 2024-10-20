@@ -6,7 +6,7 @@
 /*   By: lmaresov <lmaresov@student.42prague.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/20 05:22:57 by lmaresov          #+#    #+#             */
-/*   Updated: 2024/10/20 14:13:57 by lmaresov         ###   ########.fr       */
+/*   Updated: 2024/10/20 15:55:41 by lmaresov         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,11 +28,12 @@ void	free_ms_tokens(t_ms *ms)
 {
 	t_list	*tmp;
 	t_list	*tokens;
-
+	
 	tokens = ms->tokens;
 	while (tokens)
 	{
 		tmp = tokens->next;
+		
 		if (tokens->data)
 		{
 			free(tokens->data);
@@ -58,7 +59,10 @@ void	free_all(t_ms *ms)
 		if (ms->input)
 			free(ms->input);
 		if (ms->tokens)
+		{
 			free_ms_tokens(ms);
+		}
+			
 		if (ms->commands)
 			free_ms_commands(ms);
 		if (ms->envar)
