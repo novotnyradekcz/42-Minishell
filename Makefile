@@ -6,7 +6,7 @@
 #    By: rnovotny <rnovotny@student.42prague.com    +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2024/08/31 10:49:44 by lmaresov          #+#    #+#              #
-#    Updated: 2024/10/20 21:44:21 by rnovotny         ###   ########.fr        #
+#    Updated: 2024/10/21 07:24:27 by rnovotny         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -15,50 +15,49 @@ NAME = minishell
 CC = gcc
 CFLAGS = -Wall -Wextra -Werror -I/opt/homebrew/Cellar/readline/8.2.13/include
 LDFLAGS = -lreadline -L/opt/homebrew/Cellar/readline/8.2.13/lib
-SRCS = minishell.c \
-	ma_helper.c \
-	divide_input.c \
-	divide_input_helper.c \
-	env_to_listd.c \
-	env_to_list_helper.c \
-	env_to_listd_helper.c \
-	execute_other.c \
-	expand_envar_help.c \
-	expand_envar.c \
-	free_memory_helper.c \
-	free_memory.c \
-	free_memory_help.c \
-	handle_redir_helper.c \
-	handle_redirection.c \
-	one_command.c \
-	run_commands.c \
-	run_pipe.c \
-	separate_tokens_ft_helper.c \
-	separate_tokens_ft.c \
-	syntax_error.c \
-	utils.c \
-	commands/ft_cd.c \
-	commands/ft_cd_helper.c \
-	commands/ft_echo.c \
-	commands/ft_env.c \
-	commands/ft_exit.c \
-	commands/ft_export.c \
-	commands/ft_export_helper.c \
-	commands/ft_pwd.c \
-	commands/ft_unset.c \
-	commands/buildin_helper.c \
-	utils/ft_atoi.c \
-	utils/ft_split.c \
-	utils/ft_strlcpy.c \
-	utils/ft_is.c \
-	utils/ft_memset.c \
-	utils/ft_strchr.c \
-	utils/ft_strcmp.c \
-	utils/ft_strdup.c \
-	utils/ft_strjoin.c \
-	utils/ft_strlen.c \
-	utils/ft_substr.c \
-
+SRCS = src/minishell.c \
+	src/ma_helper.c \
+	src/divide_input.c \
+	src/divide_input_helper.c \
+	src/env_to_listd.c \
+	src/env_to_list_helper.c \
+	src/env_to_listd_helper.c \
+	src/execute_other.c \
+	src/expand_envar_help.c \
+	src/expand_envar.c \
+	src/free_memory_helper.c \
+	src/free_memory.c \
+	src/free_memory_help.c \
+	src/handle_redir_helper.c \
+	src/handle_redirection.c \
+	src/one_command.c \
+	src/run_commands.c \
+	src/run_pipe.c \
+	src/separate_tokens_ft_helper.c \
+	src/separate_tokens_ft.c \
+	src/syntax_error.c \
+	src/utils.c \
+	src/commands/ft_cd.c \
+	src/commands/ft_cd_helper.c \
+	src/commands/ft_echo.c \
+	src/commands/ft_env.c \
+	src/commands/ft_exit.c \
+	src/commands/ft_export.c \
+	src/commands/ft_export_helper.c \
+	src/commands/ft_pwd.c \
+	src/commands/ft_unset.c \
+	src/commands/buildin_helper.c \
+	src/utils/ft_atoi.c \
+	src/utils/ft_split.c \
+	src/utils/ft_strlcpy.c \
+	src/utils/ft_is.c \
+	src/utils/ft_memset.c \
+	src/utils/ft_strchr.c \
+	src/utils/ft_strcmp.c \
+	src/utils/ft_strdup.c \
+	src/utils/ft_strjoin.c \
+	src/utils/ft_strlen.c \
+	src/utils/ft_substr.c \
 
 OBJS = $(SRCS:.c=.o)
 
