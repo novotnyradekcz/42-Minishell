@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ft_cd_helper.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: lmaresov <lmaresov@student.42prague.com    +#+  +:+       +#+        */
+/*   By: rnovotny <rnovotny@student.42prague.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/17 16:37:11 by lmaresov          #+#    #+#             */
-/*   Updated: 2024/10/17 16:48:29 by lmaresov         ###   ########.fr       */
+/*   Updated: 2024/10/22 22:06:07 by rnovotny         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,7 +30,7 @@ int	ft_cd_25(t_ms *ms)
 	if (((t_cmd *)ms->commands->data)->arguments[1]
 		&& ((t_cmd *)ms->commands->data)->arguments[0])
 	{
-		printf("function cd takes only one argument\n");
+		write(2, "cd: too many arguments\n", 23);
 		ms->exit_status = 1;
 		return (1);
 	}

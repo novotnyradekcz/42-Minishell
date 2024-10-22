@@ -6,7 +6,7 @@
 /*   By: rnovotny <rnovotny@student.42prague.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/19 11:44:16 by lmaresov          #+#    #+#             */
-/*   Updated: 2024/10/22 16:48:05 by rnovotny         ###   ########.fr       */
+/*   Updated: 2024/10/22 22:02:47 by rnovotny         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -105,7 +105,7 @@ void	child_process(t_ms *ms, char **env, char **arg)
 		ms->exit_status = 127;
 		if (path)
 			free(path);
-		exit(126);
+		exit(127);
 	}
 	free(path);
 }

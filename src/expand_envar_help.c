@@ -6,7 +6,7 @@
 /*   By: rnovotny <rnovotny@student.42prague.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/08 07:02:12 by lmaresov          #+#    #+#             */
-/*   Updated: 2024/10/22 21:53:45 by rnovotny         ###   ########.fr       */
+/*   Updated: 2024/10/22 22:07:46 by rnovotny         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -62,7 +62,8 @@ void	no_env_value(t_ms *ms, int *i, char *key)
 
 	if (ft_strcmp(key, "?") == 0)
 	{
-		exit_code = ft_itoa(ms->exit_status);
+		exit_code = ft_itoa(ms->exit_status / 256);
+		printf("exit code: %s\n", exit_code);
 		exp_input = get_exp_input(exit_code, ms->input, *i, *i + 2);
 		free(ms->input);
 		ms->input = exp_input;
