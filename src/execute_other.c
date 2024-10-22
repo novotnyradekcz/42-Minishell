@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   execute_other.c                                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: lmaresov <lmaresov@student.42prague.com    +#+  +:+       +#+        */
+/*   By: rnovotny <rnovotny@student.42prague.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/19 11:44:16 by lmaresov          #+#    #+#             */
-/*   Updated: 2024/10/19 16:20:17 by lmaresov         ###   ########.fr       */
+/*   Updated: 2024/10/22 15:22:05 by rnovotny         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -89,10 +89,9 @@ void	child_process(t_ms *ms, char **env, char **arg)
 	char	*path;
 	char	**path_array;
 
+	path_array = NULL;
 	if (check_exec_or_dir(arg[0]))
-	{
 		path = ft_strdup(arg[0]);
-	}
 	else
 	{
 		path_array = ft_split(env_value(ms->envar, "PATH"), ':');
@@ -104,7 +103,8 @@ void	child_process(t_ms *ms, char **env, char **arg)
 		free_path_array(path_array);
 		exit(127);
 	}
-	free_path_array(path_array);
+	if (path_array)
+		free_path_array(path_array);
 	execve(path, arg, env);
 	free(path);
 }
