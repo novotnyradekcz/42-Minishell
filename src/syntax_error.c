@@ -6,7 +6,7 @@
 /*   By: rnovotny <rnovotny@student.42prague.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/20 06:56:54 by lmaresov          #+#    #+#             */
-/*   Updated: 2024/10/20 23:45:52 by rnovotny         ###   ########.fr       */
+/*   Updated: 2024/10/22 22:34:14 by rnovotny         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -109,19 +109,19 @@ int	syntax_error(t_ms *ms)
 	ms_int_init(ms);
 	if (ms->double_quotes % 2 != 0 || ms->single_quotes % 2 != 0)
 	{
-		printf("\nclose the quote in the comand\n");
+		write(2, "\nclose the quote in the comand\n", 31);
 		free_ms_input(ms);
 		return (1);
 	}
 	if (ms->num_of_cmd > 1 && check_pipes(ms))
 	{
-		printf ("comand line cant start or end with | \n");
+		write(2, "comand line cannot start or end with | \n", 40);
 		free_ms_input(ms);
 		return (1);
 	}
 	if (check_redir(ms))
 	{
-		printf ("comand line cant start or end with redirection \n");
+		write(2, "command line cannot start or end with redirection \n", 51);
 		free_ms_input(ms);
 		return (1);
 	}

@@ -6,7 +6,7 @@
 /*   By: rnovotny <rnovotny@student.42prague.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/19 11:44:16 by lmaresov          #+#    #+#             */
-/*   Updated: 2024/10/22 22:02:47 by rnovotny         ###   ########.fr       */
+/*   Updated: 2024/10/22 22:16:51 by rnovotny         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -101,7 +101,9 @@ void	child_process(t_ms *ms, char **env, char **arg)
 		free_path_array(path_array);
 	if (execve(path, arg, env) == -1)
 	{
-		perror("command not found");
+		write(2, "minishell: command not found: ", 30);
+		write(2, arg[0], ft_strlen(arg[0]));
+		write(2, "\n", 1);
 		ms->exit_status = 127;
 		if (path)
 			free(path);

@@ -6,7 +6,7 @@
 /*   By: rnovotny <rnovotny@student.42prague.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/17 16:37:11 by lmaresov          #+#    #+#             */
-/*   Updated: 2024/10/22 22:06:07 by rnovotny         ###   ########.fr       */
+/*   Updated: 2024/10/22 22:40:51 by rnovotny         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,7 +16,7 @@ int	ft_cd_helper(char *path, t_ms *ms)
 {
 	if (chdir(path) != 0)
 	{
-		printf ("chdir error\n");
+		perror("cd: chdir error");
 		ms->exit_status = 1;
 		return (1);
 	}

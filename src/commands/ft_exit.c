@@ -6,7 +6,7 @@
 /*   By: rnovotny <rnovotny@student.42prague.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/21 06:33:57 by lmaresov          #+#    #+#             */
-/*   Updated: 2024/10/22 16:56:42 by rnovotny         ###   ########.fr       */
+/*   Updated: 2024/10/22 22:36:44 by rnovotny         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,7 +23,7 @@ void	ft_exit(t_ms *ms)
 	}
 	if (((t_cmd *)ms->commands->data)->arguments[1])
 	{
-		printf("exit: too many arguments\n");
+		write(2, "exit: too many arguments\n", 25);
 		return ;
 	}
 	exit_code = ft_atoi(((t_cmd *)ms->commands->data)->arguments[0]);

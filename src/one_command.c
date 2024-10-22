@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   one_command.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: lmaresov <lmaresov@student.42prague.com    +#+  +:+       +#+        */
+/*   By: rnovotny <rnovotny@student.42prague.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/19 11:44:29 by lmaresov          #+#    #+#             */
-/*   Updated: 2024/10/19 11:53:27 by lmaresov         ###   ########.fr       */
+/*   Updated: 2024/10/22 22:41:49 by rnovotny         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -38,7 +38,10 @@ int	one_command(t_ms *ms)
 		return (0);
 	if (!check_command(((t_cmd *)ms->commands->data)->command))
 	{
-		printf ("This command is not in options\n");
+		write(2, "minishell: command not found: ", 30);
+		write(2, ((t_cmd *)ms->commands->data)->command,
+			ft_strlen(((t_cmd *)ms->commands->data)->command));
+		write(2, "\n", 1);
 		return (0);
 	}
 	else if (check_command(((t_cmd *)ms->commands->data)->command) == 1)

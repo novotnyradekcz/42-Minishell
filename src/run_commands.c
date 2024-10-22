@@ -6,7 +6,7 @@
 /*   By: rnovotny <rnovotny@student.42prague.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/20 09:11:11 by lmaresov          #+#    #+#             */
-/*   Updated: 2024/10/20 17:43:22 by rnovotny         ###   ########.fr       */
+/*   Updated: 2024/10/22 22:31:55 by rnovotny         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -71,7 +71,7 @@ void	execute_other(t_ms *ms)
 		execute_other_helper(ms, arg, env);
 	else if (pid < 0)
 	{
-		printf("Error: fork failed\n");
+		perror("fork failed");
 		ms->exit_status = 1;
 		free_args(arg);
 		free_args(env);

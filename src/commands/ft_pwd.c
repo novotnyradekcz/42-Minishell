@@ -6,7 +6,7 @@
 /*   By: rnovotny <rnovotny@student.42prague.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/21 06:34:07 by lmaresov          #+#    #+#             */
-/*   Updated: 2024/10/20 17:41:11 by rnovotny         ###   ########.fr       */
+/*   Updated: 2024/10/22 22:38:07 by rnovotny         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,7 +30,7 @@ void	ft_pwd_helper(t_cmd *cmd)
 	cwd = (char *)malloc(sizeof(char) * 1024);
 	if (!cwd)
 	{
-		printf("maloc pwd error\n");
+		perror("malloc pwd error");
 		return ;
 	}
 	if (getcwd(cwd, 1024) != NULL)
@@ -42,7 +42,7 @@ void	ft_pwd_helper(t_cmd *cmd)
 		free(cwd_1);
 	}
 	else
-		printf ("error in getcwd function\n");
+		perror("getcwd error");
 	free(cwd);
 }
 
@@ -53,7 +53,7 @@ void	ft_pwd(t_ms *ms)
 	cmd = ms->commands->data;
 	if (check_args(((t_cmd *)ms->commands->data)->arguments))
 	{
-		printf ("pwd: too many arguments\n");
+		write(2, "pwd: too many arguments\n", 24);
 		ms->exit_status = 1;
 		return ;
 	}

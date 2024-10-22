@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   handle_redir_helper.c                              :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: lmaresov <lmaresov@student.42prague.com    +#+  +:+       +#+        */
+/*   By: rnovotny <rnovotny@student.42prague.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/12 12:05:39 by lmaresov          #+#    #+#             */
-/*   Updated: 2024/10/18 19:38:48 by lmaresov         ###   ########.fr       */
+/*   Updated: 2024/10/22 22:24:20 by rnovotny         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,7 +21,7 @@ int	write_redir(t_cmd *cmd)
 	fd = open(file_name, O_WRONLY | O_CREAT | O_TRUNC, 0644);
 	if (fd < 0)
 	{
-		printf ("error opening file\n");
+		perror("error opening file");
 		return (1);
 	}
 	if (dup2(fd, STDOUT_FILENO) < 0)
@@ -42,7 +42,7 @@ int	append_redir(t_cmd *cmd)
 	fd = open(file_name, O_WRONLY | O_CREAT | O_APPEND, 0644);
 	if (fd < 0)
 	{
-		printf ("error opening file\n");
+		perror("error opening file");
 		return (1);
 	}
 	if (dup2(fd, STDOUT_FILENO) < 0)
@@ -64,7 +64,7 @@ int	read_redir(t_cmd *cmd)
 	fd = open(file_name, O_RDWR);
 	if (fd < 0)
 	{
-		perror("error opening file\n");
+		perror("error opening file");
 		return (1);
 	}
 	if (dup2(fd, STDIN_FILENO) < 0)
@@ -84,7 +84,7 @@ int	heredoc_redir_helper(void)
 	fd = open("heredoc", O_RDONLY);
 	if (fd < 0)
 	{
-		perror("error opening file\n");
+		perror("error opening file");
 		close(fd);
 		return (1);
 	}
@@ -106,7 +106,7 @@ int	heredoc_redir(t_cmd *cmd)
 	fd = open("heredoc", O_WRONLY | O_CREAT | O_TRUNC, 0644);
 	if (fd < 0)
 	{
-		perror("error opening file\n");
+		perror("error opening file");
 		close(fd);
 		return (1);
 	}
