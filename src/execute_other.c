@@ -6,7 +6,7 @@
 /*   By: lmaresov <lmaresov@student.42prague.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/19 11:44:16 by lmaresov          #+#    #+#             */
-/*   Updated: 2024/10/19 16:20:17 by lmaresov         ###   ########.fr       */
+/*   Updated: 2024/10/22 16:14:16 by lmaresov         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -92,19 +92,20 @@ void	child_process(t_ms *ms, char **env, char **arg)
 	if (check_exec_or_dir(arg[0]))
 	{
 		path = ft_strdup(arg[0]);
+		printf ("path: %s\n", path);
 	}
 	else
 	{
 		path_array = ft_split(env_value(ms->envar, "PATH"), ':');
 		path = get_path(path_array, arg[0]);
+		printf ("path 2: %s\n", path);
+		free_path_array(path_array);
 	}
 	if (!path)
 	{
 		ms->exit_status = 127;
-		free_path_array(path_array);
 		exit(127);
 	}
-	free_path_array(path_array);
 	execve(path, arg, env);
 	free(path);
 }

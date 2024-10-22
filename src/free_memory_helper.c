@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   free_memory_helper.c                               :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: rnovotny <rnovotny@student.42prague.com    +#+  +:+       +#+        */
+/*   By: lmaresov <lmaresov@student.42prague.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/20 05:27:00 by lmaresov          #+#    #+#             */
-/*   Updated: 2024/10/20 17:44:48 by rnovotny         ###   ########.fr       */
+/*   Updated: 2024/10/22 16:15:37 by lmaresov         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
