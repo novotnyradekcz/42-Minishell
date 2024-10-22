@@ -6,7 +6,7 @@
 #    By: rnovotny <rnovotny@student.42prague.com    +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2024/08/31 10:49:44 by lmaresov          #+#    #+#              #
-#    Updated: 2024/10/21 07:24:27 by rnovotny         ###   ########.fr        #
+#    Updated: 2024/10/22 21:13:40 by rnovotny         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -51,6 +51,7 @@ SRCS = src/minishell.c \
 	src/utils/ft_split.c \
 	src/utils/ft_strlcpy.c \
 	src/utils/ft_is.c \
+	src/utils/ft_itoa.c \
 	src/utils/ft_memset.c \
 	src/utils/ft_strchr.c \
 	src/utils/ft_strcmp.c \

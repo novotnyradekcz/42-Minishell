@@ -6,7 +6,7 @@
 /*   By: rnovotny <rnovotny@student.42prague.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/18 20:00:43 by lmaresov          #+#    #+#             */
-/*   Updated: 2024/10/20 23:40:54 by rnovotny         ###   ########.fr       */
+/*   Updated: 2024/10/22 21:53:20 by rnovotny         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -42,19 +42,6 @@ int	check_input(t_ms *ms)
 	if (syntax_error(ms))
 		return (1);
 	return (0);
-}
-
-void	ex_commands(t_ms *ms)
-{
-	if (ft_strcmp(((t_cmd *)ms->commands->data)->command, "echo") == 0
-		&& ((t_cmd *)ms->commands->data)->arguments[0]
-		&& ft_strcmp(((t_cmd *)ms->commands->data)->arguments[0], "$?") == 0)
-	{
-		printf("%d\n", ms->exit_status);
-		ms->exit_status = 0;
-	}
-	else
-		run_commands(ms);
 }
 
 void	free_token_node(t_list *tokens)

@@ -6,7 +6,7 @@
 /*   By: rnovotny <rnovotny@student.42prague.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/01 09:30:55 by lmaresov          #+#    #+#             */
-/*   Updated: 2024/10/20 23:46:14 by rnovotny         ###   ########.fr       */
+/*   Updated: 2024/10/22 21:53:26 by rnovotny         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -82,7 +82,6 @@ void	set_env(t_ms *ms, char *key, char *value);
 void	ft_handle_signal(int signal);
 void	main_helper(int argc, char **argv);
 int		check_input(t_ms *ms);
-void	ex_commands(t_ms *ms);
 void	free_token_node(t_list *tokens);
 
 //divide_input.c
@@ -212,6 +211,7 @@ char	*ft_substr(char const *s, unsigned int start, size_t len);
 int		ft_strcmp(char *s1, char *s2);
 char	*ft_strchr(const char *s, int c);
 int		ft_isprint(int c);
+char	*ft_itoa(int n);
 int		is_whitespace(int c);
 void	*ft_memset(void *s, int c, size_t n);
 char	*ft_strjoin(char const *s1, char const *s2);

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   expand_envar_help.c                                :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: lmaresov <lmaresov@student.42prague.com    +#+  +:+       +#+        */
+/*   By: rnovotny <rnovotny@student.42prague.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/08 07:02:12 by lmaresov          #+#    #+#             */
-/*   Updated: 2024/10/20 13:41:52 by lmaresov         ###   ########.fr       */
+/*   Updated: 2024/10/22 21:53:45 by rnovotny         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,6 +18,11 @@ char	*env_key(char *str)
 	char	*key;
 
 	i = 0;
+	if (str[i] == '?')
+	{
+		key = ft_strdup("?");
+		return (key);
+	}
 	while (ft_isprint(str[i]) && !is_whitespace(str[i]) && str[i] != '\''
 		&& str[i] != '\"' && str[i] != '$' && str[i] != '=')
 		i++;
@@ -53,11 +58,16 @@ void	no_env_value(t_ms *ms, int *i, char *key)
 {
 	int		len;
 	char	*exp_input;
+	char	*exit_code;
 
 	if (ft_strcmp(key, "?") == 0)
 	{
-		*i += 2;
+		exit_code = ft_itoa(ms->exit_status);
+		exp_input = get_exp_input(exit_code, ms->input, *i, *i + 2);
+		free(ms->input);
+		ms->input = exp_input;
 		free(key);
+		*i += 2;
 		return ;
 	}
 	len = ft_strlen(key);
