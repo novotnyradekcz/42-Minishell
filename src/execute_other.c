@@ -6,7 +6,7 @@
 /*   By: rnovotny <rnovotny@student.42prague.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/19 11:44:16 by lmaresov          #+#    #+#             */
-/*   Updated: 2024/10/22 22:16:51 by rnovotny         ###   ########.fr       */
+/*   Updated: 2024/10/23 08:24:49 by rnovotny         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -96,9 +96,8 @@ void	child_process(t_ms *ms, char **env, char **arg)
 	{
 		path_array = ft_split(env_value(ms->envar, "PATH"), ':');
 		path = get_path(path_array, arg[0]);
-	}
-	if (path_array)
 		free_path_array(path_array);
+	}
 	if (execve(path, arg, env) == -1)
 	{
 		write(2, "minishell: command not found: ", 30);
