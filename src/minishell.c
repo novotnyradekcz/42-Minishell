@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minishell.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: lmaresov <lmaresov@student.42prague.com    +#+  +:+       +#+        */
+/*   By: rnovotny <rnovotny@student.42prague.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/01 09:30:12 by lmaresov          #+#    #+#             */
-/*   Updated: 2024/10/20 14:48:37 by lmaresov         ###   ########.fr       */
+/*   Updated: 2024/10/22 21:51:53 by rnovotny         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -45,7 +45,7 @@ int	main(int argc, char **argv, char **env)
 		if (check_input(ms))
 			continue ;
 		divide_input(ms);
-		ex_commands(ms);
+		run_commands(ms);
 		free_one_input(ms);
 	}
 	free_all(ms);

@@ -6,7 +6,7 @@
 /*   By: rnovotny <rnovotny@student.42prague.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/18 19:23:03 by lmaresov          #+#    #+#             */
-/*   Updated: 2024/10/20 23:43:25 by rnovotny         ###   ########.fr       */
+/*   Updated: 2024/10/22 22:23:50 by rnovotny         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,7 +35,7 @@ char	*get_key(char *envv, char sep, int *i, int key_len)
 	key = (char *)malloc(sizeof(char) * key_len + 1);
 	if (!key)
 	{
-		printf("key_malloc_error");
+		perror("key malloc error");
 		return (NULL);
 	}
 	while (envv[*i] != sep)
@@ -57,7 +57,7 @@ char	*get_value(char *envv, int *i, int value_len)
 	value = (char *)malloc(sizeof(char) * value_len + 1);
 	if (!value)
 	{
-		printf("value malloc error");
+		perror("value malloc error");
 		return (NULL);
 	}
 	while (envv[*i])
@@ -98,7 +98,7 @@ char	**split_env(char *envv)
 	env_v = split_key_value(envv, '=');
 	if (!env_v)
 	{
-		printf("Error split_key_value");
+		perror("error split key value");
 		return (NULL);
 	}
 	return (env_v);

@@ -6,7 +6,7 @@
 /*   By: rnovotny <rnovotny@student.42prague.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/27 05:28:42 by lmaresov          #+#    #+#             */
-/*   Updated: 2024/10/20 23:42:17 by rnovotny         ###   ########.fr       */
+/*   Updated: 2024/10/22 22:20:53 by rnovotny         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -89,7 +89,7 @@ void	close_fd(t_cmd *cmd, int original_stdout)
 		{
 			if (dup2(original_stdout, STDOUT_FILENO) < 0)
 			{
-				perror("dup2 restore stdout\n");
+				perror("dup2 restore stdout error");
 				return ;
 			}
 		}
@@ -98,7 +98,7 @@ void	close_fd(t_cmd *cmd, int original_stdout)
 		{
 			if (dup2(original_stdout, STDIN_FILENO) < 0)
 			{
-				perror("dup2 restore stdout\n");
+				perror("dup2 restore stdout error");
 				return ;
 			}
 		}

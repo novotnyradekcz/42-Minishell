@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   execute_other.c                                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: lmaresov <lmaresov@student.42prague.com    +#+  +:+       +#+        */
+/*   By: rnovotny <rnovotny@student.42prague.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/19 11:44:16 by lmaresov          #+#    #+#             */
-/*   Updated: 2024/10/22 16:21:09 by lmaresov         ###   ########.fr       */
+/*   Updated: 2024/10/23 08:24:49 by rnovotny         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -89,21 +89,24 @@ void	child_process(t_ms *ms, char **env, char **arg)
 	char	*path;
 	char	**path_array;
 
+	path_array = NULL;
 	if (check_exec_or_dir(arg[0]))
-	{
 		path = ft_strdup(arg[0]);
-	}
 	else
 	{
 		path_array = ft_split(env_value(ms->envar, "PATH"), ':');
 		path = get_path(path_array, arg[0]);
 		free_path_array(path_array);
 	}
-	if (!path)
+	if (execve(path, arg, env) == -1)
 	{
+		write(2, "minishell: command not found: ", 30);
+		write(2, arg[0], ft_strlen(arg[0]));
+		write(2, "\n", 1);
 		ms->exit_status = 127;
+		if (path)
+			free(path);
 		exit(127);
 	}
-	execve(path, arg, env);
 	free(path);
 }

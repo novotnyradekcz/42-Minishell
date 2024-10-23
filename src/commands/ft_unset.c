@@ -6,7 +6,7 @@
 /*   By: rnovotny <rnovotny@student.42prague.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/21 06:34:12 by lmaresov          #+#    #+#             */
-/*   Updated: 2024/10/14 19:56:24 by rnovotny         ###   ########.fr       */
+/*   Updated: 2024/10/22 22:38:30 by rnovotny         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -47,7 +47,7 @@ void	ft_unset(t_ms *ms)
 	envar = ms->envar;
 	if (!(((t_cmd *)ms->commands->data)->arguments[0]))
 	{
-		printf("unset: not enough arguments\n");
+		write(2, "unset: not enough arguments\n", 28);
 		ms->exit_status = 1;
 		return ;
 	}
