@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ft_env.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: rnovotny <rnovotny@student.42prague.com    +#+  +:+       +#+        */
+/*   By: lmaresov <lmaresov@student.42prague.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/21 06:33:41 by lmaresov          #+#    #+#             */
-/*   Updated: 2024/10/22 22:08:12 by rnovotny         ###   ########.fr       */
+/*   Updated: 2024/10/23 19:00:54 by lmaresov         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -61,8 +61,9 @@ void	ft_env(t_ms *ms)
 	new_str[0] = '\0';
 	if (check_args(((t_cmd *)ms->commands->data)->arguments))
 	{
-		write(2, "env: too many arguments\n", 27);
-		ms->exit_status = 127;
+		write(2, "env: too many arguments\n", 25);
+		ms->exit_status = 127 * 256;
+		free(new_str);
 		return ;
 	}
 	tmp = ms->envar;

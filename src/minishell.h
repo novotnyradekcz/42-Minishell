@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minishell.h                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: rnovotny <rnovotny@student.42prague.com    +#+  +:+       +#+        */
+/*   By: lmaresov <lmaresov@student.42prague.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/01 09:30:55 by lmaresov          #+#    #+#             */
-/*   Updated: 2024/10/22 21:53:26 by rnovotny         ###   ########.fr       */
+/*   Updated: 2024/10/23 19:47:04 by lmaresov         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -132,6 +132,7 @@ void	get_envar(t_ms *ms, int *i);
 void	free_env_var(t_env *env);
 void	free_ms_envar(t_listd *envar);
 void	free_path_array(char **path_array);
+void	ft_free_ae(char **arg, char **env);
 
 //free_memory.c
 void	free_ms_input(t_ms *ms);
@@ -144,6 +145,7 @@ void	free_cmd_args(t_cmd *cmd);
 void	free_ms_commands(t_ms *ms);
 int		free_tmp(char **tmp, int i);
 void	free_no_input(t_ms *ms);
+void	free_one_command(t_list *cmds);
 
 //handle_redir_helper.c
 int		write_redir(t_cmd *cmd);
@@ -166,6 +168,7 @@ char	**arguments_to_arg(char *command, char **arguments);
 void	execute_other_helper(t_ms *ms, char **arg, char **env);
 void	execute_other(t_ms *ms);
 void	run_commands(t_ms *ms);
+void	free_args(char **args);
 
 // run_pipe.c
 void	run_pipe(t_ms *ms);

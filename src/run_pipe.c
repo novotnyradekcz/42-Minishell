@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   run_pipe.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: rnovotny <rnovotny@student.42prague.com    +#+  +:+       +#+        */
+/*   By: lmaresov <lmaresov@student.42prague.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/19 13:08:47 by lmaresov          #+#    #+#             */
-/*   Updated: 2024/10/20 17:43:30 by rnovotny         ###   ########.fr       */
+/*   Updated: 2024/10/23 21:03:11 by lmaresov         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -39,20 +39,28 @@ void	child_process_pipes(t_ms *ms, int prev_fd_read, int *pipefd, int first)
 	exit(0);
 }
 
+void	ft_comm_free(t_ms *ms)
+{
+	t_list	*tmp;
+
+	tmp = ms->commands->next;
+	free_one_command(ms->commands);
+	ms->commands = tmp;
+}
+
 void	run_pipe(t_ms *ms)
 {
-	int	pipefd[2];
-	int	prev_fd_read;
-	int	first;
-	int	pid;
+	int		pipefd[2];
+	int		prev_fd_read;
+	int		first;
+	int		pid;
 
 	first = 1;
 	prev_fd_read = -1;
 	while (ms->commands)
 	{
-		if (ms->commands->next)
-			if (pipe(pipefd) == -1)
-				perror_exit("Error: pipe failed", ms);
+		if (ms->commands->next && pipe(pipefd) == -1)
+			perror_exit("Error: pipe failed", ms);
 		pid = fork();
 		if (pid < 0)
 			perror_exit("Error: fork failed", ms);
@@ -63,7 +71,7 @@ void	run_pipe(t_ms *ms)
 			close(prev_fd_read);
 		prev_fd_read = pipefd[0];
 		close(pipefd[1]);
-		ms->commands = ms->commands->next;
+		ft_comm_free(ms);
 		first = 0;
 	}
 }

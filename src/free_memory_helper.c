@@ -6,7 +6,7 @@
 /*   By: lmaresov <lmaresov@student.42prague.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/20 05:27:00 by lmaresov          #+#    #+#             */
-/*   Updated: 2024/10/22 16:15:37 by lmaresov         ###   ########.fr       */
+/*   Updated: 2024/10/23 18:29:53 by lmaresov         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -48,4 +48,10 @@ void	free_path_array(char **path_array)
 			free(path_array[i++]);
 		free(path_array);
 	}
+}
+
+void	ft_free_ae(char **arg, char **env)
+{
+	free_args(arg);
+	free_args(env);
 }

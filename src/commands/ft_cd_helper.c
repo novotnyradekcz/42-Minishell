@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ft_cd_helper.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: rnovotny <rnovotny@student.42prague.com    +#+  +:+       +#+        */
+/*   By: lmaresov <lmaresov@student.42prague.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/17 16:37:11 by lmaresov          #+#    #+#             */
-/*   Updated: 2024/10/22 22:40:51 by rnovotny         ###   ########.fr       */
+/*   Updated: 2024/10/23 20:58:03 by lmaresov         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,7 +17,7 @@ int	ft_cd_helper(char *path, t_ms *ms)
 	if (chdir(path) != 0)
 	{
 		perror("cd: chdir error");
-		ms->exit_status = 1;
+		ms->exit_status = 1 * 256;
 		return (1);
 	}
 	return (0);
@@ -27,11 +27,11 @@ int	ft_cd_25(t_ms *ms)
 {
 	char	*path;
 
-	if (((t_cmd *)ms->commands->data)->arguments[1]
-		&& ((t_cmd *)ms->commands->data)->arguments[0])
+	if (((t_cmd *)ms->commands->data)->arguments[0]
+		&& ((t_cmd *)ms->commands->data)->arguments[1])
 	{
 		write(2, "cd: too many arguments\n", 23);
-		ms->exit_status = 1;
+		ms->exit_status = 1 * 256;
 		return (1);
 	}
 	if (!get_args(((t_cmd *)ms->commands->data)->arguments))

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   expand_envar_help.c                                :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: rnovotny <rnovotny@student.42prague.com    +#+  +:+       +#+        */
+/*   By: lmaresov <lmaresov@student.42prague.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/08 07:02:12 by lmaresov          #+#    #+#             */
-/*   Updated: 2024/10/22 22:24:06 by rnovotny         ###   ########.fr       */
+/*   Updated: 2024/10/23 18:30:37 by lmaresov         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -67,7 +67,8 @@ void	no_env_value(t_ms *ms, int *i, char *key)
 		free(ms->input);
 		ms->input = exp_input;
 		free(key);
-		*i += 2;
+		*i = *i + ft_strlen(exit_code);
+		free(exit_code);
 		return ;
 	}
 	len = ft_strlen(key);

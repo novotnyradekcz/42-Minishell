@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ft_unset.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: rnovotny <rnovotny@student.42prague.com    +#+  +:+       +#+        */
+/*   By: lmaresov <lmaresov@student.42prague.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/21 06:34:12 by lmaresov          #+#    #+#             */
-/*   Updated: 2024/10/22 22:38:30 by rnovotny         ###   ########.fr       */
+/*   Updated: 2024/10/23 20:42:20 by lmaresov         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,8 +28,7 @@ void	rm_from_env(t_ms *ms, char *key)
 			else
 				ms->envar = envar->next;
 			free(((t_env *)envar->data)->env_key);
-			if (((t_env *)envar->data)->env_value[0])
-				free(((t_env *)envar->data)->env_value);
+			free(((t_env *)envar->data)->env_value);
 			free(envar->data);
 			free(envar);
 			return ;
@@ -48,7 +47,7 @@ void	ft_unset(t_ms *ms)
 	if (!(((t_cmd *)ms->commands->data)->arguments[0]))
 	{
 		write(2, "unset: not enough arguments\n", 28);
-		ms->exit_status = 1;
+		ms->exit_status = 1 * 256;
 		return ;
 	}
 	if (!envar)

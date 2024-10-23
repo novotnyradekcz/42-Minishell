@@ -6,7 +6,7 @@
 /*   By: lmaresov <lmaresov@student.42prague.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/01 09:29:31 by lmaresov          #+#    #+#             */
-/*   Updated: 2024/10/20 15:45:33 by lmaresov         ###   ########.fr       */
+/*   Updated: 2024/10/23 21:00:53 by lmaresov         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,6 +33,7 @@ void	divide_commands(t_ms *ms)
 {
 	t_list	*new_node;
 	t_cmd	*one_cmd;
+	t_list	*tmp;
 
 	while (ms->tokens && (ft_strcmp((char *)ms->tokens->data, "|") != 0))
 	{
@@ -46,12 +47,16 @@ void	divide_commands(t_ms *ms)
 	}
 	if (ms->tokens && ft_strcmp((char *)ms->tokens->data, "|") == 0)
 	{
-		ms->tokens = ms->tokens->next;
+		tmp = ms->tokens->next;
+		free_token_node(ms->tokens);
+		ms->tokens = tmp;
 	}
 }
 
 void	divide_input(t_ms *ms)
 {
+	t_list	*tmp;
+
 	expand_envar(ms);
 	separate_tokens(ms, ms->input);
 	while (ms->tokens)
@@ -59,7 +64,9 @@ void	divide_input(t_ms *ms)
 		divide_commands(ms);
 		if (ms->tokens && ft_strcmp((char *)ms->tokens->data, "|") == 0)
 		{
-			ms->tokens = ms->tokens->next;
+			tmp = ms->tokens->next;
+			free_token_node(ms->tokens);
+			ms->tokens = tmp;
 		}
 	}
 }

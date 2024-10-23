@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ft_pwd.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: rnovotny <rnovotny@student.42prague.com    +#+  +:+       +#+        */
+/*   By: lmaresov <lmaresov@student.42prague.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/21 06:34:07 by lmaresov          #+#    #+#             */
-/*   Updated: 2024/10/22 22:38:07 by rnovotny         ###   ########.fr       */
+/*   Updated: 2024/10/23 17:47:30 by lmaresov         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -54,7 +54,7 @@ void	ft_pwd(t_ms *ms)
 	if (check_args(((t_cmd *)ms->commands->data)->arguments))
 	{
 		write(2, "pwd: too many arguments\n", 24);
-		ms->exit_status = 1;
+		ms->exit_status = 1 * 256;
 		return ;
 	}
 	ft_pwd_helper(cmd);

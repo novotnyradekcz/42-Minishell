@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ft_cd.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: rnovotny <rnovotny@student.42prague.com    +#+  +:+       +#+        */
+/*   By: lmaresov <lmaresov@student.42prague.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/21 06:33:33 by lmaresov          #+#    #+#             */
-/*   Updated: 2024/10/20 20:23:37 by rnovotny         ###   ########.fr       */
+/*   Updated: 2024/10/23 20:47:27 by lmaresov         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -60,6 +60,7 @@ void	ft_cd(t_ms *ms)
 			free(((t_env *)tmp_env->data)->env_value);
 			((t_env *)tmp_env->data)->env_value = ft_strdup(path);
 			ms->exit_status = 0;
+			free(path);
 			return ;
 		}
 		tmp_env = tmp_env->next;

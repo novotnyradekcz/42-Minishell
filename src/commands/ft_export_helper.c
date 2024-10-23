@@ -3,14 +3,23 @@
 /*                                                        :::      ::::::::   */
 /*   ft_export_helper.c                                 :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: rnovotny <rnovotny@student.42prague.com    +#+  +:+       +#+        */
+/*   By: lmaresov <lmaresov@student.42prague.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/20 20:18:24 by rnovotny          #+#    #+#             */
-/*   Updated: 2024/10/20 22:23:31 by rnovotny         ###   ########.fr       */
+/*   Updated: 2024/10/23 20:27:08 by lmaresov         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../minishell.h"
+
+void	replace_value(t_listd *envar, t_listd *new_node, char *key, char *value)
+{
+	free(((t_env *)envar->data)->env_value);
+	((t_env *)envar->data)->env_value = value;
+	free(key);
+	free(new_node->data);
+	free(new_node);
+}
 
 t_listd	*update_env(t_ms *ms, t_listd *new_node, char *key, char *value)
 {
@@ -21,20 +30,14 @@ t_listd	*update_env(t_ms *ms, t_listd *new_node, char *key, char *value)
 	{
 		if (ft_strcmp(((t_env *)envar->data)->env_key, key) == 0)
 		{
-			((t_env *)envar->data)->env_value = value;
-			free(key);
-			free(new_node->data);
-			free(new_node);
+			replace_value(envar, new_node, key, value);
 			return (NULL);
 		}
 		envar = envar->next;
 	}
 	if (ft_strcmp(((t_env *)envar->data)->env_key, key) == 0)
 	{
-		((t_env *)envar->data)->env_value = value;
-		free(key);
-		free(new_node->data);
-		free(new_node);
+		replace_value(envar, new_node, key, value);
 		return (NULL);
 	}
 	return (envar);

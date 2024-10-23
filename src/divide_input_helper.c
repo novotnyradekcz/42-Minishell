@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   divide_input_helper.c                              :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: rnovotny <rnovotny@student.42prague.com    +#+  +:+       +#+        */
+/*   By: lmaresov <lmaresov@student.42prague.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/18 19:00:56 by lmaresov          #+#    #+#             */
-/*   Updated: 2024/10/20 23:40:12 by rnovotny         ###   ########.fr       */
+/*   Updated: 2024/10/23 21:16:34 by lmaresov         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,12 +14,17 @@
 
 int	get_arguments_helper(t_cmd *curr_cmd, t_ms *ms)
 {
+	t_list	*tmp;
+
 	if (ft_strcmp((char *)ms->tokens->data, ">") == 0
 		|| ft_strcmp((char *)ms->tokens->data, ">>") == 0)
 	{
 		curr_cmd->redir = ft_strdup((char *)ms->tokens->data);
 		curr_cmd->redir_file = ft_strdup((char *)ms->tokens->next->data);
-		ms->tokens = ms->tokens->next;
+		tmp = ms->tokens->next->next;
+		free_token_node(ms->tokens->next);
+		free_token_node(ms->tokens);
+		ms->tokens = tmp;
 		return (1);
 	}
 	else if (ft_strcmp((char *)ms->tokens->data, "<") == 0
@@ -27,7 +32,10 @@ int	get_arguments_helper(t_cmd *curr_cmd, t_ms *ms)
 	{
 		curr_cmd->redir = ft_strdup((char *)ms->tokens->data);
 		curr_cmd->redir_file = ft_strdup((char *)ms->tokens->next->data);
-		ms->tokens = ms->tokens->next;
+		tmp = ms->tokens->next->next;
+		free_token_node(ms->tokens->next);
+		free_token_node(ms->tokens);
+		ms->tokens = tmp;
 		return (1);
 	}
 	return (0);

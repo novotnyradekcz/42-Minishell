@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   execute_other.c                                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: rnovotny <rnovotny@student.42prague.com    +#+  +:+       +#+        */
+/*   By: lmaresov <lmaresov@student.42prague.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/19 11:44:16 by lmaresov          #+#    #+#             */
-/*   Updated: 2024/10/23 08:24:49 by rnovotny         ###   ########.fr       */
+/*   Updated: 2024/10/23 21:20:49 by lmaresov         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -106,7 +106,8 @@ void	child_process(t_ms *ms, char **env, char **arg)
 		ms->exit_status = 127;
 		if (path)
 			free(path);
-		exit(127);
+		return ;
 	}
 	free(path);
+	exit(0);
 }

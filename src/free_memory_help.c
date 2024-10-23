@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   free_memory_help.c                                 :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: rnovotny <rnovotny@student.42prague.com    +#+  +:+       +#+        */
+/*   By: lmaresov <lmaresov@student.42prague.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/19 17:35:22 by lmaresov          #+#    #+#             */
-/*   Updated: 2024/10/20 17:42:01 by rnovotny         ###   ########.fr       */
+/*   Updated: 2024/10/23 21:00:42 by lmaresov         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,6 +30,25 @@ void	free_cmd_args(t_cmd *cmd)
 	}
 }
 
+void	free_one_command(t_list *cmds)
+{
+	t_cmd	*cmd;
+	t_list	*next_node;
+
+	cmd = cmds->data;
+	free_cmd_args(cmd);
+	if (cmd->redir)
+		free(cmd->redir);
+	if (cmd->redir_file)
+		free(cmd->redir_file);
+	if (cmd->option)
+		free(cmd->option);
+	free(cmd);
+	next_node = cmds->next;
+	free(cmds);
+	cmds = next_node;
+}
+
 void	free_ms_commands(t_ms *ms)
 {
 	t_list	*current_node;
@@ -45,6 +64,8 @@ void	free_ms_commands(t_ms *ms)
 			free(cmd->redir);
 		if (cmd->redir_file)
 			free(cmd->redir_file);
+		if (cmd->option)
+			free(cmd->option);
 		free(cmd);
 		next_node = current_node->next;
 		free(current_node);

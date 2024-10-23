@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   run_commands.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: rnovotny <rnovotny@student.42prague.com    +#+  +:+       +#+        */
+/*   By: lmaresov <lmaresov@student.42prague.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/20 09:11:11 by lmaresov          #+#    #+#             */
-/*   Updated: 2024/10/22 22:31:55 by rnovotny         ###   ########.fr       */
+/*   Updated: 2024/10/23 18:30:18 by lmaresov         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,7 +37,7 @@ char	**arguments_to_arg(char *command, char **arguments)
 void	execute_other_helper(t_ms *ms, char **arg, char **env)
 {
 	handle_redir(((t_cmd *)ms->commands->data));
-	signal(SIGINT, SIG_DFL);
+	signal(SIGINT, ft_handle_signal);
 	signal(SIGQUIT, SIG_DFL);
 	child_process(ms, env, arg);
 }
@@ -73,16 +73,16 @@ void	execute_other(t_ms *ms)
 	{
 		perror("fork failed");
 		ms->exit_status = 1;
-		free_args(arg);
-		free_args(env);
+		ft_free_ae(arg, env);
 		exit(1);
 	}
 	else
 	{
+		signal(SIGINT, SIG_IGN);
 		waitpid(pid, &ms->exit_status, 0);
+		signal(SIGINT, ft_handle_signal);
 		unlink("heredoc");
-		free_args(arg);
-		free_args(env);
+		ft_free_ae(arg, env);
 	}
 }
 
