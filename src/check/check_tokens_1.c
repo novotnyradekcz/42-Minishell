@@ -6,7 +6,7 @@
 /*   By: rnovotny <rnovotny@student.42prague.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/01 08:58:15 by lmaresov          #+#    #+#             */
-/*   Updated: 2024/10/16 12:24:29 by rnovotny         ###   ########.fr       */
+/*   Updated: 2024/10/26 09:44:51 by rnovotny         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,7 +30,7 @@ void	ft_check_stuff(t_check *check)
 	int	helper;
 
 	helper = 0;
-	stuff = 0x37FF & ~TEXT;
+	stuff = 14335 & ~TEXT;
 	if (check->token->type & stuff)
 	{
 		check->text = 0;

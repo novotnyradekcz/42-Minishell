@@ -6,7 +6,7 @@
 /*   By: rnovotny <rnovotny@student.42prague.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/01 09:30:55 by lmaresov          #+#    #+#             */
-/*   Updated: 2024/10/20 12:54:58 by rnovotny         ###   ########.fr       */
+/*   Updated: 2024/10/26 09:55:47 by rnovotny         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -88,27 +88,25 @@ typedef struct s_token
 
 typedef enum e_type
 {
-	SINGLEQUOTE = 0x1,
-	DOUBLEQUOTE = 0x2,
-	NOQUOTE = 0x4,
-	PIPE = 0x8,
-	INFILE = 0x10,
-	HEREDOC = 0x20,
-	OUTFILE = 0x40,
-	APPEND = 0x80,
-	ERRFILE = 0x100,
-	ERRAPPEND = 0x200,
-	INOUTFILE = 0x400,
-	SPACETOKEN = 0x800,
-	AND = 0x1000,
-	OR = 0x2000,
-	OPENPAR = 0x4000,
-	CLOSEPAR = 0x8000,
-	TEXT = 0x7,
-	ANDOR = 0x3000,		
-	REDIRECTS = 0x7F0,
-	PAR = 0xC000,
-	BONUS = 0xFFFF0000
+	SINGLEQUOTE = 1U,
+	DOUBLEQUOTE = 2U,
+	NOQUOTE = 4U,
+	PIPE = 8U,
+	INFILE = 16U,
+	HEREDOC = 32U,
+	OUTFILE = 64U,
+	APPEND = 128U,
+	ERRFILE = 256U,
+	ERRAPPEND = 512U,
+	INOUTFILE = 1024U,
+	SPACETOKEN = 2048U,
+	AND = 4096U,
+	OR = 8192U,
+	OPENPAR = 16384U,
+	CLOSEPAR = 32768U,
+	TEXT = 7U,
+	REDIRECTS = 2032U,
+	ANDOR = 12288U
 }	t_type;
 
 typedef struct s_checker
@@ -125,8 +123,8 @@ int		minishell(t_ms *ms);
 
 // init.c
 void	ft_init(t_ms *ms);
-void	init_prompt(t_ms *ms);
-t_ev	*init_ev(char *str);
+void	ft_init_prompt(t_ms *ms);
+t_ev	*ft_init_ev(char *str);
 void	sort_env(t_list *el);
 
 // signals.c
@@ -136,7 +134,7 @@ void	new_global_sig(int signal);
 void	exit_sig(int signal);
 
 // check/check_tokens_0.c
-int		ft_tokenchecker(t_ms *ms);
+int		ft_check_token(t_ms *ms);
 
 // check/check_tokens_1.c
 void	ft_extra_check_test(t_check *check);
@@ -228,7 +226,7 @@ int		ft_createcs(t_ms *ms);
 void	ft_updatectn(t_ms *ms);
 
 // utils/array_insert.c
-int	array_insert(char ***array, char *str, int n);
+int	ft_array_insert(char ***array, char *str, int n);
 
 //	utils/free_0.c
 void	ft_free_ev(void *ptr);

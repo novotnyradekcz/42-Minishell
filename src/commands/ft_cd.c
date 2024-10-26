@@ -6,13 +6,13 @@
 /*   By: rnovotny <rnovotny@student.42prague.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/21 06:33:33 by lmaresov          #+#    #+#             */
-/*   Updated: 2024/10/20 20:14:20 by rnovotny         ###   ########.fr       */
+/*   Updated: 2024/10/26 09:58:09 by rnovotny         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../minishell.h"
 
-static int	ft_cdnew(t_ms *ms, char *argv[])
+static int	ft_cd_new(t_ms *ms, char *argv[])
 {
 	char	cwd[4096];
 	int		r;
@@ -34,7 +34,7 @@ static int	ft_cdnew(t_ms *ms, char *argv[])
 		t = getcwd(cwd, 4096);
 		ft_changeenvval(ms, "PWD", t);
 		free(ms->prompt);
-		init_prompt(ms);
+		ft_init_prompt(ms);
 	}
 	return (r);
 }
@@ -45,11 +45,11 @@ static void	ft_update_cdold(t_ms *ms, char *t, char *cwd)
 	t = getcwd(cwd, 4096);
 	ft_changeenvval(ms, "PWD", t);
 	free(ms->prompt);
-	init_prompt(ms);
+	ft_init_prompt(ms);
 	printf("%s\n", t);
 }
 
-static int	ft_cdold(t_ms *ms)
+static int	ft_cd_old(t_ms *ms)
 {
 	char	cwd[4096];
 	int		r;
@@ -75,7 +75,7 @@ static int	ft_cdold(t_ms *ms)
 	return (r);
 }
 
-static int	ft_cdhome(t_ms *ms)
+static int	ft_cd_home(t_ms *ms)
 {
 	char	cwd[4096];
 	int		r;
@@ -96,7 +96,7 @@ static int	ft_cdhome(t_ms *ms)
 		t = getcwd(cwd, 4096);
 		ft_changeenvval(ms, "PWD", t);
 		free(ms->prompt);
-		init_prompt(ms);
+		ft_init_prompt(ms);
 	}
 	return (r);
 }
@@ -107,16 +107,16 @@ void	ft_cd(t_ms *ms, char *argv[])
 
 	r = 0;
 	if (!argv[1] || (argv[1][0] == '-' && argv[1][1] == '-' && !argv[1][2]))
-		ft_cdhome(ms);
+		ft_cd_home(ms);
 	else if (argv[2])
 	{
 		write(2, "minishell: cd: too many arguments\n", 34);
 		r = 1;
 	}
 	else if (argv[1][0] == '-' && !argv[1][1])
-		r = ft_cdold(ms);
+		r = ft_cd_old(ms);
 	else
-		r = ft_cdnew(ms, argv);
+		r = ft_cd_new(ms, argv);
 	ms->err[0] = r;
 	ms->error = r;
 	ms->err[1] = 1;

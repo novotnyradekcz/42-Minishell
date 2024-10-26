@@ -6,7 +6,7 @@
 /*   By: rnovotny <rnovotny@student.42prague.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/08 07:01:11 by lmaresov          #+#    #+#             */
-/*   Updated: 2024/10/20 08:09:53 by rnovotny         ###   ########.fr       */
+/*   Updated: 2024/10/26 09:53:13 by rnovotny         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,7 +26,7 @@ static int	ft_fillct_helper(t_ct *ct, char *text)
 	}
 	else if (ct->argv && text)
 	{
-		if (array_insert(&ct->argv, text, ft_array_len(ct->argv)))
+		if (ft_array_insert(&ct->argv, text, ft_array_len(ct->argv)))
 		{
 			printf("err3\n");
 			return (1);
@@ -99,7 +99,7 @@ void	ft_updatecsn(t_ms *ms)
 		token = lst->content;
 		if (token->type & ANDOR)
 			i++;
-		token->type |= 0x10000U * i;
+		token->type |= 65536U * i;
 		lst = lst->next;
 	}
 	ms->csn = i + 1;

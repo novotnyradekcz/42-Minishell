@@ -6,13 +6,13 @@
 /*   By: rnovotny <rnovotny@student.42prague.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/01 08:57:55 by lmaresov          #+#    #+#             */
-/*   Updated: 2024/10/18 18:56:20 by rnovotny         ###   ########.fr       */
+/*   Updated: 2024/10/26 09:42:38 by rnovotny         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../minishell.h"
 
-static void	ft_check_parentheses_helper(t_check *check)
+static void	ft_check_par_helper(t_check *check)
 {
 	if (check->token->type & OPENPAR)
 	{
@@ -30,9 +30,9 @@ static void	ft_check_parentheses_helper(t_check *check)
 	}
 }
 
-void	ft_check_parentheses(t_check *check)
+void	ft_check_par(t_check *check)
 {
-	ft_check_parentheses_helper(check);
+	ft_check_par_helper(check);
 	if (check->token->type & CLOSEPAR && check->text)
 	{
 		if (check->text)
@@ -51,7 +51,7 @@ void	ft_check_parentheses(t_check *check)
 		check->status = 3;
 }
 
-static void	ft_tokenchecker_helper(t_ms *ms, t_list	*lst, t_check *check)
+static void	ft_check_token_1(t_ms *ms, t_list	*lst, t_check *check)
 {
 	if (!check->status)
 		ft_extra_check(lst, check);
@@ -59,19 +59,19 @@ static void	ft_tokenchecker_helper(t_ms *ms, t_list	*lst, t_check *check)
 	{
 		ms->error = 2;
 		ms->csn = 0;
-		perror("minishell: syntax error, unexpected token\n");
+		perror("minishell: syntax error, unexpected token");
 	}
 }
 
-static void	ft_tokenchecker_helper2(t_list *lst, t_check *check)
+static void	ft_check_token_2(t_list *lst, t_check *check)
 {
 	check->token = lst->content;
 	ft_check_text(check);
-	ft_check_parentheses(check);
+	ft_check_par(check);
 	ft_check_stuff(check);
 }
 
-int	ft_tokenchecker(t_ms *ms)
+int	ft_check_token(t_ms *ms)
 {
 	t_list	*lst;
 	t_check	check_origin;
@@ -85,7 +85,7 @@ int	ft_tokenchecker(t_ms *ms)
 	lst = ms->lex;
 	while (lst)
 	{
-		ft_tokenchecker_helper2(lst, check);
+		ft_check_token_2(lst, check);
 		if (check->status > 2)
 			break ;
 		lst = lst->next;
@@ -95,6 +95,6 @@ int	ft_tokenchecker(t_ms *ms)
 	if (check->parentheses)
 		check->status = 3;
 	lst = ms->lex;
-	ft_tokenchecker_helper(ms, lst, check);
+	ft_check_token_1(ms, lst, check);
 	return (check->status);
 }

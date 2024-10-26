@@ -6,7 +6,7 @@
 /*   By: rnovotny <rnovotny@student.42prague.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/16 14:54:27 by rnovotny          #+#    #+#             */
-/*   Updated: 2024/10/20 12:35:49 by rnovotny         ###   ########.fr       */
+/*   Updated: 2024/10/26 09:51:10 by rnovotny         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -66,8 +66,6 @@ void	ft_forking_helper(t_ms *ms, int i, int j)
 		signal(SIGINT, new_global_sig);
 		while (1)
 		{
-			// write (1, "> ", 2);
-			// line = get_next_line(0);
 			line = readline("> ");
 			if (line == NULL)
 				ft_warning(ms, i, j);

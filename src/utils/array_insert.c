@@ -6,14 +6,14 @@
 /*   By: rnovotny <rnovotny@student.42prague.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/20 08:03:44 by rnovotny          #+#    #+#             */
-/*   Updated: 2024/10/20 08:08:58 by rnovotny         ###   ########.fr       */
+/*   Updated: 2024/10/26 09:53:40 by rnovotny         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../minishell.h"
 
 
-static void	copy_old(char **oldarr, char **newarr, int l, int n)
+static void	ft_copy_old(char **oldarr, char **newarr, int l, int n)
 {
 	int	i;
 
@@ -30,7 +30,7 @@ static void	copy_old(char **oldarr, char **newarr, int l, int n)
 	}
 }
 
-static char	*insert_new(char *str)
+static char	*ft_insert_new(char *str)
 {
 	char	*new;
 	int		i;
@@ -47,7 +47,7 @@ static char	*insert_new(char *str)
 	return (new);
 }
 
-int	array_insert(char ***array, char *str, int n)
+int	ft_array_insert(char ***array, char *str, int n)
 {
 	int		l;
 	char	**oldarr;
@@ -60,8 +60,8 @@ int	array_insert(char ***array, char *str, int n)
 	newarr = malloc(sizeof(char *) * (l + 1));
 	if (!newarr || l <= n)
 		return (-1);
-	copy_old(oldarr, newarr, l, n);
-	newarr[n] = insert_new(str);
+	ft_copy_old(oldarr, newarr, l, n);
+	newarr[n] = ft_insert_new(str);
 	*array = newarr;
 	free(oldarr);
 	return (0);

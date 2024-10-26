@@ -6,7 +6,7 @@
 /*   By: rnovotny <rnovotny@student.42prague.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/01 09:30:12 by lmaresov          #+#    #+#             */
-/*   Updated: 2024/10/20 12:40:54 by rnovotny         ###   ########.fr       */
+/*   Updated: 2024/10/26 09:42:41 by rnovotny         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,14 +25,12 @@ void	ft_errorcheck(t_ms *ms)
 void	ft_analyse(t_ms *ms)
 {
 	ms->lex = ft_lexer(ms);
-	if (ft_tokenchecker(ms))
+	if (ft_check_token(ms))
 		return ;
 	if (ft_parser(ms))
-		perror("Unexpected token or something bad\n");
+		perror("Unexpected token");
 	if (ft_executor(ms))
-		perror("Executor error\n");
-	// if (ft_bonus_executor(ms))
-	// 	perror("Executor error\n");
+		perror("Executor error");
 }
 
 int	minishell(t_ms *ms)

@@ -6,7 +6,7 @@
 /*   By: rnovotny <rnovotny@student.42prague.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/21 06:34:02 by lmaresov          #+#    #+#             */
-/*   Updated: 2024/10/20 12:55:05 by rnovotny         ###   ########.fr       */
+/*   Updated: 2024/10/26 09:55:10 by rnovotny         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,7 +23,7 @@ static void	ft_put_export_env(t_list *el)
 		if (lst->content)
 		{
 			ev = lst->content;
-			printf("declare -x %s\n", ev->s);
+			printf("%s\n", ev->s);
 		}
 		lst = lst->next;
 	}
@@ -97,7 +97,7 @@ void	ft_export(t_ms *ms, char *argv[])
 	{
 		if (ft_isvalidvar(argv[i]))
 		{
-			ev = init_ev(argv[i]);
+			ev = ft_init_ev(argv[i]);
 			ft_exportlst_setup(ms, ev, &r);
 		}
 		else
